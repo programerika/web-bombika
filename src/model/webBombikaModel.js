@@ -29,6 +29,73 @@ export default (row, column, numberOfBombs) => {
     }
   }
 
+  //calculating mines
+  for (let rowLoop = 0; rowLoop < row; rowLoop++) {
+    for (let columnLoop = 0; columnLoop < column; columnLoop++) {
+      if (board[rowLoop][columnLoop].value === "x") {
+        continue;
+      }
+      //gore
+      if (rowLoop > 0 && board[rowLoop - 1][columnLoop].value === "x") {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //gore desno
+      if (
+        rowLoop > 0 &&
+        columnLoop < column - 1 &&
+        board[rowLoop - 1][columnLoop + 1].value === "x"
+      ) {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //desno
+      if (
+        columnLoop < column - 1 &&
+        board[rowLoop][columnLoop + 1].value === "x"
+      ) {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //desno dole
+      if (
+        columnLoop < column - 1 &&
+        rowLoop < row - 1 &&
+        board[rowLoop + 1][columnLoop + 1] === "x"
+      ) {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //dole
+      if (rowLoop < row - 1 && board[rowLoop + 1][columnLoop].value === "x") {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //dole levo
+      if (
+        rowLoop < row - 1 &&
+        columnLoop > 0 &&
+        board[rowLoop + 1][columnLoop - 1].value === "x"
+      ) {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //levo
+      if (columnLoop > 0 && board[rowLoop][columnLoop - 1].value === "x") {
+        board[rowLoop][columnLoop].value++;
+      }
+
+      //gore levo
+      if (
+        columnLoop > 0 &&
+        rowLoop > 0 &&
+        board[rowLoop - 1][columnLoop - 1].value === "x"
+      ) {
+        board[rowLoop][columnLoop].value++;
+      }
+    }
+  }
+
   console.log(board);
   console.log(mineLocation);
 };

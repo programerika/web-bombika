@@ -1,6 +1,4 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
   <button @click="logujBoard()">LOG</button>
 </template>
 
@@ -11,7 +9,7 @@ export default {
   components: {},
   methods: {
     logujBoard: function () {
-      return webBombikaModel(10, 10, 10);
+      return webBombikaModel(4, 4, 7);
     },
   },
 };
