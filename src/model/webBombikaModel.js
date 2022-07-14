@@ -40,11 +40,7 @@ export default class WebBombikaModel {
     }
   };
 
-  #gameFinished = () => {
-    this.PlayerGameState.isFinished = true;
-  };
-
-  #openAcell = (x, y) => {
+  openField = (x, y) => {
     if (this.gameState.minefield[x][y].closed == true) {
       if (this.gameState.minefield[x][y].bomb) {
         this.#gameFinished();
@@ -58,6 +54,9 @@ export default class WebBombikaModel {
     }
   };
 
+  #gameFinished = () => {
+    this.PlayerGameState.isFinished = true;
+  };
   #calculateNeighborBombs = () => {
     //calculating mines
     for (let rowLoop = 0; rowLoop < this.gameState.row; rowLoop++) {
@@ -142,6 +141,11 @@ export default class WebBombikaModel {
     this.#createBoard();
   };
 
+  createBoardWithBombs = () => {
+    this.#createBoard();
+    this.#populateWithBombs();
+  };
+
   newGame = () => {
     this.#createBoard();
     this.#populateWithBombs();
@@ -152,7 +156,6 @@ export default class WebBombikaModel {
   };
 }
 
-// openField(x, y) {}
 // addFlag(x, y) {}
 // removeFlag(x, y) {}
 
