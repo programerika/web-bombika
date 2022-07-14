@@ -1,15 +1,20 @@
 <template>
-  <button @click="logujBoard()">LOG</button>
+  <div id="1">
+    <button @click="napraviIgru()">LOG</button>
+  </div>
 </template>
 
 <script>
-import webBombikaModel from "./model/webBombikaModel.js";
+// import { request } from "http";
+import RandomProvider from "./model/RandomProvider.js";
+import WebBombikaModel from "./model/webBombikaModel.js";
+const igra = new WebBombikaModel(new RandomProvider());
 export default {
   name: "App",
   components: {},
   methods: {
-    logujBoard: function () {
-      return webBombikaModel(4, 4, 7);
+    napraviIgru: function () {
+      igra.newGame();
     },
   },
 };
