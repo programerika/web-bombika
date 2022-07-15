@@ -5,7 +5,7 @@ import PlayerGameState from "./PlayerGameState";
 
 export default class WebBombikaModel {
   constructor(randomProvider) {
-    this.PlayerGameState = new PlayerGameState();
+    this.playerGameState = new PlayerGameState();
     this.gameState = new GameState();
     this.randomProvider = randomProvider;
   }
@@ -53,7 +53,7 @@ export default class WebBombikaModel {
   };
 
   #gameFinished = () => {
-    this.PlayerGameState.isFinished = true;
+    this.playerGameState.isFinished = true;
   };
   #calculateNeighborBombs = () => {
     //calculating mines
