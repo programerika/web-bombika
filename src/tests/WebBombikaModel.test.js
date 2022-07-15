@@ -4,15 +4,17 @@ import WebBombikaModel from "../model/webBombikaModel";
 const igra = new WebBombikaModel();
 igra.createBoard();
 
-const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-popunjenaIgra.createBoardWithBombs();
+// const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
+// popunjenaIgra.createBoardWithBombs();
 
 test("Testing createGame() with 10 rows", () => {
   expect(igra.gameState.minefield.length).toEqual(10);
 });
 
 test("Testing createGame() with 10 columns", () => {
-  expect(igra.gameState.minefield[0].length).toEqual(10);
+  for (let i = 0; i < 10; i++) {
+    expect(igra.gameState.minefield[i].length).toEqual(10);
+  }
 });
 
 test("Testing that the number of specified columns is 10", () => {

@@ -141,17 +141,17 @@ export default class WebBombikaModel {
     this.#createBoard();
   };
 
-  createBoardWithBombs = () => {
-    this.#createBoard();
-    this.#populateWithBombs();
-  };
+  // createBoardWithBombs = () => {
+  //   this.#createBoard();
+  //   this.#populateWithBombs();
+  // };
 
   newGame = () => {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-    this.#openAcell(4, 4);
-    this.#openAcell(4, 4);
+    this.openField(4, 4);
+    this.openField(4, 4);
     return new PlayerGameState();
   };
 }
