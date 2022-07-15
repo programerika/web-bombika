@@ -3,6 +3,6 @@ export default class GameFieldStep {
     this.bomb = false;
     this.closed = true;
     this.flag = false;
-    this.BombAroundCount = 0;
+    this.bombAroundCount = 0;
   }
 }

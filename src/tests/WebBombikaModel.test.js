@@ -4,9 +4,6 @@ import WebBombikaModel from "../model/webBombikaModel";
 const igra = new WebBombikaModel();
 igra.createBoard();
 
-// const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-// popunjenaIgra.createBoardWithBombs();
-
 test("Testing createGame() with 10 rows", () => {
   expect(igra.gameState.minefield.length).toEqual(10);
 });
@@ -49,6 +46,113 @@ test("Testing that all game fields are closed when the game starts", () => {
   }
 });
 
-// test("Testing that the bombs are planted", () => {
-//     for(let i = 0; i<4)
-// })
+const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
+popunjenaIgra.createBoardWithBombs();
+
+test("Testing that the bombs are planted", () => {
+  for (let i = 0; i < popunjenaIgra.gameState.row; i++) {
+    expect(popunjenaIgra.gameState.minefield[i][i].bomb).toStrictEqual(true);
+  }
+});
+
+test("Testing the calculator of neighboring bombs ", () => {
+  for (let i = 0; i < popunjenaIgra.gameState.row - 1; i++) {
+    expect(
+      popunjenaIgra.gameState.minefield[i + 1][i].bombAroundCount
+    ).toStrictEqual(2);
+  }
+});
+
+test("Testing the calculator of neighboring bombs ", () => {
+  for (let i = 0; i < popunjenaIgra.gameState.row - 2; i++) {
+    expect(
+      popunjenaIgra.gameState.minefield[i + 2][i].bombAroundCount
+    ).toStrictEqual(1);
+  }
+});
+
+test("Testing the calculator of neighboring bombs ", () => {
+  for (let i = 0; i < popunjenaIgra.gameState.row - 1; i++) {
+    expect(
+      popunjenaIgra.gameState.minefield[i][i + 1].bombAroundCount
+    ).toStrictEqual(2);
+  }
+});
+
+test("Testing the calculator of neighboring bombs ", () => {
+  for (let i = 0; i < popunjenaIgra.gameState.row - 2; i++) {
+    expect(
+      popunjenaIgra.gameState.minefield[i][i + 2].bombAroundCount
+    ).toStrictEqual(1);
+  }
+});
+
+// test("Testing the calculator of neighboring bombs ", () => {
+//   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
+//     expect(
+//       popunjenaIgra.gameState.minefield[i][i + 3].bombAroundCount
+//     ).toStrictEqual(0);
+//   }
+// });
+
+// test("Testing the calculator of neighboring bombs on fields that should be empty (i+3) ", () => {
+//   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
+//     expect(
+//       popunjenaIgra.gameState.minefield[i + 3][i].bombAroundCount
+//     ).toStrictEqual(0);
+//   }
+// });
+
+// test("Testing the calculator of neighboring bombs on fields that should be empty (i+4) ", () => {
+//   for (let i = 0; i < popunjenaIgra.gameState.row - 4; i++) {
+//     expect(
+//       popunjenaIgra.gameState.minefield[i + 4][i].bombAroundCount
+//     ).toStrictEqual(0);
+//   }
+// });
+
+//for(let i = 0; i<10; i++)
+
+// //singleRow.map((SingleCell) => {
+
+//   })
+let brojacPraznihCelija = 0;
+popunjenaIgra.gameState.minefield.map((singleRow) =>
+  singleRow.map((singleCell) => {
+    if (singleCell.bombAroundCount === 0) {
+      brojacPraznihCelija++;
+    }
+  })
+);
+
+let brojacCelijaSaBombamaOkoSebe = 0;
+popunjenaIgra.gameState.minefield.map((singleRow) =>
+  singleRow.map((singleCell) => {
+    if (singleCell.bombAroundCount !== 0) {
+      brojacCelijaSaBombamaOkoSebe++;
+    }
+  })
+);
+
+test("Testing the number of cells that are empty", () => {
+  expect(brojacPraznihCelija).toEqual(66);
+});
+
+test("Testing the number of cells that have bombs around them", () => {
+  expect(brojacCelijaSaBombamaOkoSebe).toEqual(34);
+});
+
+//TODO ZERO
+popunjenaIgra.openField(1, 2);
+test("Click on a cell that is not a bomb but has a number", () => {
+  expect(popunjenaIgra.gameState.minefield[1][2].closed).toStrictEqual(false);
+});
+
+test("Click on a cell that is already open", () => {
+  expect(popunjenaIgra.openField(1, 2)).toStrictEqual("Celija je vec otvorena");
+});
+
+popunjenaIgra.openField(2, 2);
+test("Click on a cell with a bomb", () => {
+  expect(popunjenaIgra.PlayerGameState.isFinished).toEqual(true);
+});

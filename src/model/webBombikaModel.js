@@ -44,13 +44,11 @@ export default class WebBombikaModel {
     if (this.gameState.minefield[x][y].closed == true) {
       if (this.gameState.minefield[x][y].bomb) {
         this.#gameFinished();
-        alert("Kliknuli ste celiju sa bombom, igra je zavrsena");
-      } else if (this.gameState.minefield[x][y].BombAroundCount > 0) {
+      } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
         this.gameState.minefield[x][y].closed = false;
-        alert("Otvorili ste celiju!");
       }
     } else {
-      alert("Celija je vec otvorena");
+      return "Celija je vec otvorena";
     }
   };
 
@@ -69,7 +67,7 @@ export default class WebBombikaModel {
           rowLoop > 0 &&
           this.gameState.minefield[rowLoop - 1][columnLoop].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //gore desno
@@ -78,7 +76,7 @@ export default class WebBombikaModel {
           columnLoop < this.gameState.col - 1 &&
           this.gameState.minefield[rowLoop - 1][columnLoop + 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //desno
@@ -86,7 +84,7 @@ export default class WebBombikaModel {
           columnLoop < this.gameState.col - 1 &&
           this.gameState.minefield[rowLoop][columnLoop + 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //desno dole
@@ -95,7 +93,7 @@ export default class WebBombikaModel {
           rowLoop < this.gameState.row - 1 &&
           this.gameState.minefield[rowLoop + 1][columnLoop + 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //dole
@@ -103,7 +101,7 @@ export default class WebBombikaModel {
           rowLoop < this.gameState.row - 1 &&
           this.gameState.minefield[rowLoop + 1][columnLoop].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //dole levo
@@ -112,7 +110,7 @@ export default class WebBombikaModel {
           columnLoop > 0 &&
           this.gameState.minefield[rowLoop + 1][columnLoop - 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //levo
@@ -120,7 +118,7 @@ export default class WebBombikaModel {
           columnLoop > 0 &&
           this.gameState.minefield[rowLoop][columnLoop - 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
 
         //gore levo
@@ -129,7 +127,7 @@ export default class WebBombikaModel {
           rowLoop > 0 &&
           this.gameState.minefield[rowLoop - 1][columnLoop - 1].bomb == true
         ) {
-          this.gameState.minefield[rowLoop][columnLoop].BombAroundCount++;
+          this.gameState.minefield[rowLoop][columnLoop].bombAroundCount++;
         }
       }
     }
@@ -141,10 +139,11 @@ export default class WebBombikaModel {
     this.#createBoard();
   };
 
-  // createBoardWithBombs = () => {
-  //   this.#createBoard();
-  //   this.#populateWithBombs();
-  // };
+  createBoardWithBombs = () => {
+    this.#createBoard();
+    this.#populateWithBombs();
+    this.#calculateNeighborBombs();
+  };
 
   newGame = () => {
     this.#createBoard();
