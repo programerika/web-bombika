@@ -6,6 +6,10 @@ export default class TestRandomProvider {
   nextCoordinates(rows, cols) {
     rows = 0;
     cols = 0;
+    if (this.koordX > 9) {
+      this.koordX = 0;
+      this.koordY = 0;
+    }
     let x = this.koordX + rows;
     this.koordX++;
     let y = this.koordY + cols;
