@@ -3,26 +3,25 @@ import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 const igra = new WebBombikaModel(new RandomProvider());
-//igra.createBoard();
 igra.newGame();
 
-test("Testing createGame() with 10 rows", () => {
+test("Testing newGame() with 10 rows", () => {
   expect(igra.gameState.minefield.length).toEqual(10);
 });
 
-test("Testing createGame() with 10 columns", () => {
+test("Testing newGame() with 10 columns", () => {
   for (let i = 0; i < 10; i++) {
     expect(igra.gameState.minefield[i].length).toEqual(10);
   }
 });
 
-test("Testing that the number of specified columns is 10", () => {
-  expect(igra.gameState.col).toEqual(10);
-});
+// it("Testing that the number of specified columns is 10", () => {
+//   expect(igra.gameState.col).toEqual(10);
+// });
 
-test("Testing that the number of specified rows is 10", () => {
-  expect(igra.gameState.row).toStrictEqual(10);
-});
+// test("Testing that the number of specified rows is 10", () => {
+//   expect(igra.gameState.row).toStrictEqual(10);
+// });
 
 test("Testing that the default score when the game starts is 0", () => {
   expect(igra.gameState.score).toStrictEqual(0);
@@ -55,6 +54,14 @@ const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
 //popunjenaIgra.createBoardWithBombs();
 let playerGameState = popunjenaIgra.newGame();
 
+it("Testing if playerGameState has 10 cols", () => {
+  expect(playerGameState.cols).toStrictEqual(10);
+});
+
+it("Testing if playerGameState has 10 rows", () => {
+  expect(playerGameState.rows).toStrictEqual(10);
+});
+
 test("Testing playerGameState isFinished is false", () => {
   for (let i = 0; i < playerGameState.cols; i++) {
     expect(playerGameState.isFinished).toStrictEqual(false);
@@ -62,7 +69,7 @@ test("Testing playerGameState isFinished is false", () => {
 });
 
 test("Testing playerGameState closed is true", () => {
-  expect(playerGameState.playerGameFieldStep.closed).toEqual(true);
+  expect(playerGameState.fieldStep.closed).toEqual(true);
 });
 
 test("Testing that the bombs are planted", () => {
@@ -156,17 +163,21 @@ test("Testing the number of cells that have bombs around them", () => {
   expect(brojacCelijaSaBombamaOkoSebe).toEqual(34);
 });
 
+const openedCell = new WebBombikaModel(new TestRandomProvider());
+openedCell.newGame();
 //TODO ZERO
-popunjenaIgra.openField(1, 2);
+let player = openedCell.openField(1, 2);
+console.log(player.fieldStep.closed);
+
 test("Click on a cell that is not a bomb but has a number", () => {
-  expect(popunjenaIgra.gameState.minefield[1][2].closed).toStrictEqual(false);
+  expect(player.fieldStep.closed).toStrictEqual(false);
 });
 
 test("Click on a cell that is already open", () => {
-  expect(() => popunjenaIgra.openField(1, 2)).toThrow("Polje je vec otvoreno!");
+  expect(() => openedCell.openField(1, 2)).toThrow("Polje je vec otvoreno!");
 });
 
-popunjenaIgra.openField(2, 2);
+player = openedCell.openField(2, 2);
 test("Click on a cell with a bomb", () => {
-  expect(popunjenaIgra.playerGameState.isFinished).toEqual(true);
+  expect(player.isFinished).toEqual(true);
 });

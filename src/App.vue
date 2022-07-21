@@ -1,6 +1,7 @@
 <template>
   <div id="1">
     <button @click="napraviIgru()">LOG</button>
+    <button @click="otvoriPolje()">Open</button>
   </div>
 </template>
 
@@ -16,6 +17,9 @@ export default {
   methods: {
     napraviIgru: function () {
       igra.newGame();
+    },
+    otvoriPolje: function () {
+      igra.openField(1, 0);
     },
   },
 };

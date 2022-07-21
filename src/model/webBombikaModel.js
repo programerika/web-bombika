@@ -4,8 +4,8 @@ import PlayerGameState from "./PlayerGameState";
 
 export default class WebBombikaModel {
   constructor(randomProvider) {
-    this.playerGameState = new PlayerGameState();
     this.gameState = new GameState();
+    this.playerGameState = new PlayerGameState();
     this.randomProvider = randomProvider;
   }
 
@@ -44,21 +44,27 @@ export default class WebBombikaModel {
   };
   //throw exception kad je vec otvoreno- ali u prvi if (!= true)- ispravljeno
   openField = (x, y) => {
-    console.log(this.gameState.minefield[x][y]);
+    //console.log(this.gameState.minefield[x][y]);
     if (this.gameState.minefield[x][y].closed == false) {
       throw "Polje je vec otvoreno!";
     }
 
     if (this.gameState.minefield[x][y].closed == true) {
       if (this.gameState.minefield[x][y].bomb) {
+        // this.gameState.minefield[x][y].closed = false;
+        // this.playerGameState.fieldStep.closed = false;
         this.#gameFinished();
       } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
         this.gameState.minefield[x][y].closed = false;
+        this.playerGameState.fieldStep.closed = false;
+        this.#setPlayerGameState(this.gameState);
       }
     }
     // else {
     //   return "Celija je vec otvorena";
     // }
+    console.log(this.playerGameState);
+    return this.playerGameState;
   };
 
   #gameFinished = () => {
@@ -124,15 +130,27 @@ export default class WebBombikaModel {
     this.#createBoard();
   };
 
-  #setPlayerGameState = () => {};
+  #setPlayerGameState = (gameState) => {
+    this.playerGameState.numberOfBombs = gameState.numberOfBombs;
+    this.playerGameState.cols = gameState.col;
+    this.playerGameState.rows = gameState.row;
+    this.playerGameState.isFinished = gameState.isFinished;
+    this.playerGameState.score = gameState.score;
+    this.playerGameState.startTime = gameState.startTime;
+  };
 
   newGame = () => {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-    //this.openField(5, 4);
+
     //this.openField(5, 4);
     //pozovem metodu setPlayerGame
-    return new PlayerGameState();
+    this.#setPlayerGameState(this.gameState);
+    console.log(this.playerGameState);
+    // this.openField(0, 1);
+    console.log(this.playerGameState);
+
+    return this.playerGameState;
   };
 }

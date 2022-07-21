@@ -4,3 +4,14 @@ export default class PlayerGameFieldStep {
     this.flag = false;
   }
 }
+
+/**
+ * constructor(playerGameState) {
+    this.playerGameState = playerGameState;
+    this.closed = this.playerGameState.closed;
+    this.flag = this.playerGameState.flag;
+  }
+ */
+/**
+
+ */
