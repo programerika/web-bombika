@@ -53,22 +53,16 @@ export default class WebBombikaModel {
       if (this.gameState.minefield[x][y].bomb) {
         // this.gameState.minefield[x][y].closed = false;
         // this.playerGameState.fieldStep.closed = false;
-        this.#gameFinished();
+        this.gameState.isFinished = true;
+        //this.#gameFinished();
       } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
         this.gameState.minefield[x][y].closed = false;
         this.playerGameState.fieldStep.closed = false;
-        this.#setPlayerGameState(this.gameState);
       }
     }
-    // else {
-    //   return "Celija je vec otvorena";
-    // }
+    this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
     return this.playerGameState;
-  };
-
-  #gameFinished = () => {
-    this.playerGameState.isFinished = true;
   };
 
   #sorroundingFields = (board, x, y) => {
@@ -131,9 +125,6 @@ export default class WebBombikaModel {
   };
 
   #setPlayerGameState = (gameState) => {
-    this.playerGameState.numberOfBombs = gameState.numberOfBombs;
-    this.playerGameState.cols = gameState.col;
-    this.playerGameState.rows = gameState.row;
     this.playerGameState.isFinished = gameState.isFinished;
     this.playerGameState.score = gameState.score;
     this.playerGameState.startTime = gameState.startTime;
@@ -143,14 +134,11 @@ export default class WebBombikaModel {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-
-    //this.openField(5, 4);
     //pozovem metodu setPlayerGame
     this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
     // this.openField(0, 1);
-    console.log(this.playerGameState);
-
+    //console.log(this.playerGameState);
     return this.playerGameState;
   };
 }
