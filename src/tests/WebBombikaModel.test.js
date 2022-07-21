@@ -1,8 +1,10 @@
+import RandomProvider from "../model/RandomProvider";
 import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
-const igra = new WebBombikaModel();
-igra.createBoard();
+const igra = new WebBombikaModel(new RandomProvider());
+//igra.createBoard();
+igra.newGame();
 
 test("Testing createGame() with 10 rows", () => {
   expect(igra.gameState.minefield.length).toEqual(10);
@@ -46,8 +48,22 @@ test("Testing that all game fields are closed when the game starts", () => {
   }
 });
 
+//testovi sa IT
+//TESTOVI SA PLAYER GAME STATE
+//playerGameState je projekcija GameState, posebna metoda koju pozivamo svaki put kad vracamo playerGameState
 const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-popunjenaIgra.createBoardWithBombs();
+//popunjenaIgra.createBoardWithBombs();
+let playerGameState = popunjenaIgra.newGame();
+
+test("Testing playerGameState isFinished is false", () => {
+  for (let i = 0; i < playerGameState.cols; i++) {
+    expect(playerGameState.isFinished).toStrictEqual(false);
+  }
+});
+
+test("Testing playerGameState closed is true", () => {
+  expect(playerGameState.playerGameFieldStep.closed).toEqual(true);
+});
 
 test("Testing that the bombs are planted", () => {
   for (let i = 0; i < popunjenaIgra.gameState.row; i++) {
@@ -87,35 +103,33 @@ test("Testing the calculator of neighboring bombs ", () => {
   }
 });
 
-// test("Testing the calculator of neighboring bombs ", () => {
-//   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
-//     expect(
-//       popunjenaIgra.gameState.minefield[i][i + 3].bombAroundCount
-//     ).toStrictEqual(0);
-//   }
-// });
+{
+  // test("Testing the calculator of neighboring bombs ", () => {
+  //   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
+  //     expect(
+  //       popunjenaIgra.gameState.minefield[i][i + 3].bombAroundCount
+  //     ).toStrictEqual(0);
+  //   }
+  // });
+  // test("Testing the calculator of neighboring bombs on fields that should be empty (i+3) ", () => {
+  //   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
+  //     expect(
+  //       popunjenaIgra.gameState.minefield[i + 3][i].bombAroundCount
+  //     ).toStrictEqual(0);
+  //   }
+  // });
+  // test("Testing the calculator of neighboring bombs on fields that should be empty (i+4) ", () => {
+  //   for (let i = 0; i < popunjenaIgra.gameState.row - 4; i++) {
+  //     expect(
+  //       popunjenaIgra.gameState.minefield[i + 4][i].bombAroundCount
+  //     ).toStrictEqual(0);
+  //   }
+  // });
+  //for(let i = 0; i<10; i++)
+  // //singleRow.map((SingleCell) => {
+  //   })
+}
 
-// test("Testing the calculator of neighboring bombs on fields that should be empty (i+3) ", () => {
-//   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
-//     expect(
-//       popunjenaIgra.gameState.minefield[i + 3][i].bombAroundCount
-//     ).toStrictEqual(0);
-//   }
-// });
-
-// test("Testing the calculator of neighboring bombs on fields that should be empty (i+4) ", () => {
-//   for (let i = 0; i < popunjenaIgra.gameState.row - 4; i++) {
-//     expect(
-//       popunjenaIgra.gameState.minefield[i + 4][i].bombAroundCount
-//     ).toStrictEqual(0);
-//   }
-// });
-
-//for(let i = 0; i<10; i++)
-
-// //singleRow.map((SingleCell) => {
-
-//   })
 let brojacPraznihCelija = 0;
 popunjenaIgra.gameState.minefield.map((singleRow) =>
   singleRow.map((singleCell) => {
@@ -149,10 +163,10 @@ test("Click on a cell that is not a bomb but has a number", () => {
 });
 
 test("Click on a cell that is already open", () => {
-  expect(popunjenaIgra.openField(1, 2)).toStrictEqual("Celija je vec otvorena");
+  expect(() => popunjenaIgra.openField(1, 2)).toThrow("Polje je vec otvoreno!");
 });
 
 popunjenaIgra.openField(2, 2);
 test("Click on a cell with a bomb", () => {
-  expect(popunjenaIgra.PlayerGameState.isFinished).toEqual(true);
+  expect(popunjenaIgra.playerGameState.isFinished).toEqual(true);
 });

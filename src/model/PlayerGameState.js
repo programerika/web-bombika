@@ -1,4 +1,4 @@
-//import GameFieldStep from "./GameFieldStep";
+import PlayerGameFieldStep from "./PlayerGameFieldStep";
 
 export default class PlayerGameState {
   constructor() {
@@ -8,8 +8,6 @@ export default class PlayerGameState {
     this.isFinished = false;
     this.score = 0;
     this.startTime = Date.now();
-    // this.playerFieldStep = new GameFieldStep();
-    // this.playerFieldStep.bombAroundCount = undefined;
-    // this.playerFieldStep.bomb = undefined;
+    this.playerGameFieldStep = new PlayerGameFieldStep();
   }
 }
