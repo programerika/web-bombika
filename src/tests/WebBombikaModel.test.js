@@ -15,14 +15,6 @@ test("Testing newGame() with 10 columns", () => {
   }
 });
 
-// it("Testing that the number of specified columns is 10", () => {
-//   expect(igra.gameState.col).toEqual(10);
-// });
-
-// test("Testing that the number of specified rows is 10", () => {
-//   expect(igra.gameState.row).toStrictEqual(10);
-// });
-
 test("Testing that the default score when the game starts is 0", () => {
   expect(igra.gameState.score).toStrictEqual(0);
 });
@@ -85,11 +77,9 @@ test("Testing the calculator of neighboring bombs ", () => {
   }
 });
 
-//testovi sa IT
 //TESTOVI SA PLAYER GAME STATE
 //playerGameState je projekcija GameState, posebna metoda koju pozivamo svaki put kad vracamo playerGameState
 const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-//popunjenaIgra.createBoardWithBombs();
 let playerGameState = popunjenaIgra.newGame();
 
 it("testing if playerGameState timer is less or equal to date.now()", () => {
@@ -138,33 +128,6 @@ player = openedCell.openField(2, 2);
 test("Click on a cell with a bomb", () => {
   expect(player.isFinished).toEqual(true);
 });
-
-{
-  // test("Testing the calculator of neighboring bombs ", () => {
-  //   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
-  //     expect(
-  //       popunjenaIgra.gameState.minefield[i][i + 3].bombAroundCount
-  //     ).toStrictEqual(0);
-  //   }
-  // });
-  // test("Testing the calculator of neighboring bombs on fields that should be empty (i+3) ", () => {
-  //   for (let i = 0; i < popunjenaIgra.gameState.row - 3; i++) {
-  //     expect(
-  //       popunjenaIgra.gameState.minefield[i + 3][i].bombAroundCount
-  //     ).toStrictEqual(0);
-  //   }
-  // });
-  // test("Testing the calculator of neighboring bombs on fields that should be empty (i+4) ", () => {
-  //   for (let i = 0; i < popunjenaIgra.gameState.row - 4; i++) {
-  //     expect(
-  //       popunjenaIgra.gameState.minefield[i + 4][i].bombAroundCount
-  //     ).toStrictEqual(0);
-  //   }
-  // });
-  //for(let i = 0; i<10; i++)
-  // //singleRow.map((SingleCell) => {
-  //   })
-}
 
 let brojacPraznihCelija = 0;
 popunjenaIgra.gameState.minefield.map((singleRow) =>

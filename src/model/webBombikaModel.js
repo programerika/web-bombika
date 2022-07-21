@@ -19,10 +19,8 @@ export default class WebBombikaModel {
     }
   };
 
-  //zakucana vrednost (0,9) - ispravljeno, ali se i RandomProvider promenio
   #populateWithBombs = () => {
     let bombCount = 0;
-    // let mineLocation = [];
 
     while (bombCount < this.gameState.numberOfBombs) {
       let koordinate = this.randomProvider.nextCoordinates(
@@ -35,14 +33,13 @@ export default class WebBombikaModel {
 
       if (this.gameState.minefield[x][y].bomb == false) {
         this.gameState.minefield[x][y].bomb = true;
-        // this.mineLocation.push(this.gameState.minefield[x][y]);
         bombCount++;
         console.log("Bomba je na: " + x + "," + y);
         console.log(this.gameState.minefield[x][y]);
       }
     }
   };
-  //throw exception kad je vec otvoreno- ali u prvi if (!= true)- ispravljeno
+
   openField = (x, y) => {
     //console.log(this.gameState.minefield[x][y]);
     if (this.gameState.minefield[x][y].closed == false) {
@@ -126,10 +123,6 @@ export default class WebBombikaModel {
     }
   };
 
-  createBoard = () => {
-    this.#createBoard();
-  };
-
   #setPlayerGameState = (gameState) => {
     this.playerGameState.isFinished = gameState.isFinished;
     this.playerGameState.score = gameState.score;
@@ -140,11 +133,8 @@ export default class WebBombikaModel {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-    //pozovem metodu setPlayerGame
     this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
-    // this.openField(0, 1);
-    //console.log(this.playerGameState);
     return this.playerGameState;
   };
 }
