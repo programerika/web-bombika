@@ -10,12 +10,15 @@ export default class WebBombikaModel {
   }
 
   #createBoard = () => {
+    let board = [];
     for (let x = 0; x < this.gameState.row; x++) {
       let subcolumn = [];
       for (let y = 0; y < this.gameState.col; y++) {
         subcolumn.push(new GameFieldStep());
       }
-      this.gameState.minefield.push(subcolumn);
+      board.push(subcolumn);
+      //this.gameState.minefield.push(subcolumn);
+      this.gameState.minefield = board;
     }
   };
 
@@ -46,20 +49,24 @@ export default class WebBombikaModel {
       throw "Polje je vec otvoreno!";
     }
 
-    if (this.gameState.minefield[x][y].closed == true) {
-      if (this.gameState.minefield[x][y].bomb) {
-        this.gameState.minefield[x][y].closed = false;
-        this.playerGameState.fieldStep.closed = false;
-        this.gameState.isFinished = true;
-      } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
-        this.gameState.minefield[x][y].closed = false;
-        this.playerGameState.fieldStep.closed = false;
+    try {
+      if (this.gameState.minefield[x][y].closed == true) {
+        if (this.gameState.minefield[x][y].bomb) {
+          this.gameState.minefield[x][y].closed = false;
+          this.playerGameState.fieldStep.closed = false;
+          this.gameState.isFinished = true;
+        } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
+          this.gameState.minefield[x][y].closed = false;
+          this.playerGameState.fieldStep.closed = false;
+        }
       }
+      this.#setPlayerGameState(this.gameState);
+      console.log(this.playerGameState);
+      console.log(this.gameState.minefield);
+      return this.playerGameState;
+    } catch (e) {
+      console.error(e);
     }
-    this.#setPlayerGameState(this.gameState);
-    console.log(this.playerGameState);
-    console.log(this.gameState.minefield);
-    return this.playerGameState;
   };
 
   #sorroundingFields = (board, x, y) => {
@@ -109,7 +116,7 @@ export default class WebBombikaModel {
 
         this.gameState.minefield[rowLoop][columnLoop].bombAroundCount =
           numberOfBombs;
-        if (numberOfBombs > 0)
+        /*if (numberOfBombs > 0)
           console.log(
             "polje (" +
               rowLoop +
@@ -118,7 +125,7 @@ export default class WebBombikaModel {
               "), ima " +
               numberOfBombs +
               " bombi oko sebe."
-          );
+          );*/
       }
     }
   };
@@ -135,6 +142,7 @@ export default class WebBombikaModel {
     this.#calculateNeighborBombs();
     this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
+    console.log(this.gameState.minefield);
     return this.playerGameState;
   };
 }
