@@ -51,10 +51,9 @@ export default class WebBombikaModel {
 
     if (this.gameState.minefield[x][y].closed == true) {
       if (this.gameState.minefield[x][y].bomb) {
-        // this.gameState.minefield[x][y].closed = false;
-        // this.playerGameState.fieldStep.closed = false;
+        this.gameState.minefield[x][y].closed = false;
+        this.playerGameState.fieldStep.closed = false;
         this.gameState.isFinished = true;
-        //this.#gameFinished();
       } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
         this.gameState.minefield[x][y].closed = false;
         this.playerGameState.fieldStep.closed = false;
@@ -62,6 +61,7 @@ export default class WebBombikaModel {
     }
     this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
+    console.log(this.gameState.minefield);
     return this.playerGameState;
   };
 
@@ -114,7 +114,13 @@ export default class WebBombikaModel {
           numberOfBombs;
         if (numberOfBombs > 0)
           console.log(
-            "polje (" + rowLoop + ", " + columnLoop + "," + numberOfBombs
+            "polje (" +
+              rowLoop +
+              ", " +
+              columnLoop +
+              "), ima " +
+              numberOfBombs +
+              " bombi oko sebe."
           );
       }
     }

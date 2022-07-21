@@ -7,10 +7,9 @@
 
 <script>
 // import { request } from "http";
-//import RandomProvider from "./model/RandomProvider.js";
-import TestRandomProvider from "./model/TestRandomProvider.js";
+import RandomProvider from "./model/RandomProvider.js";
 import WebBombikaModel from "./model/webBombikaModel.js";
-const igra = new WebBombikaModel(new TestRandomProvider());
+const igra = new WebBombikaModel(new RandomProvider());
 export default {
   name: "App",
   components: {},
