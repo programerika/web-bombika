@@ -110,6 +110,10 @@ describe("PlayerGameState - newGame()", () => {
   it("Tests if playerGameState closed is true", () => {
     expect(playerGameState.fieldStep.closed).toEqual(true);
   });
+
+  it("Tests if number of flags is 10 - number of flags is equal to numberOfBombs", () => {
+    expect(playerGameState.numberOfBombs).toEqual(10);
+  });
 });
 
 const openedCell = new WebBombikaModel(new TestRandomProvider());
