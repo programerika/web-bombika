@@ -7,7 +7,7 @@
 
 <script>
 // import { request } from "http";
-//import RandomProvider from "./model/RandomProvider.js";
+// import RandomProvider from "./model/RandomProvider.js";
 import TestRandomProvider from "./model/TestRandomProvider.js";
 import WebBombikaModel from "./model/webBombikaModel.js";
 const igra = new WebBombikaModel(new TestRandomProvider());

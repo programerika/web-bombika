@@ -37,8 +37,8 @@ export default class WebBombikaModel {
       if (this.gameState.minefield[x][y].bomb == false) {
         this.gameState.minefield[x][y].bomb = true;
         bombCount++;
-        console.log("Bomba je na: " + x + "," + y);
-        console.log(this.gameState.minefield[x][y]);
+        // console.log("Bomba je na: " + x + "," + y);
+        // console.log(this.gameState.minefield[x][y]);
       }
     }
   };
@@ -61,8 +61,8 @@ export default class WebBombikaModel {
         }
       }
       this.#setPlayerGameState(this.gameState);
-      console.log(this.playerGameState);
-      console.log(this.gameState.minefield);
+      // console.log(this.playerGameState);
+      // console.log(this.gameState.minefield);
       return this.playerGameState;
     } catch (e) {
       console.error(e);
@@ -141,8 +141,8 @@ export default class WebBombikaModel {
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
     this.#setPlayerGameState(this.gameState);
-    console.log(this.playerGameState);
-    console.log(this.gameState.minefield);
+    // console.log(this.playerGameState);
+    // console.log(this.gameState.minefield);
     return this.playerGameState;
   };
 }
