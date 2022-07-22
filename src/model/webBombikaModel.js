@@ -103,38 +103,30 @@ export default class WebBombikaModel {
     return cellsAroundField;
   };
 
+  #countBombsInArray = (rowLoop, columnLoop) => {
+    let numberOfBombs = 0;
+    let sorraundFields = this.#sorroundingFields(
+      this.gameState.minefield,
+      rowLoop,
+      columnLoop
+    );
+
+    for (let i = 0; i < sorraundFields.length; i++) {
+      if (sorraundFields[i].bomb == true) {
+        numberOfBombs++;
+      }
+    }
+    return numberOfBombs;
+  };
+
   #calculateNeighborBombs = () => {
     for (let rowLoop = 0; rowLoop < this.gameState.row; rowLoop++) {
       for (let columnLoop = 0; columnLoop < this.gameState.col; columnLoop++) {
         if (this.gameState.minefield[rowLoop][columnLoop].bomb == true) {
           continue;
         }
-
-        let numberOfBombs = 0;
-        let sorraundFields = this.#sorroundingFields(
-          this.gameState.minefield,
-          rowLoop,
-          columnLoop
-        );
-
-        for (let i = 0; i < sorraundFields.length; i++) {
-          if (sorraundFields[i].bomb == true) {
-            numberOfBombs++;
-          }
-        }
-
         this.gameState.minefield[rowLoop][columnLoop].bombAroundCount =
-          numberOfBombs;
-        /*if (numberOfBombs > 0)
-          console.log(
-            "polje (" +
-              rowLoop +
-              ", " +
-              columnLoop +
-              "), ima " +
-              numberOfBombs +
-              " bombi oko sebe."
-          );*/
+          this.#countBombsInArray(rowLoop, columnLoop);
       }
     }
   };
