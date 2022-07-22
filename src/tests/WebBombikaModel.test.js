@@ -130,6 +130,16 @@ describe("PlayerGameState - openField()", () => {
   it("Tests the click on a cell with a bomb", () => {
     expect(player.isFinished).toEqual(true);
   });
+
+  it("Tests that all the fields are open after a click on the bomb", () => {
+    for (let i = 0; i < openedCell.row; i++) {
+      for (let j = 0; j < openedCell.col; j++) {
+        expect(openedCell.gameState.minefield[i][j].closed).toStrictEqual(
+          false
+        );
+      }
+    }
+  });
 });
 
 describe("TestRandomProvider - predefined bomb location", () => {

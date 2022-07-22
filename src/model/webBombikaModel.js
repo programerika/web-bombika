@@ -51,10 +51,10 @@ export default class WebBombikaModel {
 
     try {
       if (this.gameState.minefield[x][y].closed == true) {
-        if (this.gameState.minefield[x][y].bomb) {
-          this.gameState.minefield[x][y].closed = false;
-          this.playerGameState.fieldStep.closed = false;
+        if (this.gameState.minefield[x][y].bomb == true) {
           this.gameState.isFinished = true;
+          console.log("Klik na bombu <3");
+          this.#openAllCells();
         } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
           this.gameState.minefield[x][y].closed = false;
           this.playerGameState.fieldStep.closed = false;
@@ -66,6 +66,15 @@ export default class WebBombikaModel {
       return this.playerGameState;
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  #openAllCells = () => {
+    for (let i = 0; i < this.gameState.row; i++) {
+      for (let j = 0; j < this.gameState.col; j++) {
+        this.gameState.minefield[i][j].closed = false;
+        this.playerGameState.fieldStep.closed = false;
+      }
     }
   };
 
@@ -142,7 +151,7 @@ export default class WebBombikaModel {
     this.#calculateNeighborBombs();
     this.#setPlayerGameState(this.gameState);
     // console.log(this.playerGameState);
-    // console.log(this.gameState.minefield);
+    console.log(this.gameState.minefield);
     return this.playerGameState;
   };
 }
