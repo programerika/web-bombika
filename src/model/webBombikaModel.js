@@ -17,7 +17,6 @@ export default class WebBombikaModel {
         subcolumn.push(new GameFieldStep());
       }
       board.push(subcolumn);
-      //this.gameState.minefield.push(subcolumn);
       this.gameState.minefield = board;
     }
   };
@@ -37,43 +36,6 @@ export default class WebBombikaModel {
       if (this.gameState.minefield[x][y].bomb == false) {
         this.gameState.minefield[x][y].bomb = true;
         bombCount++;
-        // console.log("Bomba je na: " + x + "," + y);
-        // console.log(this.gameState.minefield[x][y]);
-      }
-    }
-  };
-
-  openField = (x, y) => {
-    //console.log(this.gameState.minefield[x][y]);
-    if (this.gameState.minefield[x][y].closed == false) {
-      throw "Polje je vec otvoreno!";
-    }
-
-    try {
-      if (this.gameState.minefield[x][y].closed == true) {
-        if (this.gameState.minefield[x][y].bomb == true) {
-          this.gameState.isFinished = true;
-          console.log("Klik na bombu <3");
-          this.#openAllCells();
-        } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
-          this.gameState.minefield[x][y].closed = false;
-          this.playerGameState.fieldStep.closed = false;
-        }
-      }
-      this.#setPlayerGameState(this.gameState);
-      // console.log(this.playerGameState);
-      // console.log(this.gameState.minefield);
-      return this.playerGameState;
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  #openAllCells = () => {
-    for (let i = 0; i < this.gameState.row; i++) {
-      for (let j = 0; j < this.gameState.col; j++) {
-        this.gameState.minefield[i][j].closed = false;
-        this.playerGameState.fieldStep.closed = false;
       }
     }
   };
@@ -142,8 +104,39 @@ export default class WebBombikaModel {
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
     this.#setPlayerGameState(this.gameState);
-    // console.log(this.playerGameState);
     console.log(this.gameState.minefield);
     return this.playerGameState;
+  };
+
+  #openAllCells = () => {
+    for (let i = 0; i < this.gameState.row; i++) {
+      for (let j = 0; j < this.gameState.col; j++) {
+        this.gameState.minefield[i][j].closed = false;
+        this.playerGameState.fieldStep.closed = false;
+      }
+    }
+  };
+
+  openField = (x, y) => {
+    if (this.gameState.minefield[x][y].closed == false) {
+      throw "Polje je vec otvoreno!";
+    }
+
+    try {
+      if (this.gameState.minefield[x][y].closed == true) {
+        if (this.gameState.minefield[x][y].bomb == true) {
+          this.gameState.isFinished = true;
+          console.log("Klik na bombu <3");
+          this.#openAllCells();
+        } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
+          this.gameState.minefield[x][y].closed = false;
+          this.playerGameState.fieldStep.closed = false;
+        }
+      }
+      this.#setPlayerGameState(this.gameState);
+      return this.playerGameState;
+    } catch (e) {
+      console.error(e);
+    }
   };
 }
