@@ -105,6 +105,8 @@ export default class WebBombikaModel {
     this.#calculateNeighborBombs();
     this.#setPlayerGameState(this.gameState);
     console.log(this.gameState.minefield);
+    console.log("Player game state: new game");
+    console.log(this.playerGameState);
     return this.playerGameState;
   };
 
@@ -112,7 +114,7 @@ export default class WebBombikaModel {
     for (let i = 0; i < this.gameState.row; i++) {
       for (let j = 0; j < this.gameState.col; j++) {
         this.gameState.minefield[i][j].closed = false;
-        this.playerGameState.fieldStep.closed = false;
+        this.playerGameState.closed = false;
       }
     }
   };
@@ -130,10 +132,12 @@ export default class WebBombikaModel {
           this.#openAllCells();
         } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
           this.gameState.minefield[x][y].closed = false;
-          this.playerGameState.fieldStep.closed = false;
+          this.playerGameState.closed = false;
         }
       }
       this.#setPlayerGameState(this.gameState);
+      console.log("Player game state: open");
+      console.log(this.playerGameState);
       return this.playerGameState;
     } catch (e) {
       console.error(e);
