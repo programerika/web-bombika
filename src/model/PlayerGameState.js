@@ -7,6 +7,6 @@ export default class PlayerGameState {
     this.score = 0;
     this.startTime = Date.now();
     this.closed = true;
-    this.flagged = false;
+    this.flag = false;
   }
 }

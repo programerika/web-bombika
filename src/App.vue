@@ -18,7 +18,7 @@ export default {
       igra.newGame();
     },
     otvoriPolje: function () {
-      igra.openField(1, 2);
+      igra.openField(2, 2);
     },
   },
 };
