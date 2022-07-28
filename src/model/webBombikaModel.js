@@ -103,10 +103,11 @@ export default class WebBombikaModel {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
+    console.log(JSON.parse(JSON.stringify(this.gameState.minefield)));
     this.#setPlayerGameState(this.gameState);
-    console.log(this.gameState.minefield);
+    //console.log(this.gameState.minefield);
     console.log("Player game state: new game");
-    console.log(this.playerGameState);
+    //console.log(this.playerGameState);
     return this.playerGameState;
   };
 
