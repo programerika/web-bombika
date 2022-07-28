@@ -91,9 +91,9 @@ describe("PlayerGameState - newGame()", () => {
     expect(playerGameState.score).toStrictEqual(0);
   });
 
-  // it("Tests if playerGameState fieldstep flag is false", () => {
-  //   expect(playerGameState.fieldStep.flag).toStrictEqual(false);
-  // });
+  it("Tests if playerGameState fieldstep flag is false", () => {
+    expect(playerGameState.flag).toStrictEqual(false);
+  });
 
   it("Tests if playerGameState has 10 cols", () => {
     expect(playerGameState.cols).toStrictEqual(10);
@@ -107,9 +107,9 @@ describe("PlayerGameState - newGame()", () => {
     expect(playerGameState.isFinished).toStrictEqual(false);
   });
 
-  // it("Tests if playerGameState closed is true", () => {
-  //   expect(playerGameState.fieldStep.closed).toEqual(true);
-  // });
+  it("Tests if playerGameState closed is true", () => {
+    expect(playerGameState.closed).toEqual(true);
+  });
 
   it("Tests if number of flags is 10 - number of flags is equal to numberOfBombs", () => {
     expect(playerGameState.numberOfBombs).toEqual(10);
@@ -122,9 +122,9 @@ openedCell.newGame();
 let player = openedCell.openField(1, 2);
 
 describe("PlayerGameState - openField()", () => {
-  // it("Tests the click on a cell that is not a bomb, but has a number", () => {
-  //   expect(player.fieldStep.closed).toStrictEqual(false);
-  // });
+  it("Tests the click on a cell that is not a bomb, but has a number", () => {
+    expect(player.closed).toStrictEqual(false);
+  });
 
   it("Tests the click on a cell that is already open", () => {
     expect(() => openedCell.openField(1, 2)).toThrow("Polje je vec otvoreno!");
