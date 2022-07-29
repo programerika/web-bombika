@@ -91,9 +91,16 @@ describe("PlayerGameState - newGame()", () => {
     expect(playerGameState.score).toStrictEqual(0);
   });
 
-  it("Tests if playerGameState fieldstep flag is false", () => {
-    expect(playerGameState.flag).toStrictEqual(false);
+  it("Tests is the playerGameState cells are not flagged when the game starts", () => {
+    for (let i = 0; i < playerGameState.cols; i++) {
+      for (let j = 0; j < playerGameState.rows; j++) {
+        expect(playerGameState.minefield[i][j].flag).toStrictEqual(false);
+      }
+    }
   });
+  // it("Tests if playerGameState fieldstep flag is false", () => {
+  //   expect(playerGameState.flag).toStrictEqual(false);
+  // });
 
   it("Tests if playerGameState has 10 cols", () => {
     expect(playerGameState.cols).toStrictEqual(10);
@@ -106,10 +113,17 @@ describe("PlayerGameState - newGame()", () => {
   it("Tests if playerGameState isFinished is false when the game starts", () => {
     expect(playerGameState.isFinished).toStrictEqual(false);
   });
-
-  it("Tests if playerGameState closed is true", () => {
-    expect(playerGameState.closed).toEqual(true);
+  //bilo je ovo ispod pod komentarom
+  it("Tests if playerGameState cells are closed when the game starts", () => {
+    for (let i = 0; i < playerGameState.cols; i++) {
+      for (let j = 0; j < playerGameState.rows; j++) {
+        expect(playerGameState.minefield[i][j].closed).toStrictEqual(true);
+      }
+    }
   });
+  // it("Tests if playerGameState closed is true", () => {
+  //   expect(playerGameState.closed).toEqual(true);
+  // });
 
   it("Tests if number of flags is 10 - number of flags is equal to numberOfBombs", () => {
     expect(playerGameState.numberOfBombs).toEqual(10);
@@ -122,25 +136,62 @@ openedCell.newGame();
 let player = openedCell.openField(1, 2);
 
 describe("PlayerGameState - openField()", () => {
+  // it("Tests the click on a cell that is not a bomb, but has a number", () => {
+  //   expect(player.closed).toStrictEqual(false);
+  // });
+  //sada je ovo ispod
   it("Tests the click on a cell that is not a bomb, but has a number", () => {
-    expect(player.closed).toStrictEqual(false);
+    expect(player.minefield[2][1].closed).toStrictEqual(true);
   });
 
   it("Tests the click on a cell that is already open", () => {
     expect(() => openedCell.openField(1, 2)).toThrow("Polje je vec otvoreno!");
   });
+});
+//player = openedCell.openField(2, 2);
+// it("Tests the click on a cell with a bomb", () => {
+//   expect(player.isFinished).toEqual(true);
+// });
 
-  player = openedCell.openField(2, 2);
+// it("Tests that all the fields are open after a click on the bomb", () => {
+//   for (let i = 0; i < openedCell.row; i++) {
+//     for (let j = 0; j < openedCell.col; j++) {
+//       expect(player.playerGameState.minefield[i][j].closed).toStrictEqual(
+//         true
+//       );
+//     }
+//   }
+// });
+
+// it("Tests that all the fields are open after a click on the bomb", () => {
+//   for (let i = 0; i < openedCell.row; i++) {
+//     for (let j = 0; j < openedCell.col; j++) {
+//       expect(openedCell.gameState.minefield[i][j].closed).toStrictEqual(
+//         false
+//       );
+//     }
+//   }
+// });
+const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider());
+openedCellWithBomb.newGame();
+//TODO ZERO
+let playerBomb = openedCellWithBomb.openField(2, 2);
+
+describe("PlayerGameState - open Field With The Bomb", () => {
   it("Tests the click on a cell with a bomb", () => {
-    expect(player.isFinished).toEqual(true);
+    expect(playerBomb.isFinished).toEqual(true);
   });
-
   it("Tests that all the fields are open after a click on the bomb", () => {
     for (let i = 0; i < openedCell.row; i++) {
       for (let j = 0; j < openedCell.col; j++) {
-        expect(openedCell.gameState.minefield[i][j].closed).toStrictEqual(
-          false
-        );
+        expect(playerBomb.minefield[i][j].closed).toStrictEqual(true);
+      }
+    }
+  });
+  it("Tests that all the fields are open after a click on the bomb", () => {
+    for (let i = 0; i < openedCell.row; i++) {
+      for (let j = 0; j < openedCell.col; j++) {
+        expect(playerBomb.minefield[i][j].closed).toStrictEqual(false);
       }
     }
   });
