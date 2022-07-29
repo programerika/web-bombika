@@ -127,15 +127,29 @@ describe("PlayerGameState - newGame()", () => {
 const openedCell = new WebBombikaModel(new TestRandomProvider());
 openedCell.newGame();
 //TODO ZERO
-let player = openedCell.openField(1, 2);
+let player = openedCell.openField(1, 0);
 
 describe("PlayerGameState - openField()", () => {
   it("Tests the click on a cell that is not a bomb, but has a number", () => {
-    expect(player.minefield[1][2].closed).toStrictEqual(false);
+    expect(player.minefield[1][0].closed).toStrictEqual(false);
+  });
+
+  it("Tests the click on a cell that is not a bomb, but has a number", () => {
+    expect(player.minefield[1][0].bombsAroundCount).toStrictEqual(2);
+  });
+
+  it("Tests the click on a cell that is not a bomb, but has a number", () => {
+    for (let i = 0; i < player.rows; i++) {
+      for (let j = 0; j < player.cols; j++) {
+        if (!(i == 1 && j == 0)) {
+          expect(player.minefield[i][j].closed).toStrictEqual(true);
+        }
+      }
+    }
   });
 
   it("Tests the click on a cell that is already open", () => {
-    expect(() => openedCell.openField(1, 2)).toThrow("Polje je vec otvoreno!");
+    expect(() => openedCell.openField(1, 0)).toThrow("Polje je vec otvoreno!");
   });
 });
 

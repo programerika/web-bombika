@@ -96,19 +96,18 @@ export default class WebBombikaModel {
   #setPlayerGameStateMinefield = (gameMinefield) => {
     let newMinefield = [];
     gameMinefield.forEach((row) => {
-      //console.log(row);
       let minefieldCols = [];
       row.forEach((col) => {
         let newStepForPlayer = {
           flag: col.flag,
           closed: col.closed,
         };
+        if (!col.closed)
+          newStepForPlayer.bombsAroundCount = col.bombAroundCount;
         minefieldCols.push(newStepForPlayer);
-        //console.log(newStepForPlayer);
       });
       newMinefield.push(minefieldCols);
     });
-    console.log("NewMinefield for PlayerGameState:", newMinefield);
     return newMinefield;
   };
 
@@ -117,15 +116,11 @@ export default class WebBombikaModel {
     this.playerGameState.isFinished = gameState.isFinished;
     this.playerGameState.score = gameState.score;
     this.playerGameState.startTime = gameState.startTime;
-    //this.playerGameState.minefield = metodi koja prima gameState.minefield i filtrira ga
     this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
       gameState.minefield
     );
-    console.log(
-      "setovan Playerstate.minefield",
-      this.playerGameState.minefield
-    );
-    console.log("setovan gameState.minefield", gameState.minefield);
+    console.log("Playerstate.minefield", this.playerGameState.minefield);
+    console.log("GameState.minefield", gameState.minefield);
   };
 
   newGame = () => {
