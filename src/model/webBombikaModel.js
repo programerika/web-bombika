@@ -157,9 +157,9 @@ export default class WebBombikaModel {
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       console.log("otvoreno polje: [", x, y, "]");
       this.gameState.minefield[x][y].closed = false;
-
-      this.#setPlayerGameState(this.gameState);
-      return this.playerGameState;
     }
+
+    this.#setPlayerGameState(this.gameState);
+    return this.playerGameState;
   };
 }
