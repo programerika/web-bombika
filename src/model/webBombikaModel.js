@@ -93,21 +93,46 @@ export default class WebBombikaModel {
     }
   };
 
+  #setPlayerGameStateMinefield = (gameMinefield) => {
+    let newMinefield = [];
+    gameMinefield.forEach((row) => {
+      //console.log(row);
+      let minefieldCols = [];
+      row.forEach((col) => {
+        let newStepForPlayer = {
+          flag: col.flag,
+          closed: col.closed,
+        };
+        minefieldCols.push(newStepForPlayer);
+        //console.log(newStepForPlayer);
+      });
+      newMinefield.push(minefieldCols);
+    });
+    console.log("NewMinefield for PlayerGameState:", newMinefield);
+    return newMinefield;
+  };
+
   #setPlayerGameState = (gameState) => {
+    this.playerGameState.numberOfBombs = gameState.numberOfBombs;
     this.playerGameState.isFinished = gameState.isFinished;
     this.playerGameState.score = gameState.score;
     this.playerGameState.startTime = gameState.startTime;
+    //this.playerGameState.minefield = metodi koja prima gameState.minefield i filtrira ga
+    this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
+      gameState.minefield
+    );
+    console.log(
+      "setovan Playerstate.minefield",
+      this.playerGameState.minefield
+    );
+    console.log("setovan gameState.minefield", gameState.minefield);
   };
 
   newGame = () => {
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-    console.log(JSON.parse(JSON.stringify(this.gameState.minefield)));
     this.#setPlayerGameState(this.gameState);
-    //console.log(this.gameState.minefield);
-    console.log("Player game state: new game");
-    //console.log(this.playerGameState);
     return this.playerGameState;
   };
 
@@ -115,7 +140,6 @@ export default class WebBombikaModel {
     for (let i = 0; i < this.gameState.row; i++) {
       for (let j = 0; j < this.gameState.col; j++) {
         this.gameState.minefield[i][j].closed = false;
-        this.playerGameState.closed = false;
       }
     }
   };
@@ -126,19 +150,15 @@ export default class WebBombikaModel {
     }
 
     try {
-      if (this.gameState.minefield[x][y].closed == true) {
-        if (this.gameState.minefield[x][y].bomb == true) {
-          this.gameState.isFinished = true;
-          console.log("Klik na bombu <3");
-          this.#openAllCells();
-        } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
-          this.gameState.minefield[x][y].closed = false;
-          this.playerGameState.closed = false;
-        }
+      if (this.gameState.minefield[x][y].bomb == true) {
+        this.gameState.isFinished = true;
+        console.log("Klik na bombu <3 !?!?!?!?!?!?!??!");
+        this.#openAllCells();
+      } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
+        this.gameState.minefield[x][y].closed = false;
       }
+
       this.#setPlayerGameState(this.gameState);
-      console.log("Player game state: open");
-      console.log(this.playerGameState);
       return this.playerGameState;
     } catch (e) {
       console.error(e);

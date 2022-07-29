@@ -6,7 +6,6 @@ export default class PlayerGameState {
     this.isFinished = false;
     this.score = 0;
     this.startTime = Date.now();
-    this.closed = true;
-    this.flag = false;
+    this.minefield = [];
   }
 }

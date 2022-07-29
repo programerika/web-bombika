@@ -1,7 +1,7 @@
 <template>
   <div id="1">
-    <button @click="napraviIgru()">LOG</button>
-    <button @click="otvoriPolje()">Open</button>
+    <button @click="napraviIgru()">NewGame</button>
+    <button @click="otvoriPolje()">OpenField</button>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
       igra.newGame();
     },
     otvoriPolje: function () {
-      igra.openField(2, 2);
+      igra.openField(0, 1);
     },
   },
 };
