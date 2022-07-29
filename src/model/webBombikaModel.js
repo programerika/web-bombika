@@ -144,19 +144,27 @@ export default class WebBombikaModel {
     }
   };
 
+  #processFieldWithBombsAround = (x, y) => {
+    console.log("otvoreno polje: [", x, y, "]");
+    this.gameState.minefield[x][y].closed = false;
+  };
+
+  #processFieldWithBomb = (x, y) => {
+    this.gameState.isFinished = true;
+    console.log("Bomb field [", x, y, "]");
+    console.log("BOOOOOOOMBAAAAAAAAA <3 !?!?!?!?!?!?!??!");
+    this.#openAllCells();
+  };
+
   openField = (x, y) => {
     if (this.gameState.minefield[x][y].closed == false) {
       throw "Polje je vec otvoreno!";
     }
 
     if (this.gameState.minefield[x][y].bomb == true) {
-      this.gameState.isFinished = true;
-      console.log("Bomb field [", x, y, "]");
-      console.log("BOOOOOOOMBAAAAAAAAA <3 !?!?!?!?!?!?!??!");
-      this.#openAllCells();
+      this.#processFieldWithBomb(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
-      console.log("otvoreno polje: [", x, y, "]");
-      this.gameState.minefield[x][y].closed = false;
+      this.#processFieldWithBombsAround(x, y);
     }
 
     this.#setPlayerGameState(this.gameState);
