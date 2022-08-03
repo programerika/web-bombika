@@ -156,18 +156,21 @@ describe("PlayerGameState - openField()", () => {
 const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider());
 openedCellWithBomb.newGame();
 //TODO ZERO
-let playerBomb = openedCellWithBomb.openField(2, 2);
+openedCellWithBomb.addFlag(1, 2);
+openedCellWithBomb.openField(2, 2);
 
 describe("PlayerGameState - open Field With The Bomb", () => {
   it("Tests the click on a cell with a bomb", () => {
-    expect(playerBomb.isFinished).toEqual(true);
+    expect(openedCellWithBomb.playerGameState.isFinished).toEqual(true);
   });
 
-  it("Tests that all the fields that are not flagged are open after a click on the bomb", () => {
-    for (let i = 0; i < playerBomb.rows; i++) {
-      for (let j = 0; j < playerBomb.cols; j++) {
-        if (playerBomb.minefield[i][j].flag == true) {
-          expect(playerBomb.minefield[i][j].closed).toEqual(true);
+  it("Tests that all the fields that are flagged are still closed after a click on the bomb", () => {
+    for (let i = 0; i < openedCellWithBomb.playerGameState.rows; i++) {
+      for (let j = 0; j < openedCellWithBomb.playerGameState.cols; j++) {
+        if (openedCellWithBomb.playerGameState.minefield[i][j].flag === true) {
+          expect(
+            openedCellWithBomb.playerGameState.minefield[i][j].closed
+          ).toStrictEqual(true);
         }
       }
     }
