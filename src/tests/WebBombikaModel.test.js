@@ -163,10 +163,12 @@ describe("PlayerGameState - open Field With The Bomb", () => {
     expect(playerBomb.isFinished).toEqual(true);
   });
 
-  it("Tests that all the fields are open after a click on the bomb", () => {
+  it("Tests that all the fields that are not flagged are open after a click on the bomb", () => {
     for (let i = 0; i < playerBomb.rows; i++) {
       for (let j = 0; j < playerBomb.cols; j++) {
-        expect(playerBomb.minefield[i][j].closed).toStrictEqual(false);
+        if (playerBomb.minefield[i][j].flag == true) {
+          expect(playerBomb.minefield[i][j].closed).toEqual(true);
+        }
       }
     }
   });
@@ -219,6 +221,21 @@ describe("testing flag manipulation - remove flag", () => {
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
     expect(flagTestingRemove.playerGameState.minefield[1][2].flag).toEqual(
       false
+    );
+  });
+});
+
+let gameEndUnsuccessful = new WebBombikaModel(new TestRandomProvider());
+gameEndUnsuccessful.newGame();
+gameEndUnsuccessful.addFlag(1, 2);
+gameEndUnsuccessful.openField(1, 1);
+describe("Testing game end state - Unsuccessful", () => {
+  it("Sets the playerGameState isOver to true", () => {
+    expect(gameEndUnsuccessful.playerGameState.isFinished).toEqual(true);
+  });
+  it("tests if the cell that has a flag is still closed", () => {
+    expect(gameEndUnsuccessful.playerGameState.minefield[1][2].closed).toEqual(
+      true
     );
   });
 });

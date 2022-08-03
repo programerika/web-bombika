@@ -80,6 +80,10 @@ export default class WebBombikaModel {
     }
     return numberOfBombs;
   };
+  #gameEndUnsuccessful = () => {
+    this.#openAllCells();
+    this.playerGameState.isFinished = true;
+  };
 
   #calculateNeighborBombs = () => {
     for (let rowLoop = 0; rowLoop < this.gameState.row; rowLoop++) {
@@ -134,7 +138,11 @@ export default class WebBombikaModel {
   #openAllCells = () => {
     for (let i = 0; i < this.gameState.row; i++) {
       for (let j = 0; j < this.gameState.col; j++) {
-        this.gameState.minefield[i][j].closed = false;
+        if (this.playerGameState.minefield[i][j].flag == true) {
+          this.playerGameState.minefield[i][j].closed = true;
+        } else {
+          this.playerGameState.minefield[i][j].closed = false;
+        }
       }
     }
   };
@@ -148,7 +156,7 @@ export default class WebBombikaModel {
     this.gameState.isFinished = true;
     console.log("Bomb field [", x, y, "]");
     console.log("BOOOOOOOMBAAAAAAAAA <3 !?!?!?!?!?!?!??!");
-    this.#openAllCells();
+    this.#gameEndUnsuccessful();
   };
 
   #manipulateFlag = (x, y) => {
