@@ -151,6 +151,22 @@ export default class WebBombikaModel {
     this.#openAllCells();
   };
 
+  #manipulateFlag = (x, y) => {
+    if (this.playerGameState.minefield[x][y].flag == true) {
+      this.playerGameState.minefield[x][y].flag = false;
+      //Treba dodati povecavanje i smanjivanje brojaca zastavica
+    } else {
+      this.playerGameState.minefield[x][y].flag = true;
+    }
+  };
+  addFlag = (x, y) => {
+    this.#manipulateFlag(x, y);
+  };
+
+  removeFlag = (x, y) => {
+    this.#manipulateFlag(x, y);
+  };
+
   openField = (x, y) => {
     if (this.gameState.minefield[x][y].closed == false) {
       throw "Polje je vec otvoreno!";

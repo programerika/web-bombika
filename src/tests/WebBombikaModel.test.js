@@ -199,3 +199,26 @@ describe("TestRandomProvider - predefined bomb location", () => {
     expect(brojacCelijaSaBombamaOkoSebe).toEqual(34);
   });
 });
+
+let flagTestingAdd = new WebBombikaModel(new TestRandomProvider());
+flagTestingAdd.newGame();
+flagTestingAdd.addFlag(1, 2);
+//flagTesting.gameState.minefield[1][2].flag;
+
+describe("Testing flag manipulation - add flag", () => {
+  it("Adds a flag to a predefined location and checks if the state of flag is true", () => {
+    expect(flagTestingAdd.playerGameState.minefield[1][2].flag).toEqual(true);
+  });
+});
+
+let flagTestingRemove = new WebBombikaModel(new TestRandomProvider());
+flagTestingRemove.newGame();
+flagTestingRemove.playerGameState.minefield[1][2].flag = true;
+flagTestingRemove.removeFlag(1, 2);
+describe("testing flag manipulation - remove flag", () => {
+  it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
+    expect(flagTestingRemove.playerGameState.minefield[1][2].flag).toEqual(
+      false
+    );
+  });
+});
