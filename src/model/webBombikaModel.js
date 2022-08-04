@@ -123,6 +123,8 @@ export default class WebBombikaModel {
     this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
       gameState.minefield
     );
+    console.log("Player game state: ", this.playerGameState);
+    console.log("game state: ", this.gameState.minefield);
   };
 
   newGame = () => {
@@ -136,10 +138,10 @@ export default class WebBombikaModel {
   #openAllCells = () => {
     for (let i = 0; i < this.gameState.row; i++) {
       for (let j = 0; j < this.gameState.col; j++) {
-        if (this.playerGameState.minefield[i][j].flag == true) {
-          this.playerGameState.minefield[i][j].closed = true;
+        if (this.gameState.minefield[i][j].flag == true) {
+          this.gameState.minefield[i][j].closed = true;
         } else {
-          this.playerGameState.minefield[i][j].closed = false;
+          this.gameState.minefield[i][j].closed = false;
         }
       }
     }
@@ -149,25 +151,29 @@ export default class WebBombikaModel {
     this.gameState.minefield[x][y].closed = false;
   };
 
-  #processFieldWithBomb = (x, y) => {
+  #processFieldWithBomb = () => {
     this.gameState.isFinished = true;
     this.#gameEndUnsuccessful();
   };
 
   #manipulateFlag = (x, y) => {
-    if (this.playerGameState.minefield[x][y].flag == true) {
-      this.playerGameState.minefield[x][y].flag = false;
+    if (this.gameState.minefield[x][y].flag == true) {
+      this.gameState.minefield[x][y].flag = false;
       //Treba dodati povecavanje i smanjivanje brojaca zastavica
     } else {
-      this.playerGameState.minefield[x][y].flag = true;
+      this.gameState.minefield[x][y].flag = true;
     }
   };
   addFlag = (x, y) => {
     this.#manipulateFlag(x, y);
+    this.#setPlayerGameState(this.gameState);
+    return this.playerGameState;
   };
 
   removeFlag = (x, y) => {
     this.#manipulateFlag(x, y);
+    this.#setPlayerGameState(this.gameState);
+    return this.playerGameState;
   };
 
   openField = (x, y) => {
@@ -176,7 +182,8 @@ export default class WebBombikaModel {
     }
 
     if (this.gameState.minefield[x][y].bomb == true) {
-      this.#processFieldWithBomb(x, y);
+      console.log("BOMBAAA");
+      this.#processFieldWithBomb();
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);
     }
