@@ -210,6 +210,7 @@ describe("TestRandomProvider - predefined bomb location", () => {
 let flagTestingAdd = new WebBombikaModel(new TestRandomProvider());
 flagTestingAdd.newGame();
 let flagAddPlayer = flagTestingAdd.addFlag(1, 2);
+
 //flagTesting.gameState.minefield[1][2].flag;
 
 describe("Testing flag manipulation - add flag", () => {
@@ -218,6 +219,18 @@ describe("Testing flag manipulation - add flag", () => {
   });
   it("Tests that a user can't add a flag to a cell that already has a flag", () => {
     expect(() => flagTestingAdd.addFlag(1, 2)).toThrow("Vec ima zastavica");
+  });
+  // it("Tests if adding a flag on a opened cell throw exception", () => {
+  //   expect(() => flagTestingAdd.addFlag(1, 2)).toThrow("Polje je otvoreno!");
+  // });
+});
+
+let flagOpenedField = new WebBombikaModel(new TestRandomProvider());
+flagOpenedField.newGame();
+flagOpenedField.openField(1, 3);
+describe("Testing flag manipulation - add flag on opened field", () => {
+  it("Tests that a user can't add a flag to a cell that already has a flag", () => {
+    expect(() => flagOpenedField.addFlag(1, 3)).toThrow("Polje je otvoreno!");
   });
 });
 
@@ -233,6 +246,17 @@ describe("testing flag manipulation - remove flag", () => {
   it("Tests that a user can't remove a flag from a cell that doesn't have a flag", () => {
     expect(() => flagTestingRemove.removeFlag(1, 2)).toThrow(
       "Polje nema zastavicu"
+    );
+  });
+});
+
+let removeFlagFromOpenedField = new WebBombikaModel(new TestRandomProvider());
+removeFlagFromOpenedField.newGame();
+removeFlagFromOpenedField.openField(1, 3);
+describe("Testing flag manipulation - remove flag from opened field", () => {
+  it("Tests that a user can't remove a flag from a cell that is already open", () => {
+    expect(() => removeFlagFromOpenedField.removeFlag(1, 3)).toThrow(
+      "Polje je otvoreno!"
     );
   });
 });

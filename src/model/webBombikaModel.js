@@ -168,6 +168,9 @@ export default class WebBombikaModel {
     if (this.gameState.minefield[x][y].flag) {
       throw "Vec ima zastavica";
     }
+    if (!this.gameState.minefield[x][y].closed) {
+      throw "Polje je otvoreno!";
+    }
     this.gameState.minefield[x][y].flag = true;
     // this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
@@ -176,6 +179,9 @@ export default class WebBombikaModel {
   };
 
   removeFlag = (x, y) => {
+    if (!this.gameState.minefield[x][y].closed) {
+      throw "Polje je otvoreno!";
+    }
     if (!this.gameState.minefield[x][y].flag) {
       throw "Polje nema zastavicu";
     }
