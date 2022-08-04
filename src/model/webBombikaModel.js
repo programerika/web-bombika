@@ -167,12 +167,14 @@ export default class WebBombikaModel {
   addFlag = (x, y) => {
     this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
+    console.log("Dodata zastavica na ", x, y);
     return this.playerGameState;
   };
 
   removeFlag = (x, y) => {
     this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
+    console.log("Sklonjena zastavica sa ", x, y);
     return this.playerGameState;
   };
 
