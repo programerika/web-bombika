@@ -165,20 +165,31 @@ export default class WebBombikaModel {
     }
   };
   addFlag = (x, y) => {
-    this.#manipulateFlag(x, y);
+    if (this.gameState.minefield[x][y].flag) {
+      throw "Vec ima zastavica";
+    }
+    this.gameState.minefield[x][y].flag = true;
+    // this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
     console.log("Dodata zastavica na ", x, y);
     return this.playerGameState;
   };
 
   removeFlag = (x, y) => {
-    this.#manipulateFlag(x, y);
+    if (!this.gameState.minefield[x][y].flag) {
+      throw "Polje nema zastavicu";
+    }
+    this.gameState.minefield[x][y].flag = false;
+    // this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
     console.log("Sklonjena zastavica sa ", x, y);
     return this.playerGameState;
   };
 
   openField = (x, y) => {
+    if (this.gameState.minefield[x][y].flag) {
+      throw "Polje ima zastavicu";
+    }
     if (this.gameState.minefield[x][y].closed == false) {
       throw "Polje je vec otvoreno!";
     }

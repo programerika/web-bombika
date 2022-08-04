@@ -26,7 +26,7 @@ export default {
       igra.removeFlag(1, 2);
     },
     otvoriPolje: function () {
-      igra.openField(0, 0);
+      igra.openField(1, 2);
     },
   },
 };

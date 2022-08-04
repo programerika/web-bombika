@@ -128,6 +128,7 @@ const openedCell = new WebBombikaModel(new TestRandomProvider());
 openedCell.newGame();
 //TODO ZERO
 let player = openedCell.openField(1, 0);
+player = openedCell.addFlag(1, 2);
 
 describe("PlayerGameState - openField()", () => {
   it("Tests the click on a cell that is not a bomb, but has a number", () => {
@@ -146,6 +147,9 @@ describe("PlayerGameState - openField()", () => {
         }
       }
     }
+  });
+  it("Tests the click on a cell that has a flag", () => {
+    expect(() => openedCell.openField(1, 2)).toThrow("Polje ima zastavicu");
   });
 
   it("Tests the click on a cell that is already open", () => {
@@ -212,6 +216,9 @@ describe("Testing flag manipulation - add flag", () => {
   it("Adds a flag to a predefined location and checks if the state of flag is true", () => {
     expect(flagAddPlayer.minefield[1][2].flag).toEqual(true);
   });
+  it("Tests that a user can't add a flag to a cell that already has a flag", () => {
+    expect(() => flagTestingAdd.addFlag(1, 2)).toThrow("Vec ima zastavica");
+  });
 });
 
 let flagTestingRemove = new WebBombikaModel(new TestRandomProvider());
@@ -222,6 +229,11 @@ let flagRemovePlayer = flagTestingRemove.removeFlag(1, 2);
 describe("testing flag manipulation - remove flag", () => {
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
     expect(flagRemovePlayer.minefield[1][2].flag).toEqual(false);
+  });
+  it("Tests that a user can't remove a flag from a cell that doesn't have a flag", () => {
+    expect(() => flagTestingRemove.removeFlag(1, 2)).toThrow(
+      "Polje nema zastavicu"
+    );
   });
 });
 
