@@ -157,20 +157,18 @@ const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider());
 openedCellWithBomb.newGame();
 //TODO ZERO
 openedCellWithBomb.addFlag(1, 2);
-openedCellWithBomb.openField(2, 2);
+let openedBOmbPlayer = openedCellWithBomb.openField(2, 2);
 
 describe("PlayerGameState - open Field With The Bomb", () => {
   it("Tests the click on a cell with a bomb", () => {
-    expect(openedCellWithBomb.playerGameState.isFinished).toEqual(true);
+    expect(openedBOmbPlayer.isFinished).toEqual(true);
   });
 
   it("Tests that all the fields that are flagged are still closed after a click on the bomb", () => {
-    for (let i = 0; i < openedCellWithBomb.playerGameState.rows; i++) {
-      for (let j = 0; j < openedCellWithBomb.playerGameState.cols; j++) {
-        if (openedCellWithBomb.playerGameState.minefield[i][j].flag === true) {
-          expect(
-            openedCellWithBomb.playerGameState.minefield[i][j].closed
-          ).toStrictEqual(true);
+    for (let i = 0; i < openedBOmbPlayer.rows; i++) {
+      for (let j = 0; j < openedBOmbPlayer.cols; j++) {
+        if (openedBOmbPlayer.minefield[i][j].flag) {
+          expect(openedBOmbPlayer.minefield[i][j].closed).toStrictEqual(true);
         }
       }
     }
@@ -207,24 +205,23 @@ describe("TestRandomProvider - predefined bomb location", () => {
 
 let flagTestingAdd = new WebBombikaModel(new TestRandomProvider());
 flagTestingAdd.newGame();
-flagTestingAdd.addFlag(1, 2);
+let flagAddPlayer = flagTestingAdd.addFlag(1, 2);
 //flagTesting.gameState.minefield[1][2].flag;
 
 describe("Testing flag manipulation - add flag", () => {
   it("Adds a flag to a predefined location and checks if the state of flag is true", () => {
-    expect(flagTestingAdd.playerGameState.minefield[1][2].flag).toEqual(true);
+    expect(flagAddPlayer.minefield[1][2].flag).toEqual(true);
   });
 });
 
 let flagTestingRemove = new WebBombikaModel(new TestRandomProvider());
 flagTestingRemove.newGame();
-flagTestingRemove.playerGameState.minefield[1][2].flag = true;
-flagTestingRemove.removeFlag(1, 2);
+flagTestingRemove.addFlag(1, 2);
+//flagTestingRemove.playerGameState.minefield[1][2].flag = true;
+let flagRemovePlayer = flagTestingRemove.removeFlag(1, 2);
 describe("testing flag manipulation - remove flag", () => {
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
-    expect(flagTestingRemove.playerGameState.minefield[1][2].flag).toEqual(
-      false
-    );
+    expect(flagRemovePlayer.minefield[1][2].flag).toEqual(false);
   });
 });
 
