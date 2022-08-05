@@ -226,45 +226,53 @@ export default class WebBombikaModel {
     x > 0 &&
       board[x - 1][y].closed &&
       !board[x - 1][y].bomb &&
+      !board[x - 1][y].flag &&
       this.openField(x - 1, y);
 
     x > 0 &&
       y < board[0].length - 1 &&
       board[x - 1][y + 1].closed &&
       !board[x - 1][y + 1].bomb &&
+      !board[x - 1][y + 1].flag &&
       this.openField(x - 1, y + 1);
 
     y < board[0].length - 1 &&
       board[x][y + 1].closed &&
       !board[x][y + 1].bomb &&
+      !board[x][y + 1].flag &&
       this.openField(x, y + 1);
 
     x < board.length - 1 &&
       y < board[0].length - 1 &&
       board[x + 1][y + 1].closed &&
       !board[x + 1][y + 1].bomb &&
+      !board[x + 1][y + 1].flag &&
       this.openField(x + 1, y + 1);
 
     x < board.length - 1 &&
       board[x + 1][y].closed &&
       !board[x + 1][y].bomb &&
+      !board[x + 1][y].flag &&
       this.openField(x + 1, y);
 
     x < board.length - 1 &&
       y > 0 &&
       board[x + 1][y - 1].closed &&
       !board[x + 1][y - 1].bomb &&
+      !board[x + 1][y - 1].flag &&
       this.openField(x + 1, y - 1);
 
     y > 0 &&
       board[x][y - 1].closed &&
       !board[x][y - 1].bomb &&
+      !board[x][y - 1].flag &&
       this.openField(x, y - 1);
 
     y > 0 &&
       x > 0 &&
       board[x - 1][y - 1].closed &&
       !board[x - 1][y - 1].bomb &&
+      !board[x - 1][y - 1].flag &&
       this.openField(x - 1, y - 1);
   };
 

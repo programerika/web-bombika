@@ -4,6 +4,9 @@
     <button @click="otvoriPolje()">OpenField</button>
     <button @click="staviZastavu()">StaviZastavu</button>
     <button @click="skloniZastavu()">SkloniZastavu</button>
+    <button @click="otvoriPoljeSklonjenaZastava()">
+      OtvoriPoljeSklonjenaZastava
+    </button>
   </div>
 </template>
 
@@ -20,13 +23,16 @@ export default {
       igra.newGame();
     },
     staviZastavu: function () {
-      igra.addFlag(1, 2);
+      igra.addFlag(4, 1);
     },
     skloniZastavu: function () {
-      igra.removeFlag(1, 2);
+      igra.removeFlag(4, 1);
     },
     otvoriPolje: function () {
-      igra.openField(0, 3);
+      igra.openField(3, 0);
+    },
+    otvoriPoljeSklonjenaZastava: function () {
+      igra.openField(4, 1);
     },
   },
 };
