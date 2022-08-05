@@ -204,6 +204,7 @@ export default class WebBombikaModel {
       throw "Polje je otvoreno!";
     }
     this.gameState.minefield[x][y].flag = true;
+    this.gameState.numberOfBombs--;
     this.#setPlayerGameState(this.gameState);
     console.log("Dodata zastavica na ", x, y);
     return this.playerGameState;
@@ -217,6 +218,7 @@ export default class WebBombikaModel {
       throw "Polje nema zastavicu";
     }
     this.gameState.minefield[x][y].flag = false;
+    this.gameState.numberOfBombs++;
     this.#setPlayerGameState(this.gameState);
     console.log("Sklonjena zastavica sa ", x, y);
     return this.playerGameState;

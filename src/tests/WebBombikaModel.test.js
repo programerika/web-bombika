@@ -309,6 +309,26 @@ describe("Testing openField() - empty cell", () => {
   });
 });
 
+let flagedField = new WebBombikaModel(new TestRandomProvider());
+
+flagedField.newGame();
+
+let playerFlaggedTheField = flagedField.addFlag(4, 1);
+
+playerFlaggedTheField = flagedField.addFlag(5, 1);
+
+playerFlaggedTheField = flagedField.addFlag(6, 1);
+
+playerFlaggedTheField = flagedField.addFlag(7, 1);
+
+//openedEmptyField.removeFlag(4, 1);
+
+describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
+  it("Tests if all the cells except empty cells and cells with the bomb are closed when the empty cell opens", () => {
+    expect(playerFlaggedTheField.numberOfBombs).toEqual(6);
+  });
+});
+
 // let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
 // gameEndSuccessful.newGame();
 // describe("Testing gameEndState - Successful", () => {
