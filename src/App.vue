@@ -8,7 +8,7 @@
 </template>
 
 <script>
-// import RandomProvider from "./model/RandomProvider.js";
+//import RandomProvider from "./model/RandomProvider.js";
 import TestRandomProvider from "./model/TestRandomProvider.js";
 import WebBombikaModel from "./model/webBombikaModel.js";
 const igra = new WebBombikaModel(new TestRandomProvider());
@@ -26,7 +26,7 @@ export default {
       igra.removeFlag(1, 2);
     },
     otvoriPolje: function () {
-      igra.openField(1, 2);
+      igra.openField(0, 3);
     },
   },
 };

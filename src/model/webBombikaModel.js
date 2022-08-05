@@ -36,6 +36,7 @@ export default class WebBombikaModel {
       if (this.gameState.minefield[x][y].bomb == false) {
         this.gameState.minefield[x][y].bomb = true;
         bombCount++;
+        console.log("Bomba je na :", x, y);
       }
     }
   };
@@ -43,25 +44,25 @@ export default class WebBombikaModel {
   #sorroundingFields = (board, x, y) => {
     let cellsAroundField = [];
     //1 gore
-    x > 0 && cellsAroundField.push(board[y][x - 1]);
+    x > 0 && cellsAroundField.push(board[x - 1][y]);
     //2 gore desno
-    x > 0 && y < board.length - 1 && cellsAroundField.push(board[y + 1][x - 1]);
+    x > 0 &&
+      y < board[0].length - 1 &&
+      cellsAroundField.push(board[x - 1][y + 1]);
     //3 desno
-    y < board.length - 1 && cellsAroundField.push(board[y + 1][x]);
+    y < board[0].length - 1 && cellsAroundField.push(board[x][y + 1]);
     //4 desno dole
-    y < board.length - 1 &&
-      x < board[0].length - 1 &&
-      cellsAroundField.push(board[y + 1][x + 1]);
+    x < board.length - 1 &&
+      y < board[0].length - 1 &&
+      cellsAroundField.push(board[x + 1][y + 1]);
     //5 dole
-    x < board[0].length - 1 && cellsAroundField.push(board[y][x + 1]);
+    x < board.length - 1 && cellsAroundField.push(board[x + 1][y]);
     //6 dole levo
-    x < board[0].length - 1 &&
-      y > 0 &&
-      cellsAroundField.push(board[y - 1][x + 1]);
+    x < board.length - 1 && y > 0 && cellsAroundField.push(board[x + 1][y - 1]);
     //7 levo
-    y > 0 && cellsAroundField.push(board[y - 1][x]);
+    y > 0 && cellsAroundField.push(board[x][y - 1]);
     //8 gore levo
-    x > 0 && y > 0 && cellsAroundField.push(board[y - 1][x - 1]);
+    x > 0 && y > 0 && cellsAroundField.push(board[x - 1][y - 1]);
     return cellsAroundField;
   };
 
@@ -80,6 +81,7 @@ export default class WebBombikaModel {
     }
     return numberOfBombs;
   };
+
   #gameEndUnsuccessful = () => {
     this.#openAllCells();
     // this.playerGameState.isFinished = true;
@@ -149,6 +151,7 @@ export default class WebBombikaModel {
 
   #processFieldWithBombsAround = (x, y) => {
     this.gameState.minefield[x][y].closed = false;
+    console.log("Otvoreno polje sa brojem:", x, y);
   };
 
   #processFieldWithBomb = () => {
@@ -192,6 +195,57 @@ export default class WebBombikaModel {
     return this.playerGameState;
   };
 
+  #emptyCellsAround = (board, x, y) => {
+    x > 0 &&
+      board[x - 1][y].closed &&
+      !board[x - 1][y].bomb &&
+      this.openField(x - 1, y);
+
+    x > 0 &&
+      y < board[0].length - 1 &&
+      board[x - 1][y + 1].closed &&
+      !board[x - 1][y + 1].bomb &&
+      this.openField(x - 1, y + 1);
+
+    y < board[0].length - 1 &&
+      board[x][y + 1].closed &&
+      !board[x][y + 1].bomb &&
+      this.openField(x, y + 1);
+
+    x < board.length - 1 &&
+      y < board[0].length - 1 &&
+      board[x + 1][y + 1].closed &&
+      !board[x + 1][y + 1].bomb &&
+      this.openField(x + 1, y + 1);
+
+    x < board.length - 1 &&
+      board[x + 1][y].closed &&
+      !board[x + 1][y].bomb &&
+      this.openField(x + 1, y);
+
+    x < board.length - 1 &&
+      y > 0 &&
+      board[x + 1][y - 1].closed &&
+      !board[x + 1][y - 1].bomb &&
+      this.openField(x + 1, y - 1);
+
+    y > 0 &&
+      board[x][y - 1].closed &&
+      !board[x][y - 1].bomb &&
+      this.openField(x, y - 1);
+
+    y > 0 &&
+      x > 0 &&
+      board[x - 1][y - 1].closed &&
+      !board[x - 1][y - 1].bomb &&
+      this.openField(x - 1, y - 1);
+  };
+
+  #processFieldwithoutBombsAround = (x, y) => {
+    this.gameState.minefield[x][y].closed = false;
+    this.#emptyCellsAround(this.gameState.minefield, x, y);
+  };
+
   openField = (x, y) => {
     if (this.gameState.minefield[x][y].flag) {
       throw "Polje ima zastavicu";
@@ -205,6 +259,8 @@ export default class WebBombikaModel {
       this.#processFieldWithBomb();
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);
+    } else if (this.gameState.minefield[x][y].bombAroundCount == 0) {
+      this.#processFieldwithoutBombsAround(x, y);
     }
 
     this.#setPlayerGameState(this.gameState);
