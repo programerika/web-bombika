@@ -276,20 +276,53 @@ describe("Testing game end state - Unsuccessful", () => {
   });
 });
 
-let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
-gameEndSuccessful.newGame();
-describe("Testing gameEndState - Successful", () => {
-  it("Tests that the game is over successfully when all of the cells that are not bombs are open", () => {
-    for (let i = 0; i < gameEndSuccessful.gameState.row; i++) {
-      for (let j = 0; j < gameEndSuccessful.gameState.col; j++) {
-        if (i != j) {
-          gameEndSuccessful.openField(i, j);
-        }
+let openedEmptyField = new WebBombikaModel(new TestRandomProvider());
+openedEmptyField.newGame();
+openedEmptyField.addFlag(4, 1);
+//openedEmptyField.removeFlag(4, 1);
+let playerOpenedEmptyField = openedEmptyField.openField(3, 0);
+
+describe("Testing openField() - empty cell", () => {
+  let brojOtvorenih = 0;
+  playerOpenedEmptyField.minefield.map((singleRow) =>
+    singleRow.map((singleCell) => {
+      if (!singleCell.closed) {
+        brojOtvorenih++;
       }
-    }
-    expect(gameEndSuccessful.playerGameState.isFinished).toEqual(true);
+    })
+  );
+  it("Tests if all the empty cells and cells with the bomb are opened when the empty cell opens", () => {
+    expect(brojOtvorenih).toEqual(41);
   });
-  it("Tests that the score is 100 when the game ends successfully under 10 seconds", () => {
-    expect(gameEndSuccessful.playerGameState.score).toEqual(100);
+
+  let brojZatvorenih = 0;
+  playerOpenedEmptyField.minefield.map((singleRow) =>
+    singleRow.map((singleCell) => {
+      if (singleCell.closed) {
+        brojZatvorenih++;
+      }
+    })
+  );
+
+  it("Tests if all the cells except empty cells and cells with the bomb are closed when the empty cell opens", () => {
+    expect(brojZatvorenih).toEqual(59);
   });
 });
+
+// let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
+// gameEndSuccessful.newGame();
+// describe("Testing gameEndState - Successful", () => {
+//   it("Tests that the game is over successfully when all of the cells that are not bombs are open", () => {
+//     for (let i = 0; i < gameEndSuccessful.gameState.row; i++) {
+//       for (let j = 0; j < gameEndSuccessful.gameState.col; j++) {
+//         if (i != j) {
+//           gameEndSuccessful.openField(i, j);
+//         }
+//       }
+//     }
+//     expect(gameEndSuccessful.playerGameState.isFinished).toEqual(true);
+//   });
+//   it("Tests that the score is 100 when the game ends successfully under 10 seconds", () => {
+//     expect(gameEndSuccessful.playerGameState.score).toEqual(100);
+//   });
+// });
