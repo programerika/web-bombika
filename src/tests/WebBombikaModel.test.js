@@ -321,7 +321,7 @@ playerFlaggedTheField = flagedField.addFlag(6, 1);
 
 playerFlaggedTheField = flagedField.addFlag(7, 1);
 
-//openedEmptyField.removeFlag(4, 1);
+//playerFlaggedTheField = flagedField.removeFlag(7, 1);
 
 describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   it("Tests if all the cells except empty cells and cells with the bomb are closed when the empty cell opens", () => {
