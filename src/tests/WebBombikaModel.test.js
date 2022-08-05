@@ -275,3 +275,21 @@ describe("Testing game end state - Unsuccessful", () => {
     );
   });
 });
+
+let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
+gameEndSuccessful.newGame();
+describe("Testing gameEndState - Successful", () => {
+  it("Tests that the game is over successfully when all of the cells that are not bombs are open", () => {
+    for (let i = 0; i < gameEndSuccessful.gameState.row; i++) {
+      for (let j = 0; j < gameEndSuccessful.gameState.col; j++) {
+        if (i != j) {
+          gameEndSuccessful.openField(i, j);
+        }
+      }
+    }
+    expect(gameEndSuccessful.playerGameState.isFinished).toEqual(true);
+  });
+  it("Tests that the score is 100 when the game ends successfully under 10 seconds", () => {
+    expect(gameEndSuccessful.playerGameState.score).toEqual(100);
+  });
+});
