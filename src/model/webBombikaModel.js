@@ -36,7 +36,6 @@ export default class WebBombikaModel {
       if (this.gameState.minefield[x][y].bomb == false) {
         this.gameState.minefield[x][y].bomb = true;
         bombCount++;
-        console.log("Bomba je na :", x, y);
       }
     }
   };
@@ -97,46 +96,6 @@ export default class WebBombikaModel {
     let endTime = Date.now();
     let seconds = (endTime - startTime) / 1000;
     setInterval(this.#calculatePoints, 10000);
-
-    // if (seconds <= 10) {
-    //   this.gameState.score = 100;
-    // } else if (seconds > 10 && seconds <= 20) {
-    //   this.gameState.score = 95;
-    // } else if (seconds > 20 && seconds <= 30) {
-    //   this.gameState.score = 90;
-    // } else if (seconds > 30 && seconds <= 40) {
-    //   this.gameState.score = 85;
-    // } else if (seconds > 40 && seconds <= 50) {
-    //   this.gameState.score = 80;
-    // } else if (seconds > 50 && seconds <= 60) {
-    //   this.gameState.score = 75;
-    // } else if (seconds > 60 && seconds <= 70) {
-    //   this.gameState.score = 70;
-    // } else if (seconds > 70 && seconds <= 80) {
-    //   this.gameState.score = 65;
-    // } else if (seconds > 80 && seconds <= 90) {
-    //   this.gameState.score = 60;
-    // } else if (seconds > 90 && seconds <= 100) {
-    //   this.gameState.score = 55;
-    // } else if (seconds > 100 && seconds <= 110) {
-    //   this.gameState.score = 50;
-    // } else if (seconds > 110 && seconds <= 120) {
-    //   this.gameState.score = 45;
-    // } else if (seconds > 120 && seconds <= 130) {
-    //   this.gameState.score = 40;
-    // } else if (seconds > 130 && seconds <= 140) {
-    //   this.gameState.score = 35;
-    // } else if (seconds > 140 && seconds <= 150) {
-    //   this.gameState.score = 30;
-    // } else if (seconds > 150 && seconds <= 160) {
-    //   this.gameState.score = 25;
-    // } else if (seconds > 160 && seconds <= 170) {
-    //   this.gameState.score = 20;
-    // } else if (seconds > 170 && seconds <= 180) {
-    //   this.gameState.score = 15;
-    // } else if (seconds > 180) {
-    //   this.gameState.score = 10;
-    // }
 
     if (seconds > 180) {
       this.gameState.score = 1;
@@ -237,14 +196,6 @@ export default class WebBombikaModel {
     this.#gameEndUnsuccessful();
   };
 
-  // #manipulateFlag = (x, y) => {
-  //   if (this.gameState.minefield[x][y].flag == true) {
-  //     this.gameState.minefield[x][y].flag = false;
-  //     //Treba dodati povecavanje i smanjivanje brojaca zastavica
-  //   } else {
-  //     this.gameState.minefield[x][y].flag = true;
-  //   }
-  // };
   addFlag = (x, y) => {
     if (this.gameState.minefield[x][y].flag) {
       throw "Vec ima zastavica";
@@ -253,7 +204,6 @@ export default class WebBombikaModel {
       throw "Polje je otvoreno!";
     }
     this.gameState.minefield[x][y].flag = true;
-    // this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
     console.log("Dodata zastavica na ", x, y);
     return this.playerGameState;
@@ -267,7 +217,6 @@ export default class WebBombikaModel {
       throw "Polje nema zastavicu";
     }
     this.gameState.minefield[x][y].flag = false;
-    // this.#manipulateFlag(x, y);
     this.#setPlayerGameState(this.gameState);
     console.log("Sklonjena zastavica sa ", x, y);
     return this.playerGameState;
@@ -335,11 +284,12 @@ export default class WebBombikaModel {
     if (this.gameState.minefield[x][y].bomb == true) {
       console.log("BOMBAAA");
       this.#processFieldWithBomb();
-    } else if (this.gameState.minefield[x][y].bombAroundCount >= 0) {
+    } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount == 0) {
       this.#processFieldwithoutBombsAround(x, y);
     }
+
     if (this.#checkIfAllFieldsAreOpen()) {
       this.#gameEndSuccessfully();
     }
