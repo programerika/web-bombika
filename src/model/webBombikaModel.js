@@ -224,7 +224,7 @@ export default class WebBombikaModel {
     return this.playerGameState;
   };
 
-  #emptyCellsAround = (board, x, y) => {
+  #checkFieldsAroundEmptyCell = (board, x, y) => {
     x > 0 &&
       board[x - 1][y].closed &&
       !board[x - 1][y].flag &&
@@ -272,7 +272,7 @@ export default class WebBombikaModel {
 
   #processFieldwithoutBombsAround = (x, y) => {
     this.gameState.minefield[x][y].closed = false;
-    this.#emptyCellsAround(this.gameState.minefield, x, y);
+    this.#checkFieldsAroundEmptyCell(this.gameState.minefield, x, y);
   };
 
   openField = (x, y) => {
