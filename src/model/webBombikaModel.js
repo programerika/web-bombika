@@ -11,9 +11,9 @@ export default class WebBombikaModel {
 
   #createBoard = () => {
     let board = [];
-    for (let x = 0; x < this.gameState.row; x++) {
+    for (let x = 0; x < this.gameState.rows; x++) {
       let subcolumn = [];
-      for (let y = 0; y < this.gameState.col; y++) {
+      for (let y = 0; y < this.gameState.cols; y++) {
         subcolumn.push(new GameFieldStep());
       }
       board.push(subcolumn);
@@ -26,8 +26,8 @@ export default class WebBombikaModel {
 
     while (bombCount < this.gameState.numberOfBombs) {
       let koordinate = this.randomProvider.nextCoordinates(
-        this.gameState.col - 1,
-        this.gameState.row - 1
+        this.gameState.cols - 1,
+        this.gameState.rows - 1
       );
 
       let x = koordinate.x;
@@ -106,8 +106,8 @@ export default class WebBombikaModel {
 
   #checkIfAllFieldsAreOpen = () => {
     let brojac = 0;
-    for (let i = 0; i < this.gameState.row; i++) {
-      for (let j = 0; j < this.gameState.col; j++) {
+    for (let i = 0; i < this.gameState.rows; i++) {
+      for (let j = 0; j < this.gameState.cols; j++) {
         if (
           this.gameState.minefield[i][j].bomb != true &&
           this.gameState.minefield[i][j].closed == false
@@ -124,8 +124,8 @@ export default class WebBombikaModel {
   };
 
   #calculateNeighborBombs = () => {
-    for (let rowLoop = 0; rowLoop < this.gameState.row; rowLoop++) {
-      for (let columnLoop = 0; columnLoop < this.gameState.col; columnLoop++) {
+    for (let rowLoop = 0; rowLoop < this.gameState.rows; rowLoop++) {
+      for (let columnLoop = 0; columnLoop < this.gameState.cols; columnLoop++) {
         if (this.gameState.minefield[rowLoop][columnLoop].bomb == true) {
           continue;
         }
@@ -174,8 +174,8 @@ export default class WebBombikaModel {
   };
 
   #openAllCells = () => {
-    for (let i = 0; i < this.gameState.row; i++) {
-      for (let j = 0; j < this.gameState.col; j++) {
+    for (let i = 0; i < this.gameState.rows; i++) {
+      for (let j = 0; j < this.gameState.cols; j++) {
         if (this.gameState.minefield[i][j].flag == true) {
           this.gameState.minefield[i][j].closed = true;
         } else {

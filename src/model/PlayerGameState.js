@@ -5,7 +5,7 @@ export default class PlayerGameState {
     this.rows = 10;
     this.isFinished = false;
     this.score = 0;
-    this.startTime = Date.now();
     this.minefield = [];
+    this.startTime = Date.now();
   }
 }
