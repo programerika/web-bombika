@@ -5,7 +5,6 @@ import PlayerGameState from "./PlayerGameState";
 export default class WebBombikaModel {
   constructor(randomProvider) {
     this.gameState = new GameState();
-    this.playerGameState = new PlayerGameState();
     this.randomProvider = randomProvider;
   }
 
@@ -93,7 +92,7 @@ export default class WebBombikaModel {
     }
   };
 
-  #setPlayerGameStateMinefield = (gameMinefield) => {
+  #preparePlayerGameStateMinefield = (gameMinefield, isFinished) => {
     let newMinefield = [];
     gameMinefield.forEach((row) => {
       let minefieldCols = [];
@@ -104,6 +103,7 @@ export default class WebBombikaModel {
         };
         if (!col.closed)
           newStepForPlayer.bombsAroundCount = col.bombAroundCount;
+        if (isFinished) newStepForPlayer.bomb = col.bomb;
         minefieldCols.push(newStepForPlayer);
       });
       newMinefield.push(minefieldCols);
@@ -111,31 +111,30 @@ export default class WebBombikaModel {
     return newMinefield;
   };
 
-  #setPlayerGameState = (gameState) => {
-    this.playerGameState.numberOfBombs = gameState.numberOfBombs;
-    this.playerGameState.isFinished = gameState.isFinished;
-    this.playerGameState.score = gameState.score;
-    this.playerGameState.startTime = gameState.startTime;
-    this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
-      gameState.minefield
+  #preparePlayerGameState = (gameState) => {
+    const playerGameState = new PlayerGameState();
+    playerGameState.cols = gameState.cols;
+    playerGameState.rows = gameState.rows;
+    playerGameState.numberOfBombs = gameState.numberOfBombs;
+    playerGameState.isFinished = gameState.isFinished;
+    playerGameState.score = gameState.score;
+    playerGameState.startTime = gameState.startTime;
+    playerGameState.minefield = this.#preparePlayerGameStateMinefield(
+      gameState.minefield,
+      gameState.isFinished
     );
-    console.log("Player game state: ", this.playerGameState.minefield);
+    console.log("Player game state: ", playerGameState.minefield);
     console.log("game state: ", this.gameState.minefield);
-  };
-
-  #prepareGame = () => {
-    this.gameState.isFinished = false;
-    this.gameState.startTime = Date.now();
+    return playerGameState;
   };
 
   newGame = () => {
-    this.#prepareGame();
-    // this.gameState = new GameState();
+    this.gameState = new GameState();
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
-    this.#setPlayerGameState(this.gameState);
-    return this.playerGameState;
+
+    return this.#preparePlayerGameState(this.gameState);
   };
 
   #openAllCells = () => {
@@ -157,9 +156,8 @@ export default class WebBombikaModel {
     }
     this.gameState.minefield[x][y].flag = true;
     this.gameState.numberOfBombs--;
-    this.#setPlayerGameState(this.gameState);
     console.log("Dodata zastavica na ", x, y);
-    return this.playerGameState;
+    return this.#preparePlayerGameState(this.gameState);
   };
 
   removeFlag = (x, y) => {
@@ -171,9 +169,8 @@ export default class WebBombikaModel {
     }
     this.gameState.minefield[x][y].flag = false;
     this.gameState.numberOfBombs++;
-    this.#setPlayerGameState(this.gameState);
     console.log("Sklonjena zastavica sa ", x, y);
-    return this.playerGameState;
+    return this.#preparePlayerGameState(this.gameState);
   };
 
   #checkFieldsAroundEmptyCell = (board, x, y) => {
@@ -262,8 +259,7 @@ export default class WebBombikaModel {
       this.#gameEndSuccessfully();
     }
 
-    this.#setPlayerGameState(this.gameState);
-    return this.playerGameState;
+    return this.#preparePlayerGameState(this.gameState);
   };
 
   #checkIfAllFieldsAreOpen = () => {
@@ -294,7 +290,7 @@ export default class WebBombikaModel {
   // };
 
   #gameEndSuccessfully = () => {
-    this.gameState.score = 100; // da li u konstruktoru gamestate-a da bude odmah na 100
+    this.gameState.score = this.gameState.maxScore;
     let startTime = this.gameState.startTime;
     let endTime = Date.now();
     let gameLastingInSeconds = (endTime - startTime) / 1000;
@@ -318,7 +314,6 @@ export default class WebBombikaModel {
     //   this.gameState.score = 1;
     // }
     //this.gameState.isFinished = true;
-    this.#setPlayerGameState(this.gameState);
     console.log(this.playerGameState);
     console.log(this.gameState);
   };

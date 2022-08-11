@@ -5,6 +5,7 @@ export default class GameState {
     this.rows = 10;
     this.isFinished = false;
     this.score = 0;
+    this.maxScore = 100;
     this.minefield = [];
     this.startTime = Date.now();
   }
