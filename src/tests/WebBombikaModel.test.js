@@ -310,22 +310,16 @@ describe("Testing openField() - empty cell", () => {
 });
 
 let flagedField = new WebBombikaModel(new TestRandomProvider());
-
 flagedField.newGame();
-
 let playerFlaggedTheField = flagedField.addFlag(4, 1);
-
 playerFlaggedTheField = flagedField.addFlag(5, 1);
-
 playerFlaggedTheField = flagedField.addFlag(6, 1);
-
 playerFlaggedTheField = flagedField.addFlag(7, 1);
-
-//playerFlaggedTheField = flagedField.removeFlag(7, 1);
+playerFlaggedTheField = flagedField.removeFlag(7, 1);
 
 describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   it("Tests if all the cells except empty cells and cells with the bomb are closed when the empty cell opens", () => {
-    expect(playerFlaggedTheField.numberOfBombs).toEqual(6);
+    expect(playerFlaggedTheField.numberOfBombs).toEqual(7);
   });
 });
 
@@ -346,3 +340,28 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
 //     expect(gameEndSuccessful.playerGameState.score).toEqual(100);
 //   });
 // });
+
+let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
+gameEndSuccessful.newGame();
+let endingPlayer = gameEndSuccessful.openField(0, 3);
+endingPlayer = gameEndSuccessful.openField(3, 0);
+endingPlayer = gameEndSuccessful.openField(0, 1);
+endingPlayer = gameEndSuccessful.openField(1, 0);
+endingPlayer = gameEndSuccessful.openField(9, 8);
+endingPlayer = gameEndSuccessful.openField(8, 9);
+
+//Radi kada se podesi da na svaki sekund oduzima 5 sekundi, a ne na 10 sekundi
+// describe("Testing gameEndState - Successful", () => {
+//   it("Tests if the game is successfully finished when all fields that are not bombs are open", (done) => {
+//     setTimeout(() => {
+//       endingPlayer = gameEndSuccessful.openField(8, 9);
+//       expect(endingPlayer.isFinished).toEqual(true);
+//       done();
+//     }, 4000);
+//   });
+// });
+describe("Testing gameEndState - Successful", () => {
+  it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
+    expect(endingPlayer.isFinished).toEqual(true);
+  });
+});

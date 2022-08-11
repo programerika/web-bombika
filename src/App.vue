@@ -1,12 +1,14 @@
 <template>
   <div id="1">
     <button @click="napraviIgru()">NewGame</button>
-    <button @click="otvoriPolje()">OpenField</button>
+    <button @click="otvoriPolje1()">OpenField1</button>
+    <button @click="otvoriPolje2()">OpenField2</button>
+    <button @click="otvoriPolje3()">OpenField3</button>
+    <button @click="otvoriPolje4()">OpenField4</button>
+    <button @click="otvoriPolje5()">OpenField5</button>
+    <button @click="otvoriPolje6()">OtvoriPolje6</button>
     <button @click="staviZastavu()">StaviZastavu</button>
     <button @click="skloniZastavu()">SkloniZastavu</button>
-    <button @click="otvoriPoljeSklonjenaZastava()">
-      OtvoriPoljeSklonjenaZastava
-    </button>
   </div>
 </template>
 
@@ -28,11 +30,23 @@ export default {
     skloniZastavu: function () {
       igra.removeFlag(4, 1);
     },
-    otvoriPolje: function () {
+    otvoriPolje1: function () {
       igra.openField(3, 0);
     },
-    otvoriPoljeSklonjenaZastava: function () {
-      igra.openField(4, 1);
+    otvoriPolje2: function () {
+      igra.openField(0, 3);
+    },
+    otvoriPolje3: function () {
+      igra.openField(1, 0);
+    },
+    otvoriPolje4: function () {
+      igra.openField(0, 1);
+    },
+    otvoriPolje5: function () {
+      igra.openField(9, 8);
+    },
+    otvoriPolje6: function () {
+      igra.openField(8, 9);
     },
   },
 };

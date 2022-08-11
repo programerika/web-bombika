@@ -83,25 +83,39 @@ export default class WebBombikaModel {
 
   #gameEndUnsuccessful = () => {
     this.#openAllCells();
-    // this.playerGameState.isFinished = true;
   };
 
-  #calculatePoints = () => {
-    this.gameState.score - 5;
-  };
+  // #calculatePoints = () => {
+  //   this.gameState.score - 5;
+  // };
 
   #gameEndSuccessfully = () => {
     this.gameState.score = 100;
     let startTime = this.gameState.startTime;
+    this.gameState.isFinished = true;
     let endTime = Date.now();
     let seconds = (endTime - startTime) / 1000;
-    setInterval(this.#calculatePoints, 10000);
+
+    console.log("Trajanje igre:", seconds, "sec");
 
     if (seconds > 180) {
       this.gameState.score = 1;
+    } else {
+      for (let i = 0; i <= seconds; i += 10) {
+        this.gameState.score -= 5;
+      }
     }
-    this.gameState.isFinished = true;
+    console.log("Osvojeno:", this.gameState.score, "poen/a");
+
+    //setInterval(this.#calculatePoints, 10000);
+
+    // if (seconds > 180) {
+    //   this.gameState.score = 1;
+    // }
+    //this.gameState.isFinished = true;
     this.#setPlayerGameState(this.gameState);
+    console.log(this.playerGameState);
+    console.log(this.gameState);
   };
 
   #checkIfAllFieldsAreOpen = () => {
@@ -161,11 +175,17 @@ export default class WebBombikaModel {
     this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
       gameState.minefield
     );
-    console.log("Player game state: ", this.playerGameState.minefield);
-    console.log("game state: ", this.gameState.minefield);
+    //console.log("Player game state: ", this.playerGameState.minefield);
+    //console.log("game state: ", this.gameState.minefield);
+  };
+
+  #prepareGame = () => {
+    this.gameState.isFinished = false;
+    this.gameState.startTime = Date.now();
   };
 
   newGame = () => {
+    this.#prepareGame();
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
@@ -188,7 +208,6 @@ export default class WebBombikaModel {
   #processFieldWithBombsAround = (x, y) => {
     //na 10 sekundi 5 poena
     this.gameState.minefield[x][y].closed = false;
-    console.log("Otvoreno polje sa brojem:", x, y);
   };
 
   #processFieldWithBomb = () => {
@@ -271,8 +290,12 @@ export default class WebBombikaModel {
   };
 
   #processFieldwithoutBombsAround = (x, y) => {
-    this.gameState.minefield[x][y].closed = false;
-    this.#checkFieldsAroundEmptyCell(this.gameState.minefield, x, y);
+    if (!this.gameState.minefield[x][y].closed) {
+      this.#checkFieldsAroundEmptyCell(this.gameState.minefield, x, y);
+    } else {
+      this.gameState.minefield[x][y].closed = false;
+      this.#checkFieldsAroundEmptyCell(this.gameState.minefield, x, y);
+    }
   };
 
   openField = (x, y) => {
@@ -292,7 +315,7 @@ export default class WebBombikaModel {
       this.#processFieldwithoutBombsAround(x, y);
     }
 
-    if (this.#checkIfAllFieldsAreOpen()) {
+    if (this.#checkIfAllFieldsAreOpen() && !this.gameState.isFinished) {
       this.#gameEndSuccessfully();
     }
 
