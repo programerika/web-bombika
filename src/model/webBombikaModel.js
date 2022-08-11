@@ -81,62 +81,6 @@ export default class WebBombikaModel {
     return numberOfBombs;
   };
 
-  #gameEndUnsuccessful = () => {
-    this.#openAllCells();
-  };
-
-  // #calculatePoints = () => {
-  //   this.gameState.score - 5;
-  // };
-
-  #gameEndSuccessfully = () => {
-    this.gameState.score = 100;
-    let startTime = this.gameState.startTime;
-    this.gameState.isFinished = true;
-    let endTime = Date.now();
-    let seconds = (endTime - startTime) / 1000;
-
-    console.log("Trajanje igre:", seconds, "sec");
-
-    if (seconds > 180) {
-      this.gameState.score = 1;
-    } else {
-      for (let i = 0; i <= seconds; i += 10) {
-        this.gameState.score -= 5;
-      }
-    }
-    console.log("Osvojeno:", this.gameState.score, "poen/a");
-
-    //setInterval(this.#calculatePoints, 10000);
-
-    // if (seconds > 180) {
-    //   this.gameState.score = 1;
-    // }
-    //this.gameState.isFinished = true;
-    this.#setPlayerGameState(this.gameState);
-    console.log(this.playerGameState);
-    console.log(this.gameState);
-  };
-
-  #checkIfAllFieldsAreOpen = () => {
-    let brojac = 0;
-    for (let i = 0; i < this.gameState.rows; i++) {
-      for (let j = 0; j < this.gameState.cols; j++) {
-        if (
-          this.gameState.minefield[i][j].bomb != true &&
-          this.gameState.minefield[i][j].closed == false
-        ) {
-          brojac++;
-        }
-      }
-    }
-    if (brojac == 90) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   #calculateNeighborBombs = () => {
     for (let rowLoop = 0; rowLoop < this.gameState.rows; rowLoop++) {
       for (let columnLoop = 0; columnLoop < this.gameState.cols; columnLoop++) {
@@ -175,8 +119,8 @@ export default class WebBombikaModel {
     this.playerGameState.minefield = this.#setPlayerGameStateMinefield(
       gameState.minefield
     );
-    //console.log("Player game state: ", this.playerGameState.minefield);
-    //console.log("game state: ", this.gameState.minefield);
+    console.log("Player game state: ", this.playerGameState.minefield);
+    console.log("game state: ", this.gameState.minefield);
   };
 
   #prepareGame = () => {
@@ -186,6 +130,7 @@ export default class WebBombikaModel {
 
   newGame = () => {
     this.#prepareGame();
+    // this.gameState = new GameState();
     this.#createBoard();
     this.#populateWithBombs();
     this.#calculateNeighborBombs();
@@ -196,23 +141,11 @@ export default class WebBombikaModel {
   #openAllCells = () => {
     for (let i = 0; i < this.gameState.rows; i++) {
       for (let j = 0; j < this.gameState.cols; j++) {
-        if (this.gameState.minefield[i][j].flag == true) {
-          this.gameState.minefield[i][j].closed = true;
-        } else {
+        if (!this.gameState.minefield[i][j].flag) {
           this.gameState.minefield[i][j].closed = false;
         }
       }
     }
-  };
-
-  #processFieldWithBombsAround = (x, y) => {
-    //na 10 sekundi 5 poena
-    this.gameState.minefield[x][y].closed = false;
-  };
-
-  #processFieldWithBomb = () => {
-    this.gameState.isFinished = true;
-    this.#gameEndUnsuccessful();
   };
 
   addFlag = (x, y) => {
@@ -298,6 +231,16 @@ export default class WebBombikaModel {
     }
   };
 
+  #processFieldWithBombsAround = (x, y) => {
+    //na 10 sekundi 5 poena
+    this.gameState.minefield[x][y].closed = false;
+  };
+
+  #processFieldWithBomb = () => {
+    this.gameState.isFinished = true;
+    this.#gameEndUnsuccessful();
+  };
+
   openField = (x, y) => {
     if (this.gameState.minefield[x][y].flag) {
       throw "Polje ima zastavicu";
@@ -321,5 +264,62 @@ export default class WebBombikaModel {
 
     this.#setPlayerGameState(this.gameState);
     return this.playerGameState;
+  };
+
+  #checkIfAllFieldsAreOpen = () => {
+    let brojac = 0;
+    for (let i = 0; i < this.gameState.rows; i++) {
+      for (let j = 0; j < this.gameState.cols; j++) {
+        if (
+          !this.gameState.minefield[i][j].bomb &&
+          !this.gameState.minefield[i][j].closed
+        ) {
+          brojac++;
+        }
+      }
+    }
+    if (brojac == 90) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  #gameEndUnsuccessful = () => {
+    this.#openAllCells();
+  };
+
+  // #calculatePoints = () => {
+  //   this.gameState.score - 5;
+  // };
+
+  #gameEndSuccessfully = () => {
+    this.gameState.score = 100; // da li u konstruktoru gamestate-a da bude odmah na 100
+    let startTime = this.gameState.startTime;
+    let endTime = Date.now();
+    let gameLastingInSeconds = (endTime - startTime) / 1000;
+
+    this.gameState.isFinished = true;
+
+    console.log("Trajanje igre:", gameLastingInSeconds, "sec");
+
+    if (gameLastingInSeconds > 180) {
+      this.gameState.score = 1;
+    } else {
+      for (let i = 0; i <= gameLastingInSeconds; i += 10) {
+        this.gameState.score -= 5;
+      }
+    }
+    console.log("Osvojeno:", this.gameState.score, "poen/a");
+
+    //setInterval(this.#calculatePoints, 10000);
+
+    // if (gameLastingInSeconds > 180) {
+    //   this.gameState.score = 1;
+    // }
+    //this.gameState.isFinished = true;
+    this.#setPlayerGameState(this.gameState);
+    console.log(this.playerGameState);
+    console.log(this.gameState);
   };
 }
