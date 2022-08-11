@@ -24,28 +24,28 @@ describe("WebBombikaModel", () => {
   });
 
   it("Tests if the game fields are not flagged when the game starts", () => {
-    for (let i = 0; i < igra.gameState.row; i++) {
-      for (let j = 0; j < igra.gameState.col; j++) {
+    for (let i = 0; i < igra.gameState.rows; i++) {
+      for (let j = 0; j < igra.gameState.cols; j++) {
         expect(igra.gameState.minefield[i][j].flag).toStrictEqual(false);
       }
     }
   });
 
   it("Tests if all game fields are closed when the game starts", () => {
-    for (let i = 0; i < igra.gameState.row; i++) {
-      for (let j = 0; j < igra.gameState.col; j++) {
+    for (let i = 0; i < igra.gameState.rows; i++) {
+      for (let j = 0; j < igra.gameState.cols; j++) {
         expect(igra.gameState.minefield[i][j].closed).toStrictEqual(true);
       }
     }
   });
   it("Tests if all of the bombs are planted when the function populateWithBombs() is called", () => {
-    for (let i = 0; i < popunjenaIgra.gameState.row; i++) {
+    for (let i = 0; i < popunjenaIgra.gameState.rows; i++) {
       expect(popunjenaIgra.gameState.minefield[i][i].bomb).toStrictEqual(true);
     }
   });
 
   it("Tests the calculateNeighborBombs() that is called inside newGame() (right)", () => {
-    for (let i = 0; i < popunjenaIgra.gameState.row - 1; i++) {
+    for (let i = 0; i < popunjenaIgra.gameState.rows - 1; i++) {
       expect(
         popunjenaIgra.gameState.minefield[i + 1][i].bombAroundCount
       ).toStrictEqual(2);
@@ -53,7 +53,7 @@ describe("WebBombikaModel", () => {
   });
 
   it("Tests the calculateNeighborBombs() that is called inside newGame() (2 cells to the right)", () => {
-    for (let i = 0; i < popunjenaIgra.gameState.row - 2; i++) {
+    for (let i = 0; i < popunjenaIgra.gameState.rows - 2; i++) {
       expect(
         popunjenaIgra.gameState.minefield[i + 2][i].bombAroundCount
       ).toStrictEqual(1);
@@ -61,7 +61,7 @@ describe("WebBombikaModel", () => {
   });
 
   it("Tests the calculateNeighborBombs() that is called inside newGame() (Down)", () => {
-    for (let i = 0; i < popunjenaIgra.gameState.row - 1; i++) {
+    for (let i = 0; i < popunjenaIgra.gameState.rows - 1; i++) {
       expect(
         popunjenaIgra.gameState.minefield[i][i + 1].bombAroundCount
       ).toStrictEqual(2);
@@ -69,7 +69,7 @@ describe("WebBombikaModel", () => {
   });
 
   it("Testing the calculator of neighboring bombs (2 rows down)", () => {
-    for (let i = 0; i < popunjenaIgra.gameState.row - 2; i++) {
+    for (let i = 0; i < popunjenaIgra.gameState.rows - 2; i++) {
       expect(
         popunjenaIgra.gameState.minefield[i][i + 2].bombAroundCount
       ).toStrictEqual(1);
@@ -266,7 +266,7 @@ gameEndUnsuccessful.newGame();
 gameEndUnsuccessful.addFlag(1, 2);
 gameEndUnsuccessful.openField(1, 1);
 describe("Testing game end state - Unsuccessful", () => {
-  it("Sets the playerGameState isOver to true", () => {
+  it("Sets the playerGameState is over to true", () => {
     expect(gameEndUnsuccessful.playerGameState.isFinished).toEqual(true);
   });
   it("tests if the cell that has a flag is still closed", () => {
@@ -327,8 +327,8 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
 // gameEndSuccessful.newGame();
 // describe("Testing gameEndState - Successful", () => {
 //   it("Tests that the game is over successfully when all of the cells that are not bombs are open", () => {
-//     for (let i = 0; i < gameEndSuccessful.gameState.row; i++) {
-//       for (let j = 0; j < gameEndSuccessful.gameState.col; j++) {
+//     for (let i = 0; i < gameEndSuccessful.gameState.rows; i++) {
+//       for (let j = 0; j < gameEndSuccessful.gameState.cols; j++) {
 //         if (i != j) {
 //           gameEndSuccessful.openField(i, j);
 //         }
