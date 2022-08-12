@@ -26,10 +26,10 @@ export default {
       igra.newGame();
     },
     staviZastavu: function () {
-      igra.addFlag(4, 1);
+      igra.toggleFlag(4, 1);
     },
     skloniZastavu: function () {
-      igra.removeFlag(4, 1);
+      igra.toggleFlag(4, 1);
     },
     otvoriPolje1: function () {
       igra.openField(3, 0);

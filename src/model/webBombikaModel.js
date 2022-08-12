@@ -127,8 +127,8 @@ export default class WebBombikaModel {
       gameState.minefield,
       gameState.isFinished
     );
-    //console.log("Player game state: ", playerGameState.minefield);
-    //console.log("game state: ", this.gameState.minefield);
+    console.log("Player game state: ", playerGameState.minefield);
+    console.log("game state: ", this.gameState.minefield);
     return playerGameState;
   };
 
@@ -151,17 +151,11 @@ export default class WebBombikaModel {
     }
   };
 
-  addFlag = (x, y) => {
-    this.gameState.minefield[x][y].flag = true;
-    this.gameState.numberOfBombs--;
-    console.log("Dodata zastavica na ", x, y);
-    return this.#preparePlayerGameState(this.gameState);
-  };
-
-  removeFlag = (x, y) => {
-    this.gameState.minefield[x][y].flag = false;
-    this.gameState.numberOfBombs++;
-    console.log("Sklonjena zastavica sa ", x, y);
+  toggleFlag = (x, y) => {
+    if (this.canFieldBeFlagged(x, y)) {
+      this.gameState.minefield[x][y].flag =
+        !this.gameState.minefield[x][y].flag;
+    }
     return this.#preparePlayerGameState(this.gameState);
   };
 
@@ -237,7 +231,6 @@ export default class WebBombikaModel {
     if (this.#checkIfAllFieldsAreOpen() && !this.gameState.isFinished) {
       this.#gameEndSuccessfully();
     }
-
     return this.#preparePlayerGameState(this.gameState);
   };
 
