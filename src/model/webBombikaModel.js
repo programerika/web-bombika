@@ -229,7 +229,6 @@ export default class WebBombikaModel {
   };
 
   #processFieldWithBombsAround = (x, y) => {
-    //na 10 sekundi 5 poena
     this.gameState.minefield[x][y].closed = false;
   };
 
@@ -285,10 +284,6 @@ export default class WebBombikaModel {
     this.#openAllCells();
   };
 
-  // #calculatePoints = () => {
-  //   this.gameState.score - 5;
-  // };
-
   #gameEndSuccessfully = () => {
     this.gameState.score = this.gameState.maxScore;
     let startTime = this.gameState.startTime;
@@ -307,14 +302,5 @@ export default class WebBombikaModel {
       }
     }
     console.log("Osvojeno:", this.gameState.score, "poen/a");
-
-    //setInterval(this.#calculatePoints, 10000);
-
-    // if (gameLastingInSeconds > 180) {
-    //   this.gameState.score = 1;
-    // }
-    //this.gameState.isFinished = true;
-    console.log(this.playerGameState);
-    console.log(this.gameState);
   };
 }
