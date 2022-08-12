@@ -96,6 +96,10 @@ describe("PlayerGameState - openField()", () => {
     expect(openedCell.canFieldBeOpened(1, 2)).toBeFalsy();
   });
 
+  it("Tests if a cell that is already open can be flagged", () => {
+    expect(openedCell.canFieldBeFlagged(1, 0)).toBeFalsy();
+  });
+
   it("Tests the click on a cell that is already open", () => {
     expect(openedCell.canFieldBeOpened(1, 0)).toBeFalsy();
   });
