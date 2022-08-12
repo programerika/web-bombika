@@ -4,7 +4,8 @@ import WebBombikaModel from "../model/webBombikaModel";
 
 describe("WebBombikaModel", () => {
   const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-  const playerGameState = popunjenaIgra.newGame();
+  let playerGameState = popunjenaIgra.newGame();
+  playerGameState = popunjenaIgra.newGame();
 
   it("Tests if the game fields are not flagged when the game starts", () => {
     for (let i = 0; i < playerGameState.rows; i++) {
@@ -24,7 +25,7 @@ describe("WebBombikaModel", () => {
 });
 
 describe("PlayerGameState - newGame()", () => {
-  const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
+  const popunjenaIgra = new WebBombikaModel(new RandomProvider());
   const playerGameState = popunjenaIgra.newGame();
 
   it("Tests if playerGameState timer is less or equal to date.now()", () => {
@@ -92,11 +93,11 @@ describe("PlayerGameState - openField()", () => {
     }
   });
   it("Tests the click on a cell that has a flag", () => {
-    expect(() => openedCell.openField(1, 2)).toThrow("Polje ima zastavicu");
+    expect(openedCell.canFieldBeOpened(1, 2)).toBeFalsy();
   });
 
   it("Tests the click on a cell that is already open", () => {
-    expect(() => openedCell.openField(1, 0)).toThrow("Polje je vec otvoreno!");
+    expect(openedCell.canFieldBeOpened(1, 0)).toBeFalsy();
   });
 });
 
@@ -143,7 +144,7 @@ describe("Testing flag manipulation - add flag", () => {
     expect(playerGameStateAddFlag.minefield[1][2].flag).toEqual(true);
   });
   it("Tests that a user can't add a flag to a cell that already has a flag", () => {
-    expect(() => addFlagPlayer.addFlag(1, 2)).toThrow("Vec ima zastavica");
+    expect(addFlagPlayer.canFieldBeOpened(1, 2)).toBeFalsy();
   });
 });
 
@@ -152,7 +153,7 @@ describe("Testing flag manipulation - add flag on opened field", () => {
   flagOpenedField.newGame();
   flagOpenedField.openField(1, 3);
   it("Tests that a user can't add a flag to a cell that already has a flag", () => {
-    expect(() => flagOpenedField.addFlag(1, 3)).toThrow("Polje je otvoreno!");
+    expect(flagOpenedField.canFieldBeFlagged(1, 3)).toBeFalsy();
   });
 });
 
@@ -160,26 +161,9 @@ describe("testing flag manipulation - remove flag", () => {
   let playerRemoveFlag = new WebBombikaModel(new TestRandomProvider());
   playerRemoveFlag.newGame();
   playerRemoveFlag.addFlag(1, 2);
-  //playerRemoveFlag.playerGameState.minefield[1][2].flag = true;
   let playerGameStateRemoveFlag = playerRemoveFlag.removeFlag(1, 2);
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
-    expect(playerGameStateRemoveFlag.minefield[1][2].flag).toEqual(false);
-  });
-  it("Tests that a user can't remove a flag from a cell that doesn't have a flag", () => {
-    expect(() => playerRemoveFlag.removeFlag(1, 2)).toThrow(
-      "Polje nema zastavicu"
-    );
-  });
-});
-
-describe("Testing flag manipulation - remove flag from opened field", () => {
-  let removeFlagFromOpenedField = new WebBombikaModel(new TestRandomProvider());
-  removeFlagFromOpenedField.newGame();
-  removeFlagFromOpenedField.openField(1, 3);
-  it("Tests that a user can't remove a flag from a cell that is already open", () => {
-    expect(() => removeFlagFromOpenedField.removeFlag(1, 3)).toThrow(
-      "Polje je otvoreno!"
-    );
+    expect(playerGameStateRemoveFlag.minefield[1][2].flag).toBeFalsy();
   });
 });
 
@@ -245,6 +229,26 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   });
 });
 
+describe("Testing gameEndState - Successful-game lasted longer than 3 minutes", () => {
+  let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
+  gameEndSuccessful.newGame();
+  let endingPlayer = gameEndSuccessful.openField(0, 3);
+  endingPlayer = gameEndSuccessful.openField(3, 0);
+  endingPlayer = gameEndSuccessful.openField(0, 1);
+  endingPlayer = gameEndSuccessful.openField(1, 0);
+  endingPlayer = gameEndSuccessful.openField(9, 8);
+  //endingPlayer = gameEndSuccessful.openField(8, 9);
+
+  it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
+    jest.useFakeTimers().setSystemTime(new Date("2022-10-10").getTime());
+    endingPlayer = gameEndSuccessful.openField(8, 9);
+    expect(endingPlayer.score).toEqual(1);
+  });
+  it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
+    expect(endingPlayer.isFinished).toEqual(true);
+  });
+});
+
 describe("Testing gameEndState - Successful", () => {
   let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
   gameEndSuccessful.newGame();
@@ -254,13 +258,9 @@ describe("Testing gameEndState - Successful", () => {
   endingPlayer = gameEndSuccessful.openField(1, 0);
   endingPlayer = gameEndSuccessful.openField(9, 8);
   endingPlayer = gameEndSuccessful.openField(8, 9);
-  //Radi kada se podesi da na svaki sekund oduzima 5 poena, a ne na 10 sekundi
-  it.skip("Tests if the game is successfully finished when all fields that are not bombs are open", (done) => {
-    setTimeout(() => {
-      endingPlayer = gameEndSuccessful.openField(8, 9);
-      expect(endingPlayer.isFinished).toEqual(true);
-      done();
-    }, 4000);
+
+  it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
+    expect(endingPlayer.score).toEqual(95);
   });
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
     expect(endingPlayer.isFinished).toEqual(true);
