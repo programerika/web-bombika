@@ -4,5 +4,6 @@ export default class GameFieldStep {
     this.closed = true;
     this.flag = false;
     this.bombAroundCount = 0;
+    this.triggeredBomb = false;
   }
 }

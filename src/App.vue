@@ -50,7 +50,7 @@ export default {
       igra.openField(8, 9);
     },
     otvoriPolje7: function () {
-      igra.openField(4, 1);
+      igra.openField(1, 1);
     },
   },
 };

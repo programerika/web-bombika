@@ -101,9 +101,13 @@ export default class WebBombikaModel {
           flag: col.flag,
           closed: col.closed,
         };
-        if (!col.closed)
+        if (!col.closed) {
           newStepForPlayer.bombsAroundCount = col.bombAroundCount;
-        if (isFinished) newStepForPlayer.bomb = col.bomb;
+        }
+        if (isFinished) {
+          newStepForPlayer.bomb = col.bomb;
+          newStepForPlayer.triggeredBomb = col.triggeredBomb;
+        }
         minefieldCols.push(newStepForPlayer);
       });
       newMinefield.push(minefieldCols);
@@ -123,8 +127,8 @@ export default class WebBombikaModel {
       gameState.minefield,
       gameState.isFinished
     );
-    console.log("Player game state: ", playerGameState.minefield);
-    console.log("game state: ", this.gameState.minefield);
+    // console.log("Player game state: ", playerGameState.minefield);
+    // console.log("game state: ", this.gameState.minefield);
     return playerGameState;
   };
 
@@ -148,6 +152,7 @@ export default class WebBombikaModel {
   };
 
   addFlag = (x, y) => {
+    //public metoda canIopenField,vraca true false
     if (this.gameState.minefield[x][y].flag) {
       throw "Vec ima zastavica";
     }
@@ -161,6 +166,7 @@ export default class WebBombikaModel {
   };
 
   removeFlag = (x, y) => {
+    //public metoda canIopenField,vraca true false
     if (!this.gameState.minefield[x][y].closed) {
       throw "Polje je otvoreno!";
     }
@@ -232,7 +238,8 @@ export default class WebBombikaModel {
     this.gameState.minefield[x][y].closed = false;
   };
 
-  #processFieldWithBomb = () => {
+  #processFieldWithBomb = (x, y) => {
+    this.gameState.minefield[x][y].triggeredBomb = true;
     this.gameState.isFinished = true;
     this.#gameEndUnsuccessful();
   };
@@ -247,7 +254,7 @@ export default class WebBombikaModel {
 
     if (this.gameState.minefield[x][y].bomb == true) {
       console.log("BOMBAAA");
-      this.#processFieldWithBomb();
+      this.#processFieldWithBomb(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount == 0) {
@@ -262,18 +269,18 @@ export default class WebBombikaModel {
   };
 
   #checkIfAllFieldsAreOpen = () => {
-    let brojac = 0;
+    let countOpenedFields = 0;
     for (let i = 0; i < this.gameState.rows; i++) {
       for (let j = 0; j < this.gameState.cols; j++) {
         if (
           !this.gameState.minefield[i][j].bomb &&
           !this.gameState.minefield[i][j].closed
         ) {
-          brojac++;
+          countOpenedFields++;
         }
       }
     }
-    if (brojac == 90) {
+    if (countOpenedFields == 90) {
       return true;
     } else {
       return false;
