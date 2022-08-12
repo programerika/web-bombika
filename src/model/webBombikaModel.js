@@ -152,15 +152,13 @@ export default class WebBombikaModel {
   };
 
   toggleFlag = (x, y) => {
-    if (this.canFieldBeFlagged(x, y)) {
-      this.gameState.minefield[x][y].flag =
-        !this.gameState.minefield[x][y].flag;
-    }
+    this.gameState.minefield[x][y].flag = !this.gameState.minefield[x][y].flag;
     if (this.gameState.minefield[x][y].flag == true) {
       this.gameState.numberOfBombs--;
     } else {
       this.gameState.numberOfBombs++;
     }
+    console.log(this.gameState.numberOfBombs);
     return this.#preparePlayerGameState(this.gameState);
   };
 

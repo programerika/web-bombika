@@ -7,7 +7,7 @@
     <button @click="otvoriPolje4()">OpenField4(0,1)</button>
     <button @click="otvoriPolje5()">OpenField5(9,8)</button>
     <button @click="otvoriPolje6()">OtvoriPolje6(8,9)</button>
-    <button @click="staviZastavu()">StaviZastavu(4,1)</button>
+    <button @click="toggleFlag()">TOggleFlag(4,1)</button>
     <button @click="skloniZastavu()">SkloniZastavu(4,1)</button>
     <button @click="otvoriPolje7()">OtvoriPolje7(4,1)</button>
   </div>
@@ -25,32 +25,45 @@ export default {
     napraviIgru: function () {
       igra.newGame();
     },
-    staviZastavu: function () {
-      igra.toggleFlag(4, 1);
-    },
-    skloniZastavu: function () {
-      igra.toggleFlag(4, 1);
+    toggleFlag: function () {
+      if (igra.canFieldBeFlagged(4, 1)) {
+        igra.toggleFlag(4, 1);
+      }
     },
     otvoriPolje1: function () {
-      igra.openField(3, 0);
+      if (igra.canFieldBeOpened(3, 0)) {
+        igra.openField(3, 0);
+      }
     },
     otvoriPolje2: function () {
-      igra.openField(0, 3);
+      if (igra.canFieldBeOpened(0, 3)) {
+        igra.openField(0, 3);
+      }
     },
     otvoriPolje3: function () {
-      igra.openField(1, 0);
+      if (igra.canFieldBeOpened(1, 0)) {
+        igra.openField(1, 0);
+      }
     },
     otvoriPolje4: function () {
-      igra.openField(0, 1);
+      if (igra.canFieldBeOpened(0, 1)) {
+        igra.openField(0, 1);
+      }
     },
     otvoriPolje5: function () {
-      igra.openField(9, 8);
+      if (igra.canFieldBeOpened(9, 8)) {
+        igra.openField(9, 8);
+      }
     },
     otvoriPolje6: function () {
-      igra.openField(8, 9);
+      if (igra.canFieldBeOpened(8, 9)) {
+        igra.openField(8, 9);
+      }
     },
     otvoriPolje7: function () {
-      igra.openField(1, 1);
+      if (igra.canFieldBeOpened(4, 1)) {
+        igra.openField(4, 1);
+      }
     },
   },
 };
