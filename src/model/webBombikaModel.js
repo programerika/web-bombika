@@ -127,8 +127,8 @@ export default class WebBombikaModel {
       gameState.minefield,
       gameState.isFinished
     );
-    console.log("Player game state: ", playerGameState.minefield);
-    console.log("game state: ", this.gameState.minefield);
+    // console.log("Player game state: ", playerGameState.minefield);
+    // console.log("game state: ", this.gameState.minefield);
     return playerGameState;
   };
 
@@ -155,6 +155,11 @@ export default class WebBombikaModel {
     if (this.canFieldBeFlagged(x, y)) {
       this.gameState.minefield[x][y].flag =
         !this.gameState.minefield[x][y].flag;
+    }
+    if (this.gameState.minefield[x][y].flag == true) {
+      this.gameState.numberOfBombs--;
+    } else {
+      this.gameState.numberOfBombs++;
     }
     return this.#preparePlayerGameState(this.gameState);
   };

@@ -73,7 +73,7 @@ describe("PlayerGameState - openField()", () => {
   const openedCell = new WebBombikaModel(new TestRandomProvider());
   let playerGameState = openedCell.newGame();
   playerGameState = openedCell.openField(1, 0);
-  playerGameState = openedCell.addFlag(1, 2);
+  playerGameState = openedCell.toggleFlag(1, 2);
 
   it("Tests if the cell (1,0) is opened when we call method openField(1,0)", () => {
     expect(playerGameState.minefield[1][0].closed).toStrictEqual(false);
@@ -104,7 +104,7 @@ describe("PlayerGameState - openField()", () => {
 describe("PlayerGameState - open Field With The Bomb", () => {
   const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider());
   openedCellWithBomb.newGame();
-  openedCellWithBomb.addFlag(1, 2);
+  openedCellWithBomb.toggleFlag(1, 2);
   let playerGameStateBomb = openedCellWithBomb.openField(2, 2);
 
   it("Tests the click on a cell with a bomb", () => {
@@ -139,7 +139,7 @@ describe("PlayerGameState - open Field With The Bomb", () => {
 describe("Testing flag manipulation - add flag", () => {
   let addFlagPlayer = new WebBombikaModel(new TestRandomProvider());
   addFlagPlayer.newGame();
-  let playerGameStateAddFlag = addFlagPlayer.addFlag(1, 2);
+  let playerGameStateAddFlag = addFlagPlayer.toggleFlag(1, 2);
   it("Adds a flag to a predefined location and checks if the state of flag is true", () => {
     expect(playerGameStateAddFlag.minefield[1][2].flag).toEqual(true);
   });
@@ -160,8 +160,8 @@ describe("Testing flag manipulation - add flag on opened field", () => {
 describe("testing flag manipulation - remove flag", () => {
   let playerRemoveFlag = new WebBombikaModel(new TestRandomProvider());
   playerRemoveFlag.newGame();
-  playerRemoveFlag.addFlag(1, 2);
-  let playerGameStateRemoveFlag = playerRemoveFlag.removeFlag(1, 2);
+  playerRemoveFlag.toggleFlag(1, 2);
+  let playerGameStateRemoveFlag = playerRemoveFlag.toggleFlag(1, 2);
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
     expect(playerGameStateRemoveFlag.minefield[1][2].flag).toBeFalsy();
   });
@@ -170,7 +170,7 @@ describe("testing flag manipulation - remove flag", () => {
 describe("Testing game end state - Unsuccessful", () => {
   let gameEndUnsuccessful = new WebBombikaModel(new TestRandomProvider());
   gameEndUnsuccessful.newGame();
-  let playerGameState = gameEndUnsuccessful.addFlag(1, 2);
+  let playerGameState = gameEndUnsuccessful.toggleFlag(1, 2);
   playerGameState = gameEndUnsuccessful.openField(1, 1);
 
   it("Sets the playerGameState is over to true", () => {
@@ -187,8 +187,8 @@ describe("Testing game end state - Unsuccessful", () => {
 describe("Testing openField() - empty cell", () => {
   let openedEmptyField = new WebBombikaModel(new TestRandomProvider());
   openedEmptyField.newGame();
-  openedEmptyField.addFlag(4, 1);
-  //openedEmptyField.removeFlag(4, 1);
+  openedEmptyField.toggleFlag(4, 1);
+  //openedEmptyField.toggleFlag(4, 1);
   let playerOpenedEmptyField = openedEmptyField.openField(3, 0);
   let brojOtvorenih = 0;
   playerOpenedEmptyField.minefield.map((singleRow) =>
@@ -219,13 +219,14 @@ describe("Testing openField() - empty cell", () => {
 describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   let flagedField = new WebBombikaModel(new TestRandomProvider());
   flagedField.newGame();
-  let playerFlaggedTheField = flagedField.addFlag(4, 1);
-  playerFlaggedTheField = flagedField.addFlag(5, 1);
-  playerFlaggedTheField = flagedField.addFlag(6, 1);
-  playerFlaggedTheField = flagedField.addFlag(7, 1);
-  playerFlaggedTheField = flagedField.removeFlag(7, 1);
+  let playerFlaggedTheField = flagedField.toggleFlag(4, 1);
+  playerFlaggedTheField = flagedField.toggleFlag(5, 1);
+  playerFlaggedTheField = flagedField.toggleFlag(6, 1);
+  playerFlaggedTheField = flagedField.toggleFlag(7, 1);
+  playerFlaggedTheField = flagedField.toggleFlag(7, 1);
+  playerFlaggedTheField = flagedField.toggleFlag(6, 1);
   it("Tests if numberOfBombs changes when we add/remove flags", () => {
-    expect(playerFlaggedTheField.numberOfBombs).toEqual(7);
+    expect(playerFlaggedTheField.numberOfBombs).toEqual(8);
   });
 });
 
