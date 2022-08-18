@@ -11,6 +11,7 @@
     <button @click="skloniZastavu()">SkloniZastavu(4,1)</button>
     <button @click="otvoriPolje7()">OtvoriPolje7(4,1)</button>
     <HeaderComponent />
+    <GameComponent />
   </div>
 </template>
 
@@ -20,11 +21,12 @@ import TestRandomProvider from "./model/TestRandomProvider.js";
 import WebBombikaModel from "./model/webBombikaModel.js";
 //import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
 import HeaderComponent from "./components/HeaderComponent.vue";
+import GameComponent from "./components/GameComponent.vue";
 const igra = new WebBombikaModel(new TestRandomProvider());
 //const igrica = new WebBombikaViewModel(new TestRandomProvider());
 export default {
   name: "App",
-  components: { HeaderComponent },
+  components: { HeaderComponent, GameComponent },
   methods: {
     napraviIgru: function () {
       igra.newGame();
