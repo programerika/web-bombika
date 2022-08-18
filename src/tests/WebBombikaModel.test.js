@@ -237,8 +237,8 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
 describe("Testing gameEndState - Successful-game lasted longer than 3 minutes", () => {
   let gameEndSuccessful = new WebBombikaModel(new TestRandomProvider());
   gameEndSuccessful.newGame();
-  let endingPlayer = gameEndSuccessful.openField(0, 3);
-  endingPlayer = gameEndSuccessful.openField(3, 0);
+  let endingPlayer = gameEndSuccessful.openField(0, 5);
+  endingPlayer = gameEndSuccessful.openField(5, 0);
   endingPlayer = gameEndSuccessful.openField(0, 1);
   endingPlayer = gameEndSuccessful.openField(1, 0);
   endingPlayer = gameEndSuccessful.openField(9, 8);

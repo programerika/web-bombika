@@ -10,6 +10,7 @@
     <button @click="toggleFlag()">TOggleFlag(4,1)</button>
     <button @click="skloniZastavu()">SkloniZastavu(4,1)</button>
     <button @click="otvoriPolje7()">OtvoriPolje7(4,1)</button>
+    <HeaderComponent />
   </div>
 </template>
 
@@ -17,10 +18,13 @@
 // import RandomProvider from "./model/RandomProvider.js";
 import TestRandomProvider from "./model/TestRandomProvider.js";
 import WebBombikaModel from "./model/webBombikaModel.js";
+//import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
+import HeaderComponent from "./components/HeaderComponent.vue";
 const igra = new WebBombikaModel(new TestRandomProvider());
+//const igrica = new WebBombikaViewModel(new TestRandomProvider());
 export default {
   name: "App",
-  components: {},
+  components: { HeaderComponent },
   methods: {
     napraviIgru: function () {
       igra.newGame();
