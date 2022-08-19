@@ -13,7 +13,7 @@ export default class WebBombikaModel {
     for (let x = 0; x < this.gameState.rows; x++) {
       let subcolumn = [];
       for (let y = 0; y < this.gameState.cols; y++) {
-        subcolumn.push(new GameFieldStep());
+        subcolumn.push(new GameFieldStep(x, y));
       }
       board.push(subcolumn);
       this.gameState.minefield = board;
@@ -100,6 +100,8 @@ export default class WebBombikaModel {
         let newStepForPlayer = {
           flag: col.flag,
           closed: col.closed,
+          x: col.x,
+          y: col.y,
         };
         if (!col.closed) {
           newStepForPlayer.bombsAroundCount = col.bombAroundCount;

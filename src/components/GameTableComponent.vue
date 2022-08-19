@@ -1,9 +1,9 @@
 <template>
-  <div class="flex" v-for="r in vm.board" :key="r">
-    <div v-for="c in r" :key="c">
+  <div class="flex" v-for="r in vm.board" :key="r.x">
+    <div v-for="c in r" :key="c.y">
       <CellComponent
-        @clicked="onCellClicked(1, 0)"
-        :cell="vm.board[(1, 0)]"
+        @clicked="onCellClicked(c.x, c.y)"
+        :cell="vm.board[c.x][c.y]"
       ></CellComponent>
     </div>
   </div>
@@ -29,6 +29,7 @@ export default {
     onCellClicked: function (r, c) {
       console.log("Opened field");
       vm.openField(r, c);
+      this.$forceUpdate;
     },
   },
   components: { CellComponent },

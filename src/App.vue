@@ -6,17 +6,15 @@
 </template>
 
 <script>
-import TestRandomProvider from "./model/TestRandomProvider.js";
-import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
+// import TestRandomProvider from "./model/TestRandomProvider.js";
+// import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
 //import ResetComponent from "./components/ResetComponent.vue";
 import GameComponent from "./components/GameComponent.vue";
-const igrica = new WebBombikaViewModel(new TestRandomProvider());
+// const igrica = new WebBombikaViewModel(new TestRandomProvider());
 // const player = igrica.newGame();
 // const board = player.minefield;
 export default {
-  setup() {
-    return igrica;
-  },
+  setup() {},
   name: "App",
   components: { GameComponent },
 
