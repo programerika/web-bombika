@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <NumberOfFlagsComponent :numberOfFlags="countFlags()" />
+    <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
     <ResetComponent @reset="resetuj()" />
     <TimerComponent />
   </div>
@@ -20,10 +20,14 @@ export default {
       webBombikaViewModel: webBombikaViewModel,
     };
   },
+  props: {
+    numberOfFlags: Number,
+  },
   components: { NumberOfFlagsComponent, ResetComponent, TimerComponent },
   methods: {
     resetuj: function () {
       webBombikaViewModel.newGame();
+      this.$emit();
     },
     countFlags: function () {
       return webBombikaViewModel.player.numberOfBombs;
