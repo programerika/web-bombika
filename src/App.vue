@@ -1,28 +1,26 @@
 <template>
   <div id="1">
-    <button @click="napraviIgru()">NewGame</button>
     <GameComponent />
   </div>
 </template>
 
 <script>
-// import TestRandomProvider from "./model/TestRandomProvider.js";
-// import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
+import TestRandomProvider from "./model/TestRandomProvider.js";
+import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
 //import ResetComponent from "./components/ResetComponent.vue";
 import GameComponent from "./components/GameComponent.vue";
-// const igrica = new WebBombikaViewModel(new TestRandomProvider());
+const igrica = new WebBombikaViewModel(new TestRandomProvider());
 // const player = igrica.newGame();
 // const board = player.minefield;
 export default {
-  setup() {},
+  setup() {
+    return {
+      igrica: igrica,
+    };
+  },
   name: "App",
   components: { GameComponent },
-
-  methods: {
-    napraviIgru: function () {
-      console.log(this.$store);
-    },
-  },
+  methods: {},
 };
 </script>
 

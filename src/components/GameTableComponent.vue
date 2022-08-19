@@ -27,9 +27,8 @@ export default {
   },
   methods: {
     onCellClicked: function (r, c) {
-      console.log("Opened field");
+      console.log("Opened field", r, c);
       vm.openField(r, c);
-      this.$forceUpdate;
     },
   },
   components: { CellComponent },

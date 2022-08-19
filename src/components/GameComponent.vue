@@ -9,13 +9,13 @@ import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 // import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 // import TestRandomProvider from "@/model/TestRandomProvider";
-// import CellComponent from "./CellComponent.vue";
+// const wbvm = new WebBombikaViewModel(new TestRandomProvider());
 
 export default {
   setup() {
-    // let webBombikaViewModel = new WebBombikaViewModel(new TestRandomProvider());
-    // let board = webBombikaViewModel.newGame();
-    // let tabla = board.minefield;
+    return {
+      // wbvm: wbvm,
+    };
   },
   props: {
     igra: Object,
@@ -24,7 +24,6 @@ export default {
     napraviIgru: function () {
       this.igra.newGame();
     },
-    openField: function () {},
   },
   components: { HeaderComponent, GameTableComponent },
 };

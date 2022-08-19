@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img @click="on_Click()" class="field" :src="slika" alt="field" />
+    <img @click="on_Click()" class="field" :src="field" alt="field" />
   </div>
 </template>
 <script>
@@ -11,11 +11,9 @@ import fieldOpen from "@/assets/orangeHelp.png";
 // let CellVievModel = new WebBombikaViewModel(new TestRandomProvider());
 export default {
   setup() {
-    let slika = field;
     return {
       field: field,
       fieldOpen: fieldOpen,
-      slika,
     };
   },
   props: {
@@ -24,7 +22,6 @@ export default {
   components: {},
   methods: {
     on_Click() {
-      this.slika = fieldOpen;
       console.log("click");
       this.$emit("clicked");
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img @click="reset" class="restart" :src="restart" alt="restart" />
+    <img @click="restartGame()" class="restart" :src="restart" alt="restart" />
   </div>
 </template>
 <script>
@@ -11,10 +11,13 @@ export default {
       restart: restart,
     };
   },
+  props: {
+    reset: Object,
+  },
   components: {},
   methods: {
-    reset: function () {
-      console.log("reset");
+    restartGame: function () {
+      this.$emit("reset");
     },
   },
 };
