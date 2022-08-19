@@ -2,7 +2,7 @@
   <div class="container">
     <HeaderComponent />
     <GameTableComponent />
-    <button @click="napraviIgru()">NewGame</button>
+    <p @click="napraviIgru()">NewGame</p>
   </div>
 </template>
 <script>
@@ -18,7 +18,8 @@ export default {
   components: { HeaderComponent, GameTableComponent },
   methods: {
     napraviIgru: function () {
-      webBombikaViewModel.newGame();
+      const player = webBombikaViewModel.newGame();
+      return player;
     },
   },
 };

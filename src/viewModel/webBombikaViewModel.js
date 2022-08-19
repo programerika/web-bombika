@@ -1,5 +1,6 @@
 import WebBombikaModel from "@/model/webBombikaModel";
-import grey from "@/assets/grey-icon-0.png";
+import picClosed from "@/assets/grey-icon-0.png";
+import someOtherPic from "@/assets/orangeHelp.png";
 
 export class WebBombikaViewModel {
   constructor(randomProvider) {
@@ -12,20 +13,30 @@ export class WebBombikaViewModel {
 
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();
-    this.#iconsForView(playerGameState);
     return playerGameState;
   };
 
   openField = (x, y) => {
     if (this.webBombikaModel.canFieldBeOpened(x, y)) {
-      return this.webBombikaModel.openField(x, y);
+      let playerGameState = this.webBombikaModel.openField(x, y);
+      this.#iconsForView(playerGameState);
+    }
+  };
+
+  toggleFlag = (x, y) => {
+    if (this.webBombikaModel.canFieldBeFlagged) {
+      this.webBombikaModel.toggleFlag(x, y);
     }
   };
 
   #iconsForView = (playerGameState) => {
     for (let i = 0; i < playerGameState.rows; i++) {
       for (let j = 0; j < playerGameState.cols; j++) {
-        playerGameState.minefield[i][j] = grey;
+        if (playerGameState.minefield[i][j].closed) {
+          playerGameState.minefield[i][j] = picClosed;
+        } else {
+          playerGameState.minefield[i][j] = someOtherPic;
+        }
       }
     }
   };

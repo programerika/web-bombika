@@ -1,11 +1,21 @@
 <template>
-  <div class="container">
-    <h1>ResetKomponenta</h1>
+  <div>
+    <img @click="reset" class="restart" :src="restart" alt="restart" />
   </div>
 </template>
 <script>
+import restart from "@/assets/restartGreenBlue.png";
 export default {
-  setup() {},
+  setup() {
+    return {
+      restart: restart,
+    };
+  },
   components: {},
+  methods: {
+    reset: function () {
+      console.log("reset");
+    },
+  },
 };
 </script>

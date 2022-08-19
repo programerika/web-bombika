@@ -1,5 +1,5 @@
 <template>
-  <div v-for="i in 10" :key="i.index">
+  <div>
     <CellComponent />
   </div>
 </template>
