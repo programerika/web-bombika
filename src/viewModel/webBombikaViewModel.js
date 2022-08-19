@@ -5,11 +5,17 @@ import someOtherPic from "@/assets/orangeHelp.png";
 export class WebBombikaViewModel {
   constructor(randomProvider) {
     this.webBombikaModel = new WebBombikaModel(randomProvider);
+    this.player = this.webBombikaModel.newGame();
+    this.board = this.player.minefield;
   }
 
   #getModelState = () => {};
 
   #getViewState = () => {};
+
+  // board = (r, c) => {
+  //   return this.webBombikaModel.gameState.minefield[r][c];
+  // };
 
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();

@@ -1,12 +1,41 @@
 <template>
-  <div>
-    <CellComponent />
+  <div class="flex" v-for="r in vm.board" :key="r">
+    <div v-for="c in r" :key="c">
+      <CellComponent
+        @clicked="onCellClicked(1, 0)"
+        :cell="vm.board[(1, 0)]"
+      ></CellComponent>
+    </div>
   </div>
 </template>
 <script>
+import TestRandomProvider from "@/model/TestRandomProvider";
+import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import CellComponent from "./CellComponent.vue";
+
+let vm = new WebBombikaViewModel(new TestRandomProvider());
+//vm.newGame();
+
 export default {
-  setup() {},
+  setup() {
+    return {
+      vm: vm,
+    };
+  },
+  props: {
+    board: Object,
+  },
+  methods: {
+    onCellClicked: function (r, c) {
+      console.log("Opened field");
+      vm.openField(r, c);
+    },
+  },
   components: { CellComponent },
 };
 </script>
+<style>
+.flex {
+  display: flex;
+}
+</style>
