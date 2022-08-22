@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <HeaderComponent :numberOfFlags="vratiBrojZastava()" @reset="restartuj()" />
+    <HeaderComponent :igra="wbvm" @reset="restartuj()" />
     <GameTableComponent :igra="wbvm" />
   </div>
 </template>

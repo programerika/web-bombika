@@ -21,7 +21,7 @@ export default {
     return {};
   },
   props: {
-    board: Object,
+    // board: Object,
     igra: Object,
   },
   methods: {
