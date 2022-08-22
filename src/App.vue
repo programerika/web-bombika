@@ -3,17 +3,9 @@
 </template>
 
 <script>
-import TestRandomProvider from "./model/TestRandomProvider.js";
-import { WebBombikaViewModel } from "./viewModel/webBombikaViewModel";
 import GameComponent from "./components/GameComponent.vue";
-const igrica = new WebBombikaViewModel(new TestRandomProvider());
 
 export default {
-  setup() {
-    return {
-      igrica: igrica,
-    };
-  },
   name: "App",
   components: { GameComponent },
   methods: {},

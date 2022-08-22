@@ -6,20 +6,12 @@
   </div>
 </template>
 <script>
-import TestRandomProvider from "@/model/TestRandomProvider";
-import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import NumberOfFlagsComponent from "./NumberOfFlagsComponent.vue";
 import ResetComponent from "./ResetComponent.vue";
 import TimerComponent from "./TimerComponent.vue";
 
-const webBombikaViewModel = new WebBombikaViewModel(new TestRandomProvider());
-
 export default {
-  setup() {
-    return {
-      webBombikaViewModel: webBombikaViewModel,
-    };
-  },
+  setup() {},
   props: {
     numberOfFlags: Number,
   },
@@ -28,9 +20,6 @@ export default {
     resetuj: function () {
       //webBombikaViewModel.newGame();
       this.$emit("reset");
-    },
-    countFlags: function () {
-      return webBombikaViewModel.player.numberOfBombs;
     },
   },
 };
