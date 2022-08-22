@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="flex">
     <h1>{{ numberOfFlags }}</h1>
   </div>
 </template>
@@ -13,3 +13,9 @@ export default {
   components: {},
 };
 </script>
+
+<style>
+.flex {
+  margin: auto;
+}
+</style>

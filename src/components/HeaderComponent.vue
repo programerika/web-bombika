@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flexic">
     <NumberOfFlagsComponent :numberOfFlags="igra.player.numberOfBombs" />
     <ResetComponent @reset="resetuj()" />
     <TimerComponent />
@@ -25,8 +25,8 @@ export default {
 </script>
 
 <style>
-.flex {
+.flexic {
   display: flex;
-  border: 2px solid black;
+  border-bottom: 2px solid black;
 }
 </style>

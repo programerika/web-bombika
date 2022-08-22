@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="flex">
     <h1>TimerComponent</h1>
   </div>
 </template>
@@ -9,3 +9,8 @@ export default {
   components: {},
 };
 </script>
+<style>
+.flex {
+  margin: auto;
+}
+</style>

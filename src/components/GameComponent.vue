@@ -35,7 +35,8 @@ export default {
 };
 </script>
 <style scoped>
-.flex {
-  display: flex;
+.container {
+  border: 2px solid black;
+  margin: auto;
 }
 </style>

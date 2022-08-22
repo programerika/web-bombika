@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img @click="on_Click()" class="field" :src="field" alt="field" />
+  <div class="flex">
+    <img @click="on_Click()" class="flex" :src="field" alt="field" />
   </div>
 </template>
 <script>
@@ -28,3 +28,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.flex {
+  display: flex;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex" v-for="r in igra.board" :key="r.x">
-    <div v-for="c in r" :key="c.y">
+    <div class="celija" v-for="c in r" :key="c.y">
       <CellComponent
         @clicked="onCellClicked(c.x, c.y)"
         :cell="igra.board[c.x][c.y]"
@@ -30,5 +30,9 @@ export default {
 <style>
 .flex {
   display: flex;
+}
+.celija {
+  width: 30px;
+  height: 30px;
 }
 </style>

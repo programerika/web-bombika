@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex">
     <img @click="restartGame()" class="restart" :src="restart" alt="restart" />
   </div>
 </template>
@@ -22,3 +22,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.flex {
+  margin: auto;
+}
+</style>
