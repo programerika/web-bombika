@@ -1,7 +1,5 @@
 <template>
-  <div id="1">
-    <GameComponent />
-  </div>
+  <div id="1"><GameComponent /></div>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <HeaderComponent :numberOfFlags="vratiBrojZastava()" />
-    <GameTableComponent />
+    <HeaderComponent :numberOfFlags="vratiBrojZastava()" @reset="restartuj()" />
+    <GameTableComponent :igra="wbvm" />
   </div>
 </template>
 <script>
@@ -26,6 +26,9 @@ export default {
     },
     vratiBrojZastava: function () {
       return wbvm.player.numberOfBombs;
+    },
+    restartuj: function () {
+      wbvm.newGame();
     },
   },
   components: { HeaderComponent, GameTableComponent },
