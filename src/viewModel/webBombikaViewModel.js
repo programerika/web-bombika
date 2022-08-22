@@ -30,7 +30,7 @@ export class WebBombikaViewModel {
   };
 
   toggleFlag = (x, y) => {
-    if (this.webBombikaModel.canFieldBeFlagged) {
+    if (this.webBombikaModel.canFieldBeFlagged(x, y)) {
       this.webBombikaModel.toggleFlag(x, y);
     }
   };

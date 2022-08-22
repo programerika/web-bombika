@@ -4,6 +4,7 @@
       <CellComponent
         @clicked="onCellClicked(c.x, c.y)"
         :cell="igra.board[c.x][c.y]"
+        @rightClick="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
   </div>
@@ -22,6 +23,9 @@ export default {
     onCellClicked: function (r, c) {
       console.log("Opened field", r, c);
       this.igra.openField(r, c);
+    },
+    onCellRightClicked: function (r, c) {
+      this.igra.toggleFlag(r, c);
     },
   },
   components: { CellComponent },

@@ -1,6 +1,12 @@
 <template>
   <div class="flex">
-    <img @click="on_Click()" class="flex" :src="field" alt="field" />
+    <img
+      @click="on_Click()"
+      @contextmenu.prevent="on_right_click()"
+      class="flex"
+      :src="field"
+      alt="field"
+    />
   </div>
 </template>
 <script>
@@ -24,6 +30,10 @@ export default {
     on_Click() {
       console.log("click");
       this.$emit("clicked");
+    },
+    on_right_click() {
+      this.$emit("rightClick");
+      this.$forceUpdate;
     },
   },
 };
