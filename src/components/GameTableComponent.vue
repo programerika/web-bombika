@@ -9,19 +9,13 @@
   </div>
 </template>
 <script>
-// import TestRandomProvider from "@/model/TestRandomProvider";
-// import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import CellComponent from "./CellComponent.vue";
-
-//let vm = new WebBombikaViewModel(new TestRandomProvider());
-//vm.newGame();
 
 export default {
   setup() {
     return {};
   },
   props: {
-    // board: Object,
     igra: Object,
   },
   methods: {

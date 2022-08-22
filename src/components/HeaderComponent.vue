@@ -18,7 +18,6 @@ export default {
   components: { NumberOfFlagsComponent, ResetComponent, TimerComponent },
   methods: {
     resetuj: function () {
-      //webBombikaViewModel.newGame();
       this.$emit("reset");
     },
   },
