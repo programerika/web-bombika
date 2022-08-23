@@ -19,6 +19,8 @@ export class WebBombikaViewModel {
 
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();
+    // const board = playerGameState.minefield;
+    // return { playerGameState, board };
     return playerGameState;
   };
 
