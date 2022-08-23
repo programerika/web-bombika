@@ -1,7 +1,13 @@
 <template>
   <div class="container">
-    <HeaderComponent :igra="wbvm" @reset="restartuj()" />
-    <GameTableComponent :igra="wbvm" />
+    <div>
+      <HeaderComponent
+        :igra="wbvm"
+        @reset="restartuj()"
+        @changed="vratiBrojZastava()"
+      />
+      <GameTableComponent :igra="wbvm" />
+    </div>
   </div>
 </template>
 <script>
@@ -9,7 +15,7 @@ import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import TestRandomProvider from "@/model/TestRandomProvider";
-const wbvm = new WebBombikaViewModel(new TestRandomProvider());
+let wbvm = new WebBombikaViewModel(new TestRandomProvider());
 
 export default {
   setup() {
@@ -38,5 +44,15 @@ export default {
 .container {
   border: 2px solid black;
   margin: auto;
+  display: grid;
+  place-items: center;
+  width: 4vh;
+}
+
+.gameContainer {
+  border: 2px solid black;
+  margin: auto;
+  display: grid;
+  place-items: center;
 }
 </style>

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import restart from "@/assets/restartGreenBlue.png";
+import restart from "@/assets/restart.png";
 export default {
   setup() {
     return {

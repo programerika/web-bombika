@@ -26,6 +26,7 @@ export default {
     },
     onCellRightClicked: function (r, c) {
       this.igra.toggleFlag(r, c);
+      this.$emit("changed");
     },
   },
   components: { CellComponent },

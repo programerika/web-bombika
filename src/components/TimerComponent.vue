@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <h1>TimerComponent</h1>
+    <h3>Timer</h3>
   </div>
 </template>
 <script>
