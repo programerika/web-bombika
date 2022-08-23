@@ -35,6 +35,6 @@ export default {
 .flexic {
   display: flex;
   border-bottom: 2px solid black;
-  background-color: burlywood;
+  background-color: cadetblue;
 }
 </style>

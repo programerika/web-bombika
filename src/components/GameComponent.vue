@@ -46,7 +46,6 @@ export default {
   margin: auto;
   display: grid;
   place-items: center;
-  width: 4vh;
 }
 
 .gameContainer {
