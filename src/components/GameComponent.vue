@@ -10,7 +10,7 @@
       />
       <GameTableComponent
         :player="playerState"
-        @rightClick="toggleFlag"
+        @toggleFlag="toggleFlag"
         @openField="openField"
       />
     </div>

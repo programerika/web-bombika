@@ -4,7 +4,7 @@
       <CellComponent
         @openField="onCellClicked(c.x, c.y)"
         :cell="player.minefield[c.x][c.y]"
-        @rightClick="onCellRightClicked(c.x, c.y)"
+        @toggleFlag="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
   </div>
@@ -25,11 +25,11 @@ export default {
     },
     onCellRightClicked(r, c) {
       console.log(r, c);
-      this.$emit("rightClick", { r: r, c: c });
+      this.$emit("toggleFlag", { r: r, c: c });
     },
   },
   components: { CellComponent },
-  emits: ["openField", "rightClick"],
+  emits: ["openField", "toggleFlag"],
 };
 </script>
 <style>
