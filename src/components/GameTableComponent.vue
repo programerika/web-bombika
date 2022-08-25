@@ -15,6 +15,7 @@ import CellComponent from "./CellComponent.vue";
 export default {
   props: {
     player: Object,
+    image: Image,
   },
   methods: {
     onCellClicked(r, c) {

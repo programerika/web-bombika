@@ -20,7 +20,8 @@
 import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
-import TestRandomProvider from "@/model/TestRandomProvider";
+// import TestRandomProvider from "@/model/TestRandomProvider";
+import RandomProvider from "@/model/RandomProvider";
 
 export default {
   data() {
@@ -31,7 +32,7 @@ export default {
     };
   },
   mounted() {
-    this.wbvm = new WebBombikaViewModel(new TestRandomProvider());
+    this.wbvm = new WebBombikaViewModel(new RandomProvider());
     this.playerState = this.wbvm.newGame();
   },
   methods: {
