@@ -2,11 +2,14 @@
   <div class="container">
     <div>
       <HeaderComponent
-        :igra="wbvm"
+        :numberOfFlags="playerState.numberOfBombs"
         @reset="restartuj()"
-        @changed="vratiBrojZastava()"
       />
-      <GameTableComponent :igra="wbvm" />
+      <GameTableComponent
+        :player="playerState"
+        @rightClick="toggleFlag"
+        @openField="openField"
+      />
     </div>
   </div>
 </template>
@@ -15,26 +18,33 @@ import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import TestRandomProvider from "@/model/TestRandomProvider";
-let wbvm = new WebBombikaViewModel(new TestRandomProvider());
 
 export default {
-  setup() {
+  data() {
     return {
-      wbvm: wbvm,
+      wbvm: {},
+      playerState: {},
     };
   },
-  props: {
-    igra: wbvm,
+  mounted() {
+    this.wbvm = new WebBombikaViewModel(new TestRandomProvider());
+    this.playerState = this.wbvm.newGame();
   },
   methods: {
-    napraviIgru: function () {
-      this.igra.newGame();
+    restartuj() {
+      this.playerState = this.wbvm.newGame();
     },
-    vratiBrojZastava: function () {
-      return wbvm.player.numberOfBombs;
+    toggleFlag(cellCoordinates) {
+      this.playerState = {
+        ...this.playerState,
+        ...this.wbvm.toggleFlag(cellCoordinates.r, cellCoordinates.c),
+      };
     },
-    restartuj: function () {
-      wbvm.newGame();
+    openField(cellCoordinates) {
+      this.playerState = {
+        ...this.playerState,
+        ...this.wbvm.openField(cellCoordinates.r, cellCoordinates.c),
+      };
     },
   },
   components: { HeaderComponent, GameTableComponent },

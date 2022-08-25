@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  setup() {},
   props: {
     numberOfFlags: Number,
   },

@@ -16,7 +16,7 @@ import fieldOpen from "@/assets/orangeHelp.png";
 // import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 // let CellVievModel = new WebBombikaViewModel(new TestRandomProvider());
 export default {
-  setup() {
+  data() {
     return {
       field: field,
       fieldOpen: fieldOpen,
@@ -29,13 +29,17 @@ export default {
   methods: {
     on_Click() {
       console.log("click");
-      this.$emit("clicked");
+      this.$emit("openField");
     },
     on_right_click() {
       this.$emit("rightClick");
-      this.$forceUpdate;
+      //this.$forceUpdate;
     },
   },
+  emits: ["openField", "rightClick"],
+  // watch: {
+  //   "cell.closed": {},
+  // },
 };
 </script>
 

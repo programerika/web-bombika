@@ -1,9 +1,9 @@
 <template>
-  <div class="flex" v-for="r in igra.board" :key="r.x">
+  <div class="flex" v-for="r in player.minefield" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
       <CellComponent
-        @clicked="onCellClicked(c.x, c.y)"
-        :cell="igra.board[c.x][c.y]"
+        @openField="onCellClicked(c.x, c.y)"
+        :cell="player.minefield[c.x][c.y]"
         @rightClick="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
@@ -13,23 +13,22 @@
 import CellComponent from "./CellComponent.vue";
 
 export default {
-  setup() {
-    return {};
-  },
   props: {
-    igra: Object,
+    player: Object,
   },
   methods: {
-    onCellClicked: function (r, c) {
+    onCellClicked(r, c) {
       console.log("Opened field", r, c);
-      this.igra.openField(r, c);
+      // this.igra.openField(r, c);
+      this.$emit("openField", { r: r, c: c });
     },
-    onCellRightClicked: function (r, c) {
-      this.igra.toggleFlag(r, c);
-      this.$emit("changed");
+    onCellRightClicked(r, c) {
+      console.log(r, c);
+      this.$emit("rightClick", { r: r, c: c });
     },
   },
   components: { CellComponent },
+  emits: ["openField", "rightClick"],
 };
 </script>
 <style>

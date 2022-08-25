@@ -27,13 +27,15 @@ export class WebBombikaViewModel {
   openField = (x, y) => {
     if (this.webBombikaModel.canFieldBeOpened(x, y)) {
       let playerGameState = this.webBombikaModel.openField(x, y);
-      this.#iconsForView(playerGameState);
+      //this.#iconsForView(playerGameState);
+      return playerGameState;
     }
   };
 
   toggleFlag = (x, y) => {
     if (this.webBombikaModel.canFieldBeFlagged(x, y)) {
-      this.webBombikaModel.toggleFlag(x, y);
+      let playerGameState = this.webBombikaModel.toggleFlag(x, y);
+      return playerGameState;
     }
   };
 

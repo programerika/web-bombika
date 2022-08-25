@@ -7,7 +7,7 @@
 <script>
 import help from "@/assets/help.png";
 export default {
-  setup() {
+  data() {
     return {
       help,
     };

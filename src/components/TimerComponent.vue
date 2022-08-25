@@ -6,7 +6,7 @@
 <script>
 import { reactive } from "@vue/reactivity";
 export default {
-  setup() {
+  data() {
     const state = reactive({ count: 0 });
     function increment() {
       state.count++;

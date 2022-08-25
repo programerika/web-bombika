@@ -1,6 +1,6 @@
 <template>
   <div class="flexic">
-    <NumberOfFlagsComponent :numberOfFlags="igra.player.numberOfBombs" />
+    <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
     <ResetComponent @reset="resetuj()" />
     <TimerComponent />
     <HelpComponent />
@@ -13,9 +13,8 @@ import TimerComponent from "./TimerComponent.vue";
 import HelpComponent from "./HelpComponent.vue";
 
 export default {
-  setup() {},
   props: {
-    igra: Object,
+    numberOfFlags: Number,
   },
   components: {
     NumberOfFlagsComponent,

@@ -129,7 +129,7 @@ export default class WebBombikaModel {
       gameState.minefield,
       gameState.isFinished
     );
-    console.log("Player game state: ", playerGameState.minefield);
+    console.log("Player game state: ", playerGameState);
     console.log("game state: ", this.gameState.minefield);
     return playerGameState;
   };

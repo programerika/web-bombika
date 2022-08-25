@@ -6,13 +6,10 @@
 <script>
 import restart from "@/assets/restart.png";
 export default {
-  setup() {
+  data() {
     return {
       restart: restart,
     };
-  },
-  props: {
-    reset: Object,
   },
   components: {},
   methods: {
