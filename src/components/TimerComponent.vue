@@ -1,34 +1,30 @@
 <template>
   <div class="flex">
-    <h1 @mounted="setTime()">⏱️{{ state.count }}</h1>
+    <h1>⏱️{{ timer }}</h1>
   </div>
 </template>
 <script>
-import { reactive } from "@vue/reactivity";
 export default {
-  data() {
-    const state = reactive({ count: 0 });
+  setup() {
     function increment() {
-      state.count++;
-    }
-
-    function setTime() {
-      while (this.gameStatus === false) {
-        setInterval(() => {
-          increment(), 1000;
-        });
-      }
+      setInterval(() => {
+        if (!this.gameStatus) {
+          this.$emit("time");
+        }
+      }, 1000);
     }
     return {
-      state,
       increment,
-      setTime,
     };
   },
   props: {
     gameStatus: Boolean,
+    timer: Number,
   },
   components: {},
+  mounted() {
+    this.increment();
+  },
 };
 </script>
 <style>

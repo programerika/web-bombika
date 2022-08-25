@@ -2,7 +2,7 @@
   <div class="flexic">
     <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
     <ResetComponent @reset="resetuj()" />
-    <TimerComponent />
+    <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time()" />
     <HelpComponent />
   </div>
 </template>
@@ -15,6 +15,8 @@ import HelpComponent from "./HelpComponent.vue";
 export default {
   props: {
     numberOfFlags: Number,
+    isFinished: Boolean,
+    timer: Number,
   },
   components: {
     NumberOfFlagsComponent,
@@ -25,6 +27,9 @@ export default {
   methods: {
     resetuj: function () {
       this.$emit("reset");
+    },
+    time: function () {
+      this.$emit("time");
     },
   },
 };

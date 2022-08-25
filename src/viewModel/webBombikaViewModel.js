@@ -5,8 +5,6 @@ import WebBombikaModel from "@/model/webBombikaModel";
 export class WebBombikaViewModel {
   constructor(randomProvider) {
     this.webBombikaModel = new WebBombikaModel(randomProvider);
-    this.player = this.webBombikaModel.newGame();
-    this.board = this.player.minefield;
   }
 
   #getModelState = () => {};

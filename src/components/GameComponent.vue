@@ -3,7 +3,10 @@
     <div>
       <HeaderComponent
         :numberOfFlags="playerState.numberOfBombs"
+        :isFinished="playerState.isFinished"
+        :timer="timer"
         @reset="restartuj()"
+        @time="timer++"
       />
       <GameTableComponent
         :player="playerState"
@@ -22,6 +25,7 @@ import TestRandomProvider from "@/model/TestRandomProvider";
 export default {
   data() {
     return {
+      timer: 0,
       wbvm: {},
       playerState: {},
     };
@@ -33,6 +37,7 @@ export default {
   methods: {
     restartuj() {
       this.playerState = this.wbvm.newGame();
+      this.timer = 0;
     },
     toggleFlag(cellCoordinates) {
       this.playerState = {
