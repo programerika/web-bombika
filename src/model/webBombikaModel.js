@@ -251,7 +251,10 @@ export default class WebBombikaModel {
         }
       }
     }
-    return countOpenedFields == 90;
+    return (
+      countOpenedFields ==
+      this.gameState.rows * this.gameState.cols - this.gameState.numberOfBombs
+    );
   };
 
   #gameEndUnsuccessful = () => {
