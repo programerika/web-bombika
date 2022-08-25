@@ -56,11 +56,11 @@ export default {
   margin: auto;
   display: grid;
   place-items: center;
+  width: 300px;
 }
 
 .gameContainer {
   border: 2px solid black;
-  margin: auto;
   display: grid;
   place-items: center;
 }

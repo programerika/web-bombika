@@ -1,6 +1,6 @@
 import WebBombikaModel from "@/model/webBombikaModel";
-import picClosed from "@/assets/grey-icon-0.png";
-import someOtherPic from "@/assets/orangeHelp.png";
+// import picClosed from "@/assets/grey-icon-0.png";
+// import someOtherPic from "@/assets/orangeHelp.png";
 
 export class WebBombikaViewModel {
   constructor(randomProvider) {
@@ -39,15 +39,15 @@ export class WebBombikaViewModel {
     }
   };
 
-  #iconsForView = (playerGameState) => {
-    for (let i = 0; i < playerGameState.rows; i++) {
-      for (let j = 0; j < playerGameState.cols; j++) {
-        if (playerGameState.minefield[i][j].closed) {
-          playerGameState.minefield[i][j] = picClosed;
-        } else {
-          playerGameState.minefield[i][j] = someOtherPic;
-        }
-      }
-    }
-  };
+  // #iconsForView = (playerGameState) => {
+  //   for (let i = 0; i < playerGameState.rows; i++) {
+  //     for (let j = 0; j < playerGameState.cols; j++) {
+  //       if (playerGameState.minefield[i][j].closed) {
+  //         playerGameState.minefield[i][j] = picClosed;
+  //       } else {
+  //         playerGameState.minefield[i][j] = someOtherPic;
+  //       }
+  //     }
+  //   }
+  // };
 }

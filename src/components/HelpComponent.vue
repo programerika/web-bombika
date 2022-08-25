@@ -1,6 +1,8 @@
 <template>
   <div class="flex">
-    <img class="flex" :src="help" alt="restart" />
+    <button>
+      <img class="flex" :src="help" alt="restart" />
+    </button>
   </div>
 </template>
 

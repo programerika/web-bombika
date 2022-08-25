@@ -1,6 +1,13 @@
 <template>
   <div class="flex">
-    <img @click="restartGame()" class="restart" :src="restart" alt="restart" />
+    <button style="{{background-color: cyan;}}">
+      <img
+        @click="restartGame()"
+        class="restart"
+        :src="restart"
+        alt="restart"
+      />
+    </button>
   </div>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <h1>{{ numberOfFlags }}</h1>
+    <h1>🚩{{ numberOfFlags }}</h1>
   </div>
 </template>
 <script>

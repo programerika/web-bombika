@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <h1 @mounted="setTime()">{{ state.count }}</h1>
+    <h1 @mounted="setTime()">⏱️{{ state.count }}</h1>
   </div>
 </template>
 <script>
