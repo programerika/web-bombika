@@ -10,7 +10,7 @@
       />
       <GameTableComponent
         :player="playerState.minefield"
-        @rightClick="toggleFlag"
+        @toggleFlag="toggleFlag"
         @openField="openField"
       />
     </div>

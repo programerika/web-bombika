@@ -4,7 +4,7 @@
       <CellComponent
         @openField="onCellClicked(c.x, c.y)"
         :cell="player[c.x][c.y]"
-        @rightClick="onCellRightClicked(c.x, c.y)"
+        @toggleFlag="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
   </div>
