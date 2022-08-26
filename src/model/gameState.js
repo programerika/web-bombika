@@ -1,6 +1,7 @@
 export default class GameState {
   constructor() {
     this.numberOfBombs = 10;
+    this.numberOfFlags = 10;
     this.cols = 10;
     this.rows = 10;
     this.isFinished = false;

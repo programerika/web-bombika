@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <HeaderComponent
-        :numberOfFlags="playerState.numberOfBombs"
+        :numberOfFlags="playerState.numberOfFlags"
         :isFinished="playerState.isFinished"
         :timer="timer"
         @reset="restartuj()"
