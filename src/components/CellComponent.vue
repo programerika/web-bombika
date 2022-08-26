@@ -77,11 +77,11 @@ export default {
       this.changeImage();
     },
     onRightClick() {
-      this.$emit("rightClick");
+      this.$emit("toggleFlag");
       this.changeImage();
     },
   },
-  emits: ["openField", "rightClick"],
+  emits: ["openField", "toggleFlag"],
   // watch: {
   //   "cell.closed": {},
   // },

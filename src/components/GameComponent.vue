@@ -9,7 +9,7 @@
         @time="timer++"
       />
       <GameTableComponent
-        :player="playerState.minefield"
+        :player="playerState"
         @rightClick="toggleFlag"
         @openField="openField"
       />
