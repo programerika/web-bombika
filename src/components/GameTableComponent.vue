@@ -1,9 +1,9 @@
 <template>
-  <div class="flex" v-for="r in player.minefield" :key="r.x">
+  <div class="flex" v-for="r in player" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
       <CellComponent
         @openField="onCellClicked(c.x, c.y)"
-        :cell="player.minefield[c.x][c.y]"
+        :cell="player[c.x][c.y]"
         @rightClick="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
