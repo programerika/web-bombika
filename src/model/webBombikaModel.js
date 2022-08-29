@@ -161,7 +161,7 @@ export default class WebBombikaModel {
     } else {
       this.gameState.numberOfFlags++;
     }
-    console.log(this.gameState.numberOfBombs);
+    console.log(this.gameState.numberOfFlags);
     return this.#preparePlayerGameState(this.gameState);
   };
 
