@@ -1,13 +1,11 @@
 <template>
   <div class="flex" v-for="r in player" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
-      <v-hower>
-        <CellComponent
-          @openField="onCellClicked(c.x, c.y)"
-          :cell="player[c.x][c.y].image"
-          @toggleFlag="onCellRightClicked(c.x, c.y)"
-        ></CellComponent>
-      </v-hower>
+      <CellComponent
+        @openField="onCellClicked(c.x, c.y)"
+        :cell="player[c.x][c.y].image"
+        @toggleFlag="onCellRightClicked(c.x, c.y)"
+      ></CellComponent>
     </div>
   </div>
 </template>
