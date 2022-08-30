@@ -1,5 +1,9 @@
 <template>
-  <div id="1"><GameComponent /></div>
+  <v-app>
+    <v-main>
+      <GameComponent />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -7,18 +11,13 @@ import GameComponent from "./components/GameComponent.vue";
 
 export default {
   name: "App",
-  components: { GameComponent },
-  methods: {},
+
+  components: {
+    GameComponent,
+  },
+
+  data: () => ({
+    //
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
