@@ -265,7 +265,7 @@ describe("Testing gameEndState - Successful", () => {
   endingPlayer = gameEndSuccessful.openField(8, 9);
 
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
-    expect(endingPlayer.score).toEqual(100);
+    expect(endingPlayer.score).toEqual(100np);
   });
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
     expect(endingPlayer.isFinished).toEqual(true);
