@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <div>lol</div>
       <GameComponent />
     </v-main>
   </v-app>
