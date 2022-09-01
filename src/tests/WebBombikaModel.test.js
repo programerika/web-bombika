@@ -230,7 +230,7 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   playerFlaggedTheField = flagedField.toggleFlag(7, 1);
   playerFlaggedTheField = flagedField.toggleFlag(6, 1);
   it("Tests if numberOfBombs changes when we add/remove flags", () => {
-    expect(playerFlaggedTheField.numberOfBombs).toEqual(8);
+    expect(playerFlaggedTheField.numberOfFlags).toEqual(8);
   });
 });
 
@@ -265,7 +265,7 @@ describe("Testing gameEndState - Successful", () => {
   endingPlayer = gameEndSuccessful.openField(8, 9);
 
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
-    expect(endingPlayer.score).toEqual(95);
+    expect(endingPlayer.score).toEqual(100);
   });
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
     expect(endingPlayer.isFinished).toEqual(true);

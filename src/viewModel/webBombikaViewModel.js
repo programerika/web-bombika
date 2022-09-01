@@ -1,4 +1,4 @@
-import WebBombikaModel from "@/model/webBombikaModel";
+import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
   constructor(randomProvider) {
@@ -102,7 +102,7 @@ export class WebBombikaViewModel {
         state.isFinished
       ),
     };
-    console.log("View model player: ", playerViewModelState);
+    // console.log("View model player: ", playerViewModelState);
     return playerViewModelState;
   };
 }
