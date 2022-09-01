@@ -5,7 +5,7 @@
         :numberOfFlags="playerState.numberOfFlags"
         :isFinished="playerState.isFinished"
         :timer="timer"
-        @reset="restartuj()"
+        @restart="restartGame"
         @time="timer++"
       />
       <GameTableComponent
@@ -21,7 +21,6 @@ import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
 import TestRandomProvider from "@/model/TestRandomProvider";
-// import TestRandomProvider from "@/model/TestRandomProvider";
 // import RandomProvider from "@/model/RandomProvider";
 
 export default {
@@ -37,7 +36,7 @@ export default {
     this.playerState = this.wbvm.newGame();
   },
   methods: {
-    restartuj() {
+    restartGame() {
       this.playerState = this.wbvm.newGame();
       this.timer = 0;
     },

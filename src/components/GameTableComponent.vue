@@ -15,12 +15,10 @@ import CellComponent from "./CellComponent.vue";
 export default {
   props: {
     player: Object,
-    image: Image,
   },
   methods: {
     onCellClicked(r, c) {
       console.log("Opened field", r, c);
-      // this.igra.openField(r, c);
       this.$emit("openField", { r: r, c: c });
     },
     onCellRightClicked(r, c) {

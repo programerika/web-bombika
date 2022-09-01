@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
     <img
-      @click="onClick()"
-      @contextmenu.prevent="onRightClick()"
+      @click="onClick"
+      @contextmenu.prevent="onRightClick"
       class="flex"
       :src="require('@/assets/' + cell)"
       alt="field"
@@ -28,9 +28,6 @@ export default {
     },
   },
   emits: ["openField", "toggleFlag"],
-  // watch: {
-  //   "cell.closed": {},
-  // },
 };
 </script>
 

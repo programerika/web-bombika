@@ -1,8 +1,8 @@
 <template>
   <div class="flexic">
     <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
-    <ResetComponent @reset="resetuj()" />
-    <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time()" />
+    <ResetComponent @restart="restartGame" />
+    <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time" />
     <HelpComponent />
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
     HelpComponent,
   },
   methods: {
-    resetuj: function () {
-      this.$emit("reset");
+    restartGame: function () {
+      this.$emit("restart");
     },
     time: function () {
       this.$emit("time");

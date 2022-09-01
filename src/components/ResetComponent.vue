@@ -1,12 +1,7 @@
 <template>
   <div class="flex">
     <button style="{{background-color: cyan;}}">
-      <img
-        @click="restartGame()"
-        class="restart"
-        :src="restart"
-        alt="restart"
-      />
+      <img @click="restartGame" class="restart" :src="restart" alt="restart" />
     </button>
   </div>
 </template>
@@ -18,13 +13,10 @@ export default {
       restart: restart,
     };
   },
-  props: {
-    timer: Number,
-  },
   components: {},
   methods: {
     restartGame: function () {
-      this.$emit("reset");
+      this.$emit("restart");
     },
   },
 };
