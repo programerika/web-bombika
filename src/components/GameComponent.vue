@@ -66,10 +66,26 @@ export default {
   border-radius: 10pt;
   width: fit-content;
   height: fit-content;
+  zoom: 125%;
 }
 
 .gameContainer {
   border: 2px solid black;
   display: grid;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    border: 2px solid black;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    width: auto;
+    border-radius: 10pt;
+    width: fit-content;
+    height: fit-content;
+    zoom: 90%;
+    justify-content: space-between;
+  }
 }
 </style>
