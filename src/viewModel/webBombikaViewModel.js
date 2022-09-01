@@ -73,10 +73,10 @@ export class WebBombikaViewModel {
         }
 
         if (isFinished) {
-          if (col.bomb && col.triggeredBomb && !col.flag) {
+          if (!col.flag && col.bomb && col.triggeredBomb) {
             newStepForPlayer.image = "triggeredbomba.jpg";
           }
-          if (col.bomb && !col.triggeredBomb && !col.flag) {
+          if (!col.flag && col.bomb && !col.triggeredBomb) {
             newStepForPlayer.image = "bomba.jpg";
           }
         }
