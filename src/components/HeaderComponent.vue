@@ -1,7 +1,8 @@
 <template>
   <div class="flexic">
-    <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
     <ResetComponent @reset="resetuj()" />
+    <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
+
     <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time()" />
     <HelpComponent />
   </div>
