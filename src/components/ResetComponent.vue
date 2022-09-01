@@ -21,13 +21,10 @@ export default {
       restart: restart,
     };
   },
-  props: {
-    timer: Number,
-  },
   components: {},
   methods: {
     restartGame: function () {
-      this.$emit("reset");
+      this.$emit("restart");
     },
   },
 };

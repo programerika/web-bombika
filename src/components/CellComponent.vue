@@ -28,9 +28,6 @@ export default {
     },
   },
   emits: ["openField", "toggleFlag"],
-  // watch: {
-  //   "cell.closed": {},
-  // },
 };
 </script>
 

@@ -1,8 +1,7 @@
 <template>
   <div class="flexic">
-    <ResetComponent @reset="resetuj()" />
     <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
-
+    <ResetComponent @reset="resetuj()" />
     <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time()" />
     <HelpComponent />
   </div>
@@ -39,7 +38,6 @@ export default {
 <style>
 .flexic {
   display: flex;
-  align-items: left;
   border-bottom: 2px solid black;
   background-color: rgb(0, 181, 187);
 }

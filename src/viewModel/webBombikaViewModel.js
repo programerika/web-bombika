@@ -73,10 +73,10 @@ export class WebBombikaViewModel {
         }
 
         if (isFinished) {
-          if (col.bomb && col.triggeredBomb) {
+          if (col.bomb && col.triggeredBomb && !col.flag) {
             newStepForPlayer.image = "triggeredbomba.jpg";
           }
-          if (col.bomb && !col.triggeredBomb) {
+          if (col.bomb && !col.triggeredBomb && !col.flag) {
             newStepForPlayer.image = "bomba.jpg";
           }
         }
@@ -102,7 +102,7 @@ export class WebBombikaViewModel {
         state.isFinished
       ),
     };
-    // console.log("View model player: ", playerViewModelState);
+    console.log("View model player: ", playerViewModelState);
     return playerViewModelState;
   };
 }
