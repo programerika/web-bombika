@@ -1,5 +1,5 @@
 <template>
-  <div class="flex" v-for="r in player" :key="r.x">
+  <div class="tabla" v-for="r in player" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
       <CellComponent
         @openField="onCellClicked(c.x, c.y)"
@@ -31,8 +31,9 @@ export default {
 };
 </script>
 <style>
-.flex {
+.tabla {
   display: flex;
+  background: green;
 }
 .celija {
   width: 30px;

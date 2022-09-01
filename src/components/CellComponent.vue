@@ -1,12 +1,14 @@
 <template>
-  <div class="flex">
-    <v-img
-      @click="onClick()"
-      @contextmenu.prevent="onRightClick()"
-      class="flex"
-      :src="require('@/assets/' + cell)"
-      alt="field"
-    />
+  <div>
+    <v-btn
+      ><img
+        @click="onClick()"
+        @contextmenu.prevent="onRightClick()"
+        class="flex"
+        :src="require('@/assets/' + cell)"
+        alt="field"
+      />
+    </v-btn>
   </div>
 </template>
 <script>
@@ -31,8 +33,21 @@ export default {
 };
 </script>
 
-<!-- <style>
-.flex {
-  display: flex;
+<style scoped>
+.v-btn {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  padding: 0;
+  background: transparent;
 }
-</style> -->
+</style>
+<!-- 
+<img
+  @click="onClick()"
+  @contextmenu.prevent="onRightClick()"
+  class="flex"
+  :src="require('@/assets/' + cell)"
+  alt="field"
+/> -->

@@ -63,6 +63,9 @@ export default {
   display: grid;
   place-items: center;
   width: auto;
+  border-radius: 10pt;
+  width: fit-content;
+  height: fit-content;
 }
 
 .gameContainer {
