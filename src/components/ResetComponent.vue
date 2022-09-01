@@ -29,18 +29,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.flex {
-  margin: auto;
-}
-</style>
-
-<!-- <button style="{{background-color: cyan;}}">
-      <img
-        @click="restartGame()"
-        class="restart"
-        :src="restart"
-        alt="restart"
-      />
-    </button> -->

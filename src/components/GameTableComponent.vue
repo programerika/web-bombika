@@ -33,7 +33,6 @@ export default {
 <style>
 .tabla {
   display: flex;
-  background: green;
 }
 .celija {
   width: 30px;

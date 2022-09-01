@@ -27,8 +27,3 @@ export default {
   },
 };
 </script>
-<style>
-.flex {
-  margin: auto;
-}
-</style>
