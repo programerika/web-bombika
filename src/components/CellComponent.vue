@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <img
+    <v-img
       @click="onClick()"
       @contextmenu.prevent="onRightClick()"
       class="flex"
@@ -34,8 +34,8 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 .flex {
   display: flex;
 }
-</style>
+</style> -->

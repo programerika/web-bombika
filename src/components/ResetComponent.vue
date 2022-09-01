@@ -1,13 +1,16 @@
 <template>
   <div class="flex">
-    <button style="{{background-color: cyan;}}">
-      <img
-        @click="restartGame()"
-        class="restart"
-        :src="restart"
-        alt="restart"
-      />
-    </button>
+    <v-btn
+      v-bind="props"
+      class="ma-1"
+      color="cyan"
+      icon="mdi-restart"
+      @click="restartGame()"
+      :src="restart"
+      alt="restart"
+      size="small"
+    >
+    </v-btn>
   </div>
 </template>
 <script>
@@ -35,3 +38,12 @@ export default {
   margin: auto;
 }
 </style>
+
+<!-- <button style="{{background-color: cyan;}}">
+      <img
+        @click="restartGame()"
+        class="restart"
+        :src="restart"
+        alt="restart"
+      />
+    </button> -->

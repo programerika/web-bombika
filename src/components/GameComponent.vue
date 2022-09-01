@@ -63,7 +63,8 @@ export default {
   margin: auto;
   display: grid;
   place-items: center;
-  width: 300px;
+  width: auto;
+  margin-right: ;
 }
 
 .gameContainer {
