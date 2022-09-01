@@ -216,12 +216,12 @@ export default class WebBombikaModel {
 
   canFieldBeOpened = (x, y) => {
     const field = this.gameState.minefield[x][y];
-    return field.closed && !field.flag;
+    return field.closed && !field.flag && !this.gameState.isFinished;
   };
 
   canFieldBeFlagged = (x, y) => {
     const field = this.gameState.minefield[x][y];
-    return field.closed;
+    return field.closed && !this.gameState.isFinished;
   };
 
   openField = (x, y) => {

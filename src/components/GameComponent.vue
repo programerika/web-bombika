@@ -1,15 +1,19 @@
 <template>
   <div class="container">
     <div>
-      <HeaderComponent
-        :numberOfFlags="playerState.numberOfFlags"
-        :isFinished="playerState.isFinished"
-        :timer="timer"
-        @restart="restartGame"
-        @time="timer++"
-      />
+      <HeaderComponent>
+        <ResetComponent @restart="restartGame" />
+        <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
+
+        <TimerComponent
+          :gameStatus="isFinished"
+          :timer="timer"
+          @time="timer++"
+        />
+        <HelpComponent />
+      </HeaderComponent>
       <GameTableComponent
-        :player="playerState.minefield"
+        :mineField="playerState.minefield"
         @toggleFlag="toggleFlag"
         @openField="openField"
       />
@@ -17,11 +21,14 @@
   </div>
 </template>
 <script>
+//slot za header, timer
 import HeaderComponent from "./HeaderComponent.vue";
 import GameTableComponent from "./GameTableComponent.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
-import TestRandomProvider from "@/model/TestRandomProvider";
-// import RandomProvider from "@/model/RandomProvider";
+import ResetComponent from "./ResetComponent.vue";
+import NumberOfFlagsComponent from "./NumberOfFlagsComponent.vue";
+import TimerComponent from "./TimerComponent.vue";
+import HelpComponent from "./HelpComponent.vue";
 
 export default {
   data() {
@@ -32,7 +39,7 @@ export default {
     };
   },
   mounted() {
-    this.wbvm = new WebBombikaViewModel(new TestRandomProvider());
+    this.wbvm = new WebBombikaViewModel();
     this.playerState = this.wbvm.newGame();
   },
   methods: {
@@ -53,7 +60,22 @@ export default {
       );
     },
   },
-  components: { HeaderComponent, GameTableComponent },
+  computed: {
+    numberOfFlags() {
+      return this.playerState.numberOfFlags;
+    },
+    isFinished() {
+      return this.playerState.isFinished;
+    },
+  },
+  components: {
+    HeaderComponent,
+    GameTableComponent,
+    ResetComponent,
+    NumberOfFlagsComponent,
+    TimerComponent,
+    HelpComponent,
+  },
 };
 </script>
 <style scoped>

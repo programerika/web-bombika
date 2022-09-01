@@ -1,39 +1,10 @@
 <template>
   <div class="flexic">
-    <ResetComponent @restart="resetartGame" />
-    <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
-
-    <TimerComponent :gameStatus="isFinished" :timer="timer" @time="time" />
-    <HelpComponent />
+    <slot></slot>
   </div>
 </template>
 <script>
-import NumberOfFlagsComponent from "./NumberOfFlagsComponent.vue";
-import ResetComponent from "./ResetComponent.vue";
-import TimerComponent from "./TimerComponent.vue";
-import HelpComponent from "./HelpComponent.vue";
-
-export default {
-  props: {
-    numberOfFlags: Number,
-    isFinished: Boolean,
-    timer: Number,
-  },
-  components: {
-    NumberOfFlagsComponent,
-    ResetComponent,
-    TimerComponent,
-    HelpComponent,
-  },
-  methods: {
-    resetartGame: function () {
-      this.$emit("restart");
-    },
-    time: function () {
-      this.$emit("time");
-    },
-  },
-};
+export default {};
 </script>
 
 <style>

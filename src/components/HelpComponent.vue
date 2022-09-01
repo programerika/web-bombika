@@ -39,7 +39,7 @@
           </div>
           <div class="text-p pa-2 text-center">
             Controls: <br />-left click or press: open a cell <br />
-            -right click on long press: flag a cell
+            -right click or long press: flag a cell
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">

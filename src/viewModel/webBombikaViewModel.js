@@ -1,8 +1,10 @@
+// import RandomProvider from "@/model/RandomProvider";
+import TestRandomProvider from "@/model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
-  constructor(randomProvider) {
-    this.webBombikaModel = new WebBombikaModel(randomProvider);
+  constructor() {
+    this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
   }
 
   #getModelState = () => {};
@@ -17,7 +19,6 @@ export class WebBombikaViewModel {
   openField = (x, y) => {
     if (this.webBombikaModel.canFieldBeOpened(x, y)) {
       let playerGameState = this.webBombikaModel.openField(x, y);
-      //this.#iconsForView(playerGameState);
       return this.#prepareViewModelPlayerState(playerGameState);
     }
   };
@@ -29,7 +30,29 @@ export class WebBombikaViewModel {
     }
   };
 
-  // iconsForView = (viewModel) => {};
+  #prepareCellViewModel = (col, newStepForPlayer, isFinished) => {
+    if (col.closed) {
+      if (col.flag) {
+        newStepForPlayer.image = "flag.png";
+      } else {
+        newStepForPlayer.image = "closedCell.png";
+      }
+    }
+
+    //case - open cell with bombs arround count - seelct icon with number
+    if (!col.closed) {
+      newStepForPlayer.image = `cell${col.bombsAroundCount}.png`;
+    }
+
+    if (isFinished) {
+      if (!col.flag && col.bomb && col.triggeredBomb) {
+        newStepForPlayer.image = "triggeredbomba.jpg";
+      }
+      if (!col.flag && col.bomb && !col.triggeredBomb) {
+        newStepForPlayer.image = "bomba.jpg";
+      }
+    }
+  };
 
   #prepareViewModelPlayerMinefield = (minefield, isFinished) => {
     let newViewModelMinefield = [];
@@ -40,46 +63,7 @@ export class WebBombikaViewModel {
           x: col.x,
           y: col.y,
         };
-        if (col.closed) {
-          if (col.flag) {
-            newStepForPlayer.image = "flag.png";
-          } else {
-            //newStepForPlayer.closed = col.closed;
-            newStepForPlayer.image = "closedCell.png";
-          }
-        }
-        if (col.closed == false && col.bombsAroundCount === 0) {
-          //newStepForPlayer.emptyCell = col.bombAroundCount;
-          newStepForPlayer.image = "openCell.png";
-          console.log(col.bombsAroundCount);
-        } else if (!col.closed && col.bombsAroundCount === 1) {
-          newStepForPlayer.image = "cell1.png";
-          console.log(col.bombsAroundCount);
-        } else if (!col.closed && col.bombsAroundCount === 2) {
-          newStepForPlayer.image = "cell2.png";
-          console.log(col.bombsAroundCount);
-        } else if (!col.closed && col.bombsAroundCount === 3) {
-          newStepForPlayer.image = "cell3.png";
-        } else if (!col.closed && col.bombsAroundCount === 4) {
-          newStepForPlayer.image = "cell4.png";
-        } else if (!col.closed && col.bombsAroundCount === 5) {
-          newStepForPlayer.image = "cell5.png";
-        } else if (!col.closed && col.bombsAroundCount === 6) {
-          newStepForPlayer.image = "cell6.png";
-        } else if (!col.closed && col.bombsAroundCount === 7) {
-          newStepForPlayer.image = "cell7.png";
-        } else if (!col.closed && col.bombsAroundCount === 8) {
-          newStepForPlayer.image = "cell8.png";
-        }
-
-        if (isFinished) {
-          if (!col.flag && col.bomb && col.triggeredBomb) {
-            newStepForPlayer.image = "triggeredbomba.jpg";
-          }
-          if (!col.flag && col.bomb && !col.triggeredBomb) {
-            newStepForPlayer.image = "bomba.jpg";
-          }
-        }
+        this.#prepareCellViewModel(col, newStepForPlayer, isFinished);
 
         minefieldCols.push(newStepForPlayer);
       });

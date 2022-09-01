@@ -1,9 +1,9 @@
 <template>
-  <div class="tabla" v-for="r in player" :key="r.x">
+  <div class="tabla" v-for="r in mineField" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
       <CellComponent
         @openField="onCellClicked(c.x, c.y)"
-        :cell="player[c.x][c.y].image"
+        :cell="mineField[c.x][c.y].image"
         @toggleFlag="onCellRightClicked(c.x, c.y)"
       ></CellComponent>
     </div>
@@ -14,7 +14,7 @@ import CellComponent from "./CellComponent.vue";
 
 export default {
   props: {
-    player: Object,
+    mineField: Object,
   },
   methods: {
     onCellClicked(r, c) {
