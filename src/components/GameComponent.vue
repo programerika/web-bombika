@@ -71,6 +71,5 @@ export default {
 .gameContainer {
   border: 2px solid black;
   display: grid;
-  place-items: center;
 }
 </style>
