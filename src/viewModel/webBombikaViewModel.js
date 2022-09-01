@@ -61,7 +61,7 @@ export class WebBombikaViewModel {
         } else if (!col.closed && col.bombsAroundCount === 3) {
           newStepForPlayer.image = "cell3.png";
         } else if (!col.closed && col.bombsAroundCount === 4) {
-          newStepForPlayer.image = "cell4..png";
+          newStepForPlayer.image = "cell4.png";
         } else if (!col.closed && col.bombsAroundCount === 5) {
           newStepForPlayer.image = "cell5.png";
         } else if (!col.closed && col.bombsAroundCount === 6) {
