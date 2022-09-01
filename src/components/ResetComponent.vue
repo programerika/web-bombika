@@ -5,7 +5,7 @@
       class="ma-1"
       color="cyan"
       icon="mdi-restart"
-      @click="restartGame()"
+      @click="restartGame"
       :src="restart"
       alt="restart"
       size="small"
