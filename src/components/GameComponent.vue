@@ -48,16 +48,16 @@ export default {
       this.timer = 0;
     },
     toggleFlag(cellCoordinates) {
-      this.playerState = this.wbvm.toggleFlag(
-        cellCoordinates.r,
-        cellCoordinates.c
-      );
+      this.playerState = {
+        ...this.playerState,
+        ...this.wbvm.toggleFlag(cellCoordinates.r, cellCoordinates.c),
+      };
     },
     openField(cellCoordinates) {
-      this.playerState = this.wbvm.openField(
-        cellCoordinates.r,
-        cellCoordinates.c
-      );
+      this.playerState = {
+        ...this.playerState,
+        ...this.wbvm.openField(cellCoordinates.r, cellCoordinates.c),
+      };
     },
   },
   computed: {
