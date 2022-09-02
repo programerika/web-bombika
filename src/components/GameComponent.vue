@@ -127,7 +127,9 @@ export default {
     zoom: 90%;
     justify-content: space-between;
   }
+}
 
+@media screen and (min-width: 600px) {
   .toggle {
     display: none;
   }
