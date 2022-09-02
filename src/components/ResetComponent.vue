@@ -1,7 +1,6 @@
 <template>
   <div class="flex">
     <v-btn
-      v-bind="props"
       class="ma-1"
       color="cyan"
       icon="mdi-restart"
