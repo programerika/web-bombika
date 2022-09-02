@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div>
-      <HeaderComponent>
-        <ResetComponent @restart="restartGame" />
-        <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
+      <GameHeader>
+        <ResetButton @restart="restartGame" />
+        <NumberOfFlags :numberOfFlags="numberOfFlags" />
 
-        <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
-        <HelpComponent />
+        <GameTimer :gameStatus="isFinished" :startTime="startTime" />
+        <HelpButton />
         <v-switch
           class="toggle"
           density="compact"
@@ -16,8 +16,8 @@
           v-model="flagSelector"
         ></v-switch>
         <!-- <v-btn @click="toggleFlagSelectorButton" class="toggle"> </v-btn> -->
-      </HeaderComponent>
-      <GameTableComponent
+      </GameHeader>
+      <GameTable
         :mineField="mineField"
         @toggleFlag="toggleFlag"
         @openField="openField"
@@ -28,13 +28,13 @@
 </template>
 <script>
 //slot za header, timer
-import HeaderComponent from "./HeaderComponent.vue";
-import GameTableComponent from "./GameTableComponent.vue";
+import GameHeader from "./GameHeader.vue";
+import GameTable from "./GameTable.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
-import ResetComponent from "./ResetComponent.vue";
-import NumberOfFlagsComponent from "./NumberOfFlagsComponent.vue";
-import TimerComponent from "./TimerComponent.vue";
-import HelpComponent from "./HelpComponent.vue";
+import ResetButton from "./ResetButton.vue";
+import NumberOfFlags from "./NumberOfFlags.vue";
+import GameTimer from "./GameTimer.vue";
+import HelpButton from "./HelpButton.vue";
 
 export default {
   data() {
@@ -87,12 +87,12 @@ export default {
     },
   },
   components: {
-    HeaderComponent,
-    GameTableComponent,
-    ResetComponent,
-    NumberOfFlagsComponent,
-    TimerComponent,
-    HelpComponent,
+    GameHeader,
+    GameTable,
+    ResetButton,
+    NumberOfFlags,
+    GameTimer,
+    HelpButton,
   },
 };
 </script>

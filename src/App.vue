@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <GameComponent />
+      <GamePanel />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import GameComponent from "./components/GameComponent.vue";
+import GamePanel from "./components/GamePanel.vue";
 
 export default {
   name: "App",
 
   components: {
-    GameComponent,
+    GamePanel,
   },
 
   data: () => ({

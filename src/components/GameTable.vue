@@ -1,17 +1,17 @@
 <template>
   <div class="tabla" v-for="r in mineField" :key="r.x">
     <div class="celija" v-for="c in r" :key="c.y">
-      <CellComponent
+      <GameCell
         @openField="onCellClicked(c.x, c.y)"
         :cell="mineField[c.x][c.y].image"
         @toggleFlag="onCellRightClicked(c.x, c.y)"
         :flagSelector="flagSelector"
-      ></CellComponent>
+      ></GameCell>
     </div>
   </div>
 </template>
 <script>
-import CellComponent from "./CellComponent.vue";
+import GameCell from "./GameCell.vue";
 
 export default {
   props: {
@@ -28,7 +28,7 @@ export default {
       this.$emit("toggleFlag", { r: r, c: c });
     },
   },
-  components: { CellComponent },
+  components: { GameCell },
   emits: ["openField", "toggleFlag"],
 };
 </script>
