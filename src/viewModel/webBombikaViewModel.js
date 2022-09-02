@@ -8,10 +8,6 @@ export class WebBombikaViewModel {
     this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
   }
 
-  #getModelState = () => {};
-
-  #getViewState = () => {};
-
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();
     return this.#prepareViewModelPlayerState(playerGameState);

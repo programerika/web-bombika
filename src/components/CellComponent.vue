@@ -2,7 +2,7 @@
   <div>
     <v-btn
       ><img
-        @click="flagSelector ? toggleFlag() : onClick()"
+        @click="flagSelector ? toggleFlag() : openField()"
         @contextmenu.prevent="toggleFlag"
         class="flex"
         :src="require('@/assets/' + cell)"
@@ -22,7 +22,7 @@ export default {
   },
   components: {},
   methods: {
-    onClick() {
+    openField() {
       this.$emit("openField");
     },
     toggleFlag() {
