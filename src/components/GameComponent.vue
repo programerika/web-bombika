@@ -7,9 +7,15 @@
 
         <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
         <HelpComponent />
-        <button @click="toggleFlagSelectorButton" class="toggle">
-          toggle={{ flagSelector }}
-        </button>
+        <v-switch
+          class="toggle"
+          density="compact"
+          color="red"
+          :flat="true"
+          @click="toggleFlagSelectorButton"
+          v-model="flagSelector"
+        ></v-switch>
+        <!-- <v-btn @click="toggleFlagSelectorButton" class="toggle"> </v-btn> -->
       </HeaderComponent>
       <GameTableComponent
         :mineField="mineField"
@@ -108,10 +114,6 @@ export default {
   display: grid;
 }
 
-.toggle {
-  background-color: blue;
-}
-
 @media screen and (max-width: 600px) {
   .container {
     border: 2px solid black;
@@ -124,6 +126,10 @@ export default {
     height: fit-content;
     zoom: 90%;
     justify-content: space-between;
+  }
+
+  .toggle {
+    display: none;
   }
 }
 </style>
