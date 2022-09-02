@@ -2,7 +2,7 @@
   <v-dialog transition="dialog-top-transition">
     <template v-slot:activator="{ props }">
       <v-btn
-        size="small"
+        size="large"
         v-bind="props"
         class="ma-1"
         color="cyan"

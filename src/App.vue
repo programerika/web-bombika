@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="background">
     <v-main>
       <GameComponent />
     </v-main>
@@ -16,9 +16,7 @@ export default {
     GameComponent,
   },
 
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
 };
 </script>
 
@@ -46,5 +44,9 @@ export default {
 
   /* Support for IE. */
   font-feature-settings: "liga";
+}
+
+.background {
+  background-color: black;
 }
 </style>

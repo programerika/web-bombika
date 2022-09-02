@@ -7,7 +7,7 @@
       @click="restartGame"
       :src="restart"
       alt="restart"
-      size="small"
+      size="large"
     >
     </v-btn>
   </div>

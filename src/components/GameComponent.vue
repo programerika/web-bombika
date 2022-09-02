@@ -2,11 +2,13 @@
   <div class="container">
     <div>
       <HeaderComponent>
-        <ResetComponent @restart="restartGame" />
-        <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
+        <div class="justify"><ResetComponent @restart="restartGame" /></div>
+        <div>
+          <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
+          <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
+        </div>
+        <div><HelpComponent /></div>
 
-        <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
-        <HelpComponent />
         <v-switch
           class="toggle"
           density="compact"
@@ -97,13 +99,19 @@ export default {
 };
 </script>
 <style scoped>
+.justify {
+  justify-content: space-between;
+}
 .container {
   border: 2px solid black;
   margin: auto;
   display: grid;
   place-items: center;
   width: auto;
-  border-radius: 10pt;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   width: fit-content;
   height: fit-content;
   zoom: 125%;
@@ -121,7 +129,10 @@ export default {
     display: grid;
     place-items: center;
     width: auto;
-    border-radius: 10pt;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
     width: fit-content;
     height: fit-content;
     zoom: 90%;
