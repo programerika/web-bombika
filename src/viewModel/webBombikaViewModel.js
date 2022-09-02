@@ -23,7 +23,7 @@ export class WebBombikaViewModel {
 
   toggleFlag = (x, y, playerState) => {
     if (this.webBombikaModel.canFieldBeFlagged(x, y)) {
-      playerState = this.webBombikaModel.toggleFlag(x, y);
+      let playerState = this.webBombikaModel.toggleFlag(x, y);
       return this.#prepareViewModelPlayerState(playerState);
     }
     return playerState;
@@ -38,7 +38,7 @@ export class WebBombikaViewModel {
       }
     }
 
-    //case - open cell with bombs arround count - seelct icon with number
+    //case - open cell with bombs arround count - select icon with number
     if (!col.closed) {
       newStepForPlayer.image = `cell${col.bombsAroundCount}.png`;
     }

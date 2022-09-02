@@ -226,7 +226,6 @@ export default class WebBombikaModel {
 
   openField = (x, y) => {
     if (this.gameState.minefield[x][y].bomb == true) {
-      console.log("BOMBAAA");
       this.#processFieldWithBomb(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);

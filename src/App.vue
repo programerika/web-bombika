@@ -1,5 +1,5 @@
 <template>
-  <v-app class="background">
+  <v-app class="body">
     <v-main>
       <GamePanel />
     </v-main>
