@@ -5,6 +5,7 @@
         @openField="onCellClicked(c.x, c.y)"
         :cell="mineField[c.x][c.y].image"
         @toggleFlag="onCellRightClicked(c.x, c.y)"
+        :flagSelector="flagSelector"
       ></CellComponent>
     </div>
   </div>
@@ -15,6 +16,7 @@ import CellComponent from "./CellComponent.vue";
 export default {
   props: {
     mineField: Object,
+    flagSelector: Boolean,
   },
   methods: {
     onCellClicked(r, c) {

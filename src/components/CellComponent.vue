@@ -2,8 +2,8 @@
   <div>
     <v-btn
       ><img
-        @click="onClick"
-        @contextmenu.prevent="onRightClick"
+        @click="flagSelector ? toggleFlag() : onClick()"
+        @contextmenu.prevent="toggleFlag"
         class="flex"
         :src="require('@/assets/' + cell)"
         alt="field"
@@ -18,13 +18,14 @@ export default {
   },
   props: {
     cell: String,
+    flagSelector: Boolean,
   },
   components: {},
   methods: {
     onClick() {
       this.$emit("openField");
     },
-    onRightClick() {
+    toggleFlag() {
       this.$emit("toggleFlag");
     },
   },

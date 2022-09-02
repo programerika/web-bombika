@@ -7,11 +7,15 @@
 
         <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
         <HelpComponent />
+        <button @click="toggleFlagSelectorButton" class="toggle">
+          toggle={{ flagSelector }}
+        </button>
       </HeaderComponent>
       <GameTableComponent
         :mineField="mineField"
         @toggleFlag="toggleFlag"
         @openField="openField"
+        :flagSelector="flagSelector"
       />
     </div>
   </div>
@@ -31,6 +35,7 @@ export default {
     return {
       wbvm: {},
       playerState: {},
+      flagSelector: false,
     };
   },
   mounted() {
@@ -54,6 +59,11 @@ export default {
         cellCoordinates.c,
         this.playerState
       );
+    },
+    toggleFlagSelectorButton() {
+      console.log("toggle");
+      this.flagSelector = !this.flagSelector;
+      console.log(this.flagSelector);
     },
   },
   computed: {
@@ -96,6 +106,10 @@ export default {
 .gameContainer {
   border: 2px solid black;
   display: grid;
+}
+
+.toggle {
+  background-color: blue;
 }
 
 @media screen and (max-width: 600px) {
