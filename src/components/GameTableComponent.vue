@@ -22,7 +22,7 @@ export default {
       this.$emit("openField", { r: r, c: c });
     },
     onCellRightClicked(r, c) {
-      console.log(r, c);
+      console.log("Flagged field", r, c);
       this.$emit("toggleFlag", { r: r, c: c });
     },
   },

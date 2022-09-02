@@ -1,10 +1,11 @@
-import RandomProvider from "@/model/RandomProvider";
+// import RandomProvider from "../model/RandomProvider";
 
+import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
   constructor() {
-    this.webBombikaModel = new WebBombikaModel(new RandomProvider());
+    this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
   }
 
   #getModelState = () => {};
@@ -16,18 +17,20 @@ export class WebBombikaViewModel {
     return this.#prepareViewModelPlayerState(playerGameState);
   };
 
-  openField = (x, y) => {
+  openField = (x, y, playerState) => {
     if (this.webBombikaModel.canFieldBeOpened(x, y)) {
-      let playerGameState = this.webBombikaModel.openField(x, y);
-      return this.#prepareViewModelPlayerState(playerGameState);
+      playerState = this.webBombikaModel.openField(x, y);
+      return this.#prepareViewModelPlayerState(playerState);
     }
+    return playerState;
   };
 
-  toggleFlag = (x, y) => {
+  toggleFlag = (x, y, playerState) => {
     if (this.webBombikaModel.canFieldBeFlagged(x, y)) {
-      let playerGameState = this.webBombikaModel.toggleFlag(x, y);
-      return this.#prepareViewModelPlayerState(playerGameState);
+      playerState = this.webBombikaModel.toggleFlag(x, y);
+      return this.#prepareViewModelPlayerState(playerState);
     }
+    return playerState;
   };
 
   #prepareCellViewModel = (col, newStepForPlayer, isFinished) => {

@@ -2,8 +2,8 @@
   <div>
     <v-btn
       ><img
-        @click="onClick()"
-        @contextmenu.="onRightClick()"
+        @click="onClick"
+        @contextmenu.prevent="onRightClick"
         class="flex"
         :src="require('@/assets/' + cell)"
         alt="field"
@@ -22,7 +22,6 @@ export default {
   components: {},
   methods: {
     onClick() {
-      console.log("click");
       this.$emit("openField");
     },
     onRightClick() {

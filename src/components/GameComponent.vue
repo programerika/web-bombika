@@ -5,14 +5,11 @@
         <ResetComponent @restart="restartGame" />
         <NumberOfFlagsComponent :numberOfFlags="numberOfFlags" />
 
-        <TimerComponent
-          :gameStatus="isFinished"
-          :startTime="playerState.startTime"
-        />
+        <TimerComponent :gameStatus="isFinished" :startTime="startTime" />
         <HelpComponent />
       </HeaderComponent>
       <GameTableComponent
-        :mineField="playerState.minefield"
+        :mineField="mineField"
         @toggleFlag="toggleFlag"
         @openField="openField"
       />
@@ -45,16 +42,18 @@ export default {
       this.playerState = this.wbvm.newGame();
     },
     toggleFlag(cellCoordinates) {
-      this.playerState = {
-        ...this.playerState,
-        ...this.wbvm.toggleFlag(cellCoordinates.r, cellCoordinates.c),
-      };
+      this.playerState = this.wbvm.toggleFlag(
+        cellCoordinates.r,
+        cellCoordinates.c,
+        this.playerState
+      );
     },
     openField(cellCoordinates) {
-      this.playerState = {
-        ...this.playerState,
-        ...this.wbvm.openField(cellCoordinates.r, cellCoordinates.c),
-      };
+      this.playerState = this.wbvm.openField(
+        cellCoordinates.r,
+        cellCoordinates.c,
+        this.playerState
+      );
     },
   },
   computed: {
@@ -63,6 +62,12 @@ export default {
     },
     isFinished() {
       return this.playerState.isFinished;
+    },
+    mineField() {
+      return this.playerState.minefield;
+    },
+    startTime() {
+      return this.playerState.startTime;
     },
   },
   components: {
