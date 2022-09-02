@@ -3,7 +3,7 @@
     <v-btn
       ><img
         @click="onClick()"
-        @contextmenu.prevent="onRightClick()"
+        @contextmenu.="onRightClick()"
         class="flex"
         :src="require('@/assets/' + cell)"
         alt="field"

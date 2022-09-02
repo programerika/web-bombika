@@ -7,8 +7,7 @@
 
         <TimerComponent
           :gameStatus="isFinished"
-          :timer="timer"
-          @time="timer++"
+          :startTime="playerState.startTime"
         />
         <HelpComponent />
       </HeaderComponent>
@@ -33,7 +32,6 @@ import HelpComponent from "./HelpComponent.vue";
 export default {
   data() {
     return {
-      timer: 0,
       wbvm: {},
       playerState: {},
     };
@@ -45,7 +43,6 @@ export default {
   methods: {
     restartGame() {
       this.playerState = this.wbvm.newGame();
-      this.timer = 0;
     },
     toggleFlag(cellCoordinates) {
       this.playerState = {
