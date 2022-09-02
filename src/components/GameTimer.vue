@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <h1>⏱️ {{ timer.timeCounter }}</h1>
+    <h1>⏱️{{ timer.timeCounter }}</h1>
   </div>
 </template>
 <script>

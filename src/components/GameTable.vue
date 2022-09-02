@@ -39,5 +39,6 @@ export default {
 .celija {
   width: 30px;
   height: 30px;
+  margin: 1px;
 }
 </style>
