@@ -12,6 +12,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import GameCell from "./GameCell.vue";
 
@@ -19,6 +20,7 @@ export default {
   props: {
     mineField: Object,
     flagSelector: Boolean,
+    isFinished: Boolean,
   },
   methods: {
     onCellClicked(r, c) {
@@ -34,15 +36,18 @@ export default {
   emits: ["openField", "toggleFlag"],
 };
 </script>
+
 <style>
 .tabla {
   display: flex;
 }
+
 .minefield {
   border: 2px solid #0c5e54;
   border-radius: 5px;
   background-color: #0c5e54;
 }
+
 .celija {
   width: 30px;
   height: 30px;

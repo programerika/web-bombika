@@ -6,21 +6,26 @@
         <div>
           <GameTimer :gameStatus="isFinished" :startTime="startTime" />
           <NumberOfFlags :numberOfFlags="numberOfFlags" />
-          <v-switch
-            class="toggle"
-            density="compact"
-            color="red"
-            :flat="true"
-            @click="toggleFlagSelectorButton"
-            v-model="flagSelector"
-          ></v-switch>
         </div>
         <div><HelpButton /></div>
 
         <!-- <v-btn @click="toggleFlagSelectorButton" class="toggle"> </v-btn> -->
       </GameHeader>
+      <div class="flagSelector">
+        <v-switch
+          label="open/flag field"
+          class="toggle"
+          density="compact"
+          color="red"
+          :flat="true"
+          @click="toggleFlagSelectorButton"
+          v-model="flagSelector"
+          hide-details
+        ></v-switch>
+      </div>
       <GameTable
         :mineField="mineField"
+        :isFinished="isFinished"
         @toggleFlag="toggleFlag"
         @openField="openField"
         :flagSelector="flagSelector"
@@ -87,6 +92,9 @@ export default {
     startTime() {
       return this.playerState.startTime;
     },
+    score() {
+      return this.playerState.score;
+    },
   },
   components: {
     GameHeader,
@@ -115,7 +123,12 @@ export default {
   width: fit-content;
   height: fit-content;
   background-color: #15b3a0;
-  zoom: 100%;
+  /* zoom: 100%; */
+}
+
+.flagSelector {
+  display: grid;
+  place-items: center;
 }
 
 .gameContainer {
@@ -129,14 +142,14 @@ export default {
     margin: auto;
     display: grid;
     place-items: center;
-    width: auto;
+    /* width: auto; */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     width: fit-content;
     height: fit-content;
-    zoom: 90%;
+    /* zoom: 90%; */
     justify-content: space-between;
     background-color: #15b3a0;
   }
@@ -148,3 +161,13 @@ export default {
   }
 }
 </style>
+
+<!-- <v-switch
+  label="open/flag field"
+  class="toggle"
+  density="compact"
+  color="red"
+  :flat="true"
+  @click="toggleFlagSelectorButton"
+  v-model="flagSelector"
+></v-switch> -->

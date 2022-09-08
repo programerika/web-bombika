@@ -45,6 +45,11 @@ export default {
 img {
   border-radius: 5px;
 }
+@media (max-width: 600px) {
+  img {
+    width: 94%;
+  }
+}
 </style>
 <!-- 
 <img

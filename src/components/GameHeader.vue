@@ -1,5 +1,5 @@
 <template>
-  <div class="flexic">
+  <div class="header">
     <slot></slot>
   </div>
 </template>
@@ -8,9 +8,8 @@ export default {};
 </script>
 
 <style>
-.flexic {
+.header {
   display: flex;
-
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   justify-content: space-between;
