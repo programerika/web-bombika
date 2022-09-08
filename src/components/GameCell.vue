@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn
+    <v-btn flat="true"
       ><img
         @click="flagSelector ? toggleFlag() : openField()"
         @contextmenu.prevent="toggleFlag"
@@ -41,6 +41,9 @@ export default {
   min-height: 30px;
   padding: 0;
   background: transparent;
+}
+img {
+  border-radius: 5px;
 }
 </style>
 <!-- 

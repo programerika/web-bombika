@@ -2,7 +2,7 @@
   <div class="flex">
     <v-btn
       class="ma-1"
-      color="cyan"
+      color="#1df5db"
       icon="mdi-restart"
       @click="restartGame"
       :src="restart"

@@ -10,10 +10,9 @@ export default {};
 <style>
 .flexic {
   display: flex;
-  border-bottom: 2px solid black;
-  background-color: #15b3a0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   justify-content: space-between;
   align-items: center;
 }

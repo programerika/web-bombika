@@ -1,11 +1,11 @@
-// import RandomProvider from "../model/RandomProvider";
+import RandomProvider from "../model/RandomProvider";
 
-import TestRandomProvider from "../model/TestRandomProvider";
+// import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
   constructor() {
-    this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
+    this.webBombikaModel = new WebBombikaModel(new RandomProvider());
   }
 
   newGame = () => {
@@ -45,10 +45,10 @@ export class WebBombikaViewModel {
 
     if (isFinished) {
       if (!col.flag && col.bomb && col.triggeredBomb) {
-        newStepForPlayer.image = "triggeredbomba.jpg";
+        newStepForPlayer.image = "triggeredbomba.png";
       }
       if (!col.flag && col.bomb && !col.triggeredBomb) {
-        newStepForPlayer.image = "bomba.jpg";
+        newStepForPlayer.image = "bomba.png";
       }
     }
   };

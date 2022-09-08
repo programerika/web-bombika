@@ -6,17 +6,17 @@
         <div>
           <GameTimer :gameStatus="isFinished" :startTime="startTime" />
           <NumberOfFlags :numberOfFlags="numberOfFlags" />
+          <v-switch
+            class="toggle"
+            density="compact"
+            color="red"
+            :flat="true"
+            @click="toggleFlagSelectorButton"
+            v-model="flagSelector"
+          ></v-switch>
         </div>
         <div><HelpButton /></div>
 
-        <v-switch
-          class="toggle"
-          density="compact"
-          color="red"
-          :flat="true"
-          @click="toggleFlagSelectorButton"
-          v-model="flagSelector"
-        ></v-switch>
         <!-- <v-btn @click="toggleFlagSelectorButton" class="toggle"> </v-btn> -->
       </GameHeader>
       <GameTable
@@ -103,7 +103,7 @@ export default {
   justify-content: space-between;
 }
 .container {
-  border: 2px solid black;
+  border: 4px solid #15b3a0;
   margin: auto;
   display: grid;
   place-items: center;
@@ -114,7 +114,8 @@ export default {
   border-bottom-right-radius: 4px;
   width: fit-content;
   height: fit-content;
-  zoom: 125%;
+  background-color: #15b3a0;
+  zoom: 100%;
 }
 
 .gameContainer {
@@ -137,6 +138,7 @@ export default {
     height: fit-content;
     zoom: 90%;
     justify-content: space-between;
+    background-color: #15b3a0;
   }
 }
 
