@@ -76,9 +76,7 @@ export default {
       );
     },
     toggleFlagSelectorButton() {
-      console.log("toggle");
       this.flagSelector = !this.flagSelector;
-      console.log(this.flagSelector);
     },
   },
   computed: {
@@ -125,7 +123,6 @@ export default {
   width: fit-content;
   height: fit-content;
   background-color: #15b3a0;
-  /* zoom: 100%; */
 }
 
 .flagSelector {
@@ -144,14 +141,12 @@ export default {
     margin: auto;
     display: grid;
     place-items: center;
-    /* width: auto; */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     width: fit-content;
     height: fit-content;
-    /* zoom: 90%; */
     justify-content: space-between;
     background-color: #15b3a0;
   }
@@ -163,13 +158,3 @@ export default {
   }
 }
 </style>
-
-<!-- <v-switch
-  label="open/flag field"
-  class="toggle"
-  density="compact"
-  color="red"
-  :flat="true"
-  @click="toggleFlagSelectorButton"
-  v-model="flagSelector"
-></v-switch> -->

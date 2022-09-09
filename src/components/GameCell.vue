@@ -51,11 +51,3 @@ img {
   }
 }
 </style>
-<!-- 
-<img
-  @click="onClick()"
-  @contextmenu.prevent="onRightClick()"
-  class="flex"
-  :src="require('@/assets/' + cell)"
-  alt="field"
-/> -->

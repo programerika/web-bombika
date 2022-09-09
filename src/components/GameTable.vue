@@ -50,11 +50,9 @@ export default {
   },
   methods: {
     onCellClicked(r, c) {
-      console.log("Opened field", r, c);
       this.$emit("openField", { r: r, c: c });
     },
     onCellRightClicked(r, c) {
-      console.log("Flagged field", r, c);
       this.$emit("toggleFlag", { r: r, c: c });
     },
     playAgain() {
@@ -78,8 +76,6 @@ export default {
 }
 
 .scoreCard {
-  /* background-color: rgb(21, 179, 160, 0.95); */
-
   background-color: rgb(29, 245, 219, 0.95);
 }
 .celija {
@@ -88,5 +84,3 @@ export default {
   margin: 1px;
 }
 </style>
-
-<!-- #0c5e54 -->
