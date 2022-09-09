@@ -1,10 +1,7 @@
 <template>
   <div class="container3">
-    <p>Kraj igre! Osvojili ste {{ score }} poena</p>
-
-    <p>Registruj se</p>
-
-    <button @click="registracija">Registruj se</button>
+    <h1>Game over</h1>
+    <h2>You have won {{ score }} points</h2>
   </div>
 </template>
 
@@ -33,11 +30,7 @@ button {
   background-color: aquamarine;
 }
 
-.container {
-  border: 2px solid #0c5e54;
-
-  border-radius: 5px;
-
-  background-color: #0c5e54;
+.container3 {
+  text-align: center;
 }
 </style>
