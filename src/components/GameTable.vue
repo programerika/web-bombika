@@ -18,6 +18,7 @@
             v-model="overlay"
             contained
             class="align-center justify-center"
+            scroll-strategy="close"
           >
             <v-card
               elevation="12"
@@ -76,11 +77,17 @@ export default {
 }
 
 .scoreCard {
-  background-color: rgb(29, 245, 219, 0.95);
+  background-color: rgb(29, 245, 219, 0.8);
 }
 .celija {
   width: 30px;
   height: 30px;
   margin: 1px;
+}
+
+@media screen and (max-width: 600px) {
+  .minefield {
+    margin: 4px;
+  }
 }
 </style>
