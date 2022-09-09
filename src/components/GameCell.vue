@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn flat="true"
+    <v-btn
       ><img
         @click="flagSelector ? toggleFlag() : openField()"
         @contextmenu.prevent="toggleFlag"

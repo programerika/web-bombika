@@ -48,5 +48,10 @@ export default {
 
 .background {
   background-color: black;
+  height: 5000px;
+}
+
+.pixeli {
+  height: 20000px;
 }
 </style>

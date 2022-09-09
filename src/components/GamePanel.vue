@@ -29,6 +29,7 @@
         @toggleFlag="toggleFlag"
         @openField="openField"
         :flagSelector="flagSelector"
+        :score="score"
       />
     </div>
   </div>
