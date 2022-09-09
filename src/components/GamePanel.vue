@@ -30,6 +30,7 @@
         @openField="openField"
         :flagSelector="flagSelector"
         :score="score"
+        @playAgain="restartGame"
       />
     </div>
   </div>

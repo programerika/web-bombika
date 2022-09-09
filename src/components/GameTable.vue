@@ -28,7 +28,7 @@
               width="300px"
               height="150px"
             >
-              <GameScore :score="score" />
+              <GameScore :score="score" @playAgain="playAgain" />
             </v-card>
           </v-overlay>
         </v-row>
@@ -60,9 +60,12 @@ export default {
       console.log("Flagged field", r, c);
       this.$emit("toggleFlag", { r: r, c: c });
     },
+    playAgain() {
+      this.$emit("playAgain");
+    },
   },
   components: { GameCell, GameScore },
-  emits: ["openField", "toggleFlag"],
+  emits: ["openField", "toggleFlag", "playAgain"],
 };
 </script>
 

@@ -2,6 +2,7 @@
   <div class="container3">
     <h1>Game over</h1>
     <h2>You have won {{ score }} points</h2>
+    <button @click="playAgain">Play again!</button>
   </div>
 </template>
 
@@ -16,10 +17,11 @@ export default {
   },
 
   components: {},
+  emits: ["playAgain"],
 
   methods: {
-    registracija() {
-      console.log("Ulogovan si");
+    playAgain() {
+      this.$emit("playAgain");
     },
   },
 };
