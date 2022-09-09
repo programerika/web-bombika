@@ -32,7 +32,7 @@ export default class WebBombikaModel {
       let x = koordinate.x;
       let y = koordinate.y;
 
-      if (this.gameState.minefield[x][y].bomb == false) {
+      if (!this.gameState.minefield[x][y].bomb) {
         this.gameState.minefield[x][y].bomb = true;
         bombCount++;
       }
@@ -73,7 +73,7 @@ export default class WebBombikaModel {
     );
 
     for (let i = 0; i < sorraundFields.length; i++) {
-      if (sorraundFields[i].bomb == true) {
+      if (sorraundFields[i].bomb) {
         numberOfBombs++;
       }
     }
@@ -83,7 +83,7 @@ export default class WebBombikaModel {
   #calculateNeighborBombs = () => {
     for (let rowLoop = 0; rowLoop < this.gameState.rows; rowLoop++) {
       for (let columnLoop = 0; columnLoop < this.gameState.cols; columnLoop++) {
-        if (this.gameState.minefield[rowLoop][columnLoop].bomb == true) {
+        if (this.gameState.minefield[rowLoop][columnLoop].bomb) {
           continue;
         }
         this.gameState.minefield[rowLoop][columnLoop].bombAroundCount =
@@ -130,8 +130,6 @@ export default class WebBombikaModel {
       gameState.minefield,
       gameState.isFinished
     );
-    // console.log("Player game state: ", playerGameState);
-    // console.log("game state: ", this.gameState.minefield);
     return playerGameState;
   };
 
@@ -156,12 +154,11 @@ export default class WebBombikaModel {
 
   toggleFlag = (x, y) => {
     this.gameState.minefield[x][y].flag = !this.gameState.minefield[x][y].flag;
-    if (this.gameState.minefield[x][y].flag == true) {
+    if (this.gameState.minefield[x][y].flag) {
       this.gameState.numberOfFlags--;
     } else {
       this.gameState.numberOfFlags++;
     }
-    console.log(this.gameState.numberOfFlags);
     return this.#preparePlayerGameState(this.gameState);
   };
 
@@ -199,7 +196,7 @@ export default class WebBombikaModel {
       this.openField(x - 1, y - 1);
   };
 
-  #processFieldwithoutBombsAround = (x, y) => {
+  #processFieldWithoutBombsAround = (x, y) => {
     this.gameState.minefield[x][y].closed = false;
     this.#checkFieldsAroundEmptyCell(this.gameState.minefield, x, y);
   };
@@ -225,12 +222,12 @@ export default class WebBombikaModel {
   };
 
   openField = (x, y) => {
-    if (this.gameState.minefield[x][y].bomb == true) {
+    if (this.gameState.minefield[x][y].bomb) {
       this.#processFieldWithBomb(x, y);
     } else if (this.gameState.minefield[x][y].bombAroundCount > 0) {
       this.#processFieldWithBombsAround(x, y);
-    } else if (this.gameState.minefield[x][y].bombAroundCount == 0) {
-      this.#processFieldwithoutBombsAround(x, y);
+    } else if (this.gameState.minefield[x][y].bombAroundCount === 0) {
+      this.#processFieldWithoutBombsAround(x, y);
     }
 
     if (this.#checkIfAllFieldsAreOpen() && !this.gameState.isFinished) {
@@ -252,7 +249,7 @@ export default class WebBombikaModel {
       }
     }
     return (
-      countOpenedFields ==
+      countOpenedFields ===
       this.gameState.rows * this.gameState.cols - this.gameState.numberOfBombs
     );
   };
@@ -266,10 +263,7 @@ export default class WebBombikaModel {
     let startTime = this.gameState.startTime;
     let endTime = Date.now();
     let gameLastingInSeconds = (endTime - startTime) / 1000;
-
     this.gameState.isFinished = true;
-
-    console.log("Trajanje igre:", gameLastingInSeconds, "sec");
 
     if (gameLastingInSeconds > 180) {
       this.gameState.score = 1;
@@ -278,6 +272,5 @@ export default class WebBombikaModel {
         this.gameState.score -= 5;
       }
     }
-    console.log("Osvojeno:", this.gameState.score, "poen/a");
   };
 }

@@ -44,12 +44,12 @@ describe("WebBombikaViewModel - openField()", () => {
 
   it("Tests if opening empty field set certain image", () => {
     expect(playerViewModelState.minefield[0][0].image).toEqual(
-      "triggeredbomba.jpg"
+      "triggeredbomba.png"
     );
   });
 
   it("Tests if opening empty field set certain image", () => {
-    expect(playerViewModelState.minefield[1][1].image).toEqual("bomba.jpg");
+    expect(playerViewModelState.minefield[1][1].image).toEqual("bomba.png");
   });
 });
 

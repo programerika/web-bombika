@@ -1,11 +1,11 @@
-import RandomProvider from "../model/RandomProvider";
+// import RandomProvider from "../model/RandomProvider";
 
-// import TestRandomProvider from "../model/TestRandomProvider";
+import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
   constructor() {
-    this.webBombikaModel = new WebBombikaModel(new RandomProvider());
+    this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
   }
 
   newGame = () => {
@@ -85,7 +85,6 @@ export class WebBombikaViewModel {
         state.isFinished
       ),
     };
-    console.log("View model player: ", playerViewModelState);
     return playerViewModelState;
   };
 }
