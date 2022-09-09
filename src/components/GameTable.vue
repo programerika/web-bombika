@@ -13,9 +13,6 @@
           </div>
         </div>
         <v-row justify="center">
-          <!-- <v-btn color="success" class="mt-12" @click="overlay = !overlay">
-            Show Overlay
-          </v-btn> -->
           <v-overlay
             :v-if="isFinished ? (overlay = true) : (overlay = false)"
             v-model="overlay"
@@ -26,7 +23,7 @@
               elevation="12"
               class="scoreCard"
               width="300px"
-              height="150px"
+              height="200px"
             >
               <GameScore :score="score" @playAgain="playAgain" />
             </v-card>
@@ -81,7 +78,9 @@ export default {
 }
 
 .scoreCard {
-  background-color: rgb(21, 179, 160, 0.95);
+  /* background-color: rgb(21, 179, 160, 0.95); */
+
+  background-color: rgb(29, 245, 219, 0.95);
 }
 .celija {
   width: 30px;
