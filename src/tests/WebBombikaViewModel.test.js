@@ -3,6 +3,8 @@
 */
 import { WebBombikaViewModel } from "../viewModel/webBombikaViewModel";
 
+//Tests will work when webBombikaModel uses TestRandomProvider, instead of RandomProvider
+
 describe("WebBombikaViewModel", () => {
   //viewModel instance
   const viewModel = new WebBombikaViewModel();

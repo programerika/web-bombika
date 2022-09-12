@@ -6,7 +6,7 @@ import WebBombikaModel from "../model/webBombikaModel";
 describe("WebBombikaModel", () => {
   const popunjenaIgra = new WebBombikaModel(new TestRandomProvider()); //A customized object for testing purposes
   let playerGameState = popunjenaIgra.newGame(); //An instance of a game
-  // playerGameState = popunjenaIgra.newGame();
+  playerGameState = popunjenaIgra.newGame(); //Checking if calling again newGame() restarts-updates the state
 
   /**
    * @param {Array} Accepts an array of an object
