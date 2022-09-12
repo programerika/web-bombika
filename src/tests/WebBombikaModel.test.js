@@ -244,24 +244,43 @@ describe("PlayerGameState - open Field With The Bomb", () => {
     }
   });
 });
+//end of openField()
 
-describe("Testing flag manipulation - add flag", () => {
-  let addFlagPlayer = new WebBombikaModel(new TestRandomProvider());
+//start of toggleFlag()
+describe("Testing flag manipulation - toggleFlag()", () => {
+  let addFlagPlayer = new WebBombikaModel(new TestRandomProvider()); //Custom object for testing purposes
   addFlagPlayer.newGame();
   let playerGameStateAddFlag = addFlagPlayer.toggleFlag(1, 2);
+  /**
+   * @param {Boolean} Accepts an object variable flag
+   * @returns {Boolean} A boolean value. In this test, we are testing if the predefined location of Added flag is true.
+   * flag was added in the code above, and the flag property on coordinates (1, 2) should be true.
+   */
   it("Adds a flag to a predefined location and checks if the state of flag is true", () => {
     expect(playerGameStateAddFlag.minefield[1][2].flag).toEqual(true);
   });
-  it("Tests that a user can't add a flag to a cell that already has a flag", () => {
+
+  /**
+   * @param {Boolean} Accepts a method canFieldBeOpened()
+   * @returns {Boolean} A boolean value. In this test case, we are testing that the user can't open a field that has
+   * a flag variable set to true.
+   */
+  it("Tests that a user can't open a cell that has a flag", () => {
     expect(addFlagPlayer.canFieldBeOpened(1, 2)).toBeFalsy();
   });
 });
+//end of toggleFlag()
 
 describe("Testing flag manipulation - add flag on opened field", () => {
   let flagOpenedField = new WebBombikaModel(new TestRandomProvider());
   flagOpenedField.newGame();
   flagOpenedField.openField(1, 3);
-  it("Tests that a user can't add a flag to a cell that already has a flag", () => {
+  /**
+   * @param {Boolean} Accepts a method called canFieldBeFlagged()
+   * @returns {Boolean} A boolean value. In this test, we are testing if the open cell can be flagged.
+   * In this scenario, the test should return value False
+   */
+  it("Tests if the user can add a flag to an opened cell", () => {
     expect(flagOpenedField.canFieldBeFlagged(1, 3)).toBeFalsy();
   });
 });
@@ -271,28 +290,52 @@ describe("testing flag manipulation - remove flag", () => {
   playerRemoveFlag.newGame();
   playerRemoveFlag.toggleFlag(1, 2);
   let playerGameStateRemoveFlag = playerRemoveFlag.toggleFlag(1, 2);
+  /**
+   * @param {Boolean} Accepts a method called toggleFlag()
+   * @returns {Boolean} A boolean value. In this test, we are removing the flag from a predefined cell that has flag variable set to true
+   */
   it("Removes a flag from a predefined location and checks if the state of flag is false", () => {
     expect(playerGameStateRemoveFlag.minefield[1][2].flag).toBeFalsy();
   });
 });
 
+//game end unsuccessfully - testing
 describe("Testing game end state - Unsuccessful", () => {
-  let gameEndUnsuccessful = new WebBombikaModel(new TestRandomProvider());
+  let gameEndUnsuccessful = new WebBombikaModel(new TestRandomProvider()); //Custom object for testing purposes
   gameEndUnsuccessful.newGame();
   let playerGameState = gameEndUnsuccessful.toggleFlag(1, 2);
   playerGameState = gameEndUnsuccessful.openField(1, 1);
 
+  /**
+   * @param {Boolean} accepts the object property isFinished which is of type Boolean
+   * @returns {Boolean} A boolean value. In this test, we are checking if the isFinished state is set to true which should
+   * happen if the player clicks on a bomb
+   */
   it("Sets the playerGameState is over to true", () => {
     expect(playerGameState.isFinished).toEqual(true);
   });
+
+  /**
+   * @param {Boolean} accepts the object property Closed of a cell from predefined coordinates.
+   * @returns {Boolean} A boolean value. In this test, we are checking if the cell that has flag property set to true
+   * is still closed after all the other cells are open.
+   */
   it("tests if the cell that has a flag is still closed", () => {
     expect(playerGameState.minefield[1][2].closed).toEqual(true);
   });
+
+  /**
+   * @param {Boolean} accepts the object property triggeredBomb
+   * @returns {Boolean} A boolean value. In this test, we are checking if the cell that was clicked and which contained the bomb
+   * has it's triggeredBomb variable set to true
+   */
   it("tests if triggeredBomb is true when we click on field with bomb", () => {
     expect(playerGameState.minefield[1][1].triggeredBomb).toEqual(true);
   });
 });
+//End of gameEndUnsuccessful testing
 
+//Start of empty cell testing.
 describe("Testing openField() - empty cell", () => {
   let openedEmptyField = new WebBombikaModel(new TestRandomProvider());
   openedEmptyField.newGame();
@@ -307,6 +350,15 @@ describe("Testing openField() - empty cell", () => {
       }
     })
   );
+
+  /**
+   * @param {Integer} Accepts an Integer value
+   * @returns {Boolean} A boolean value. In this test case, we are testing that all the empty cells and cells with bombAroundCount
+   * higher than 0 are open on the upper right part of the table. After a click on the cell with coordinates(3, 0), all the fields around it
+   * should be open until the cells with bombAroundCount. In this case, we are expecting the number of empty cells to be 41.
+   *
+   * --Thoughts - if the table size changes in the future, this number should be modified and should not be fixed in place.
+   */
   it("Tests if all the empty cells and cells with the bombAround are opened when the empty cell opens", () => {
     expect(brojOtvorenih).toEqual(41);
   });
@@ -320,11 +372,18 @@ describe("Testing openField() - empty cell", () => {
     })
   );
 
+  /**
+   * @param {Integer} Accepts an Integer value
+   * @returns {Boolean} A boolean value. In this test, we are testing if the number of closed cells when we open a cell with
+   * coordinates (3, 0) is equal to 59 which should be a number of closed cells based on our test requirements.
+   */
   it("Tests if all the cells except opened empty cells and cells with the bomb are closed when the empty cell opens", () => {
     expect(brojZatvorenih).toEqual(59);
   });
 });
+//End of empty cell testing.
 
+//numberOfFlags
 describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   let flagedField = new WebBombikaModel(new TestRandomProvider());
   flagedField.newGame();
@@ -334,6 +393,12 @@ describe("Testing numberOfFlags(equal to numberOfBombs)", () => {
   playerFlaggedTheField = flagedField.toggleFlag(7, 1);
   playerFlaggedTheField = flagedField.toggleFlag(7, 1);
   playerFlaggedTheField = flagedField.toggleFlag(6, 1);
+
+  /**
+   * @param {Integer} accepts the object property numberOfFlags
+   * @returns {Boolean} A boolean value. In this test, we are testing if the toggleFlag() function is working correctly.
+   * After all the flag toggling above, the number of flags in the game should be equal to 8.
+   */
   it("Tests if numberOfBombs changes when we add/remove flags", () => {
     expect(playerFlaggedTheField.numberOfFlags).toEqual(8);
   });
