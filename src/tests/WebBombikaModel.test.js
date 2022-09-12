@@ -2,10 +2,16 @@ import RandomProvider from "../model/RandomProvider";
 import TestRandomProvider from "../model/TestRandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
+//WebBombikaModel tests
 describe("WebBombikaModel", () => {
-  const popunjenaIgra = new WebBombikaModel(new TestRandomProvider());
-  let playerGameState = popunjenaIgra.newGame();
-  playerGameState = popunjenaIgra.newGame();
+  const popunjenaIgra = new WebBombikaModel(new TestRandomProvider()); //A customized object for testing purposes
+  let playerGameState = popunjenaIgra.newGame(); //An instance of a game
+  // playerGameState = popunjenaIgra.newGame();
+
+  /**
+   * @param {Array} Accepts an array of an object
+   * @returns {Boolean} A boolean value that represents the value of a property of an object
+   */
 
   it("Tests if the game fields are not flagged when the game starts", () => {
     for (let i = 0; i < playerGameState.rows; i++) {
@@ -15,6 +21,11 @@ describe("WebBombikaModel", () => {
     }
   });
 
+  /**
+   * @param {Boolean} Accepts an object property
+   * @returns {Boolean} A boolean value that represents the value of a property of an object
+   */
+
   it("Tests if all game fields are closed when the game starts", () => {
     for (let i = 0; i < playerGameState.rows; i++) {
       for (let j = 0; j < playerGameState.cols; j++) {
@@ -23,19 +34,36 @@ describe("WebBombikaModel", () => {
     }
   });
 });
+//End of WebBombikaModel tests
 
+//newGame() function testing
 describe("PlayerGameState - newGame()", () => {
-  const popunjenaIgra = new WebBombikaModel(new RandomProvider());
-  const playerGameState = popunjenaIgra.newGame();
+  const popunjenaIgra = new WebBombikaModel(new RandomProvider()); //customized object for the purpose of testing
+  const playerGameState = popunjenaIgra.newGame(); //An instance of a PlayerGameState generated from the model.
 
+  /**
+   * @param {Date} Accepts a Date value from the customized game object
+   * @returns {Boolean} A boolean value that represents the time when the game ended. The result should be true (Game start time is lower than game end time.)
+   */
   it("Tests if playerGameState timer is less or equal to date.now()", () => {
     expect(playerGameState.startTime).toBeLessThanOrEqual(Date.now());
   });
+
+  /**
+   * @param {Integer} Accepts an Integer value
+   * @returns {Boolean} A boolean value that represents the result if the Score is exactly 0.
+   * The initial score of 0 is set in the GameModel.
+   */
 
   it("Tests if the playerGameState has an initial score of 0", () => {
     expect(playerGameState.score).toStrictEqual(0);
   });
 
+  /**
+   * @param {Boolean} Accepts an object and reads the .Flag property.
+   * @returns {Boolean} A boolean value that represents the truthy value of the .flag property.
+   * It should be false for every instance of a cell when the game starts.
+   */
   it("Tests is the playerGameState cells are not flagged when the game starts", () => {
     for (let i = 0; i < playerGameState.cols; i++) {
       for (let j = 0; j < playerGameState.rows; j++) {
@@ -44,17 +72,41 @@ describe("PlayerGameState - newGame()", () => {
     }
   });
 
+  /**
+   * @param {Array} Accepts an array of arrays
+   * @returns {Boolean} A boolean value that represents the truthy value of numberOfCOls in the gameModel.
+   * The test ensures that when the game starts, the minefield is generated correctly.
+   */
+
   it("Tests if playerGameState has 10 cols", () => {
     expect(playerGameState.cols).toStrictEqual(10);
   });
+  /**
+   * @param {Array} Accepts an array of Objects
+   * @returns {Boolean} A boolean value that represents the truthy value of NumberOfRows in the gameModel.
+   * The test ensures that when the game starts, the minefield is generated correctly.
+   */
 
   it("Tests if playerGameState has 10 rows", () => {
     expect(playerGameState.rows).toStrictEqual(10);
   });
 
+  /**
+   * @param {Boolean} Accepts a boolean value.
+   * @returns {Boolean} A boolean value that represents the truthy value of numberOfCOls in the gameModel.
+   * The test ensures that when the game starts, the minefield is generated correctly.
+   */
+
   it("Tests if playerGameState isFinished is false when the game starts", () => {
     expect(playerGameState.isFinished).toStrictEqual(false);
   });
+
+  /**
+   * @param {Boolean} Accepts a variable of an object called Closed.
+   * @returns {Boolean} A boolean value that represents the truthy value of Closed property.
+   * When the game starts, all cells should be closed. This ensures that the player starts
+   * with all the cells closed and that the game is generated correctly.
+   */
 
   it("Tests if playerGameState cells are closed when the game starts", () => {
     for (let i = 0; i < playerGameState.cols; i++) {
@@ -63,25 +115,51 @@ describe("PlayerGameState - newGame()", () => {
       }
     }
   });
+  /**
+   * @param {Integer} Accepts an integer value of the numberOfBombs variable.
+   * @returns {Boolean} A boolean value that represents if the numberOfBombs is strictly equal 10.
+   * Currently the test is made with intention of a fixed numberOfBombs value and will be rewritten
+   * if the game changes and accepts a variable number of bombs.
+   */
 
   it("Tests if number of flags is 10 - number of flags is equal to numberOfBombs", () => {
     expect(playerGameState.numberOfBombs).toEqual(10);
   });
 });
+//End of newGame() function testing
 
+//Start of openField()
 describe("PlayerGameState - openField()", () => {
-  const openedCell = new WebBombikaModel(new TestRandomProvider());
+  const openedCell = new WebBombikaModel(new TestRandomProvider()); //A customized object for the purpose of testing.
   let playerGameState = openedCell.newGame();
   playerGameState = openedCell.openField(1, 0);
   playerGameState = openedCell.toggleFlag(1, 2);
+
+  /**
+   * @param {Boolean} Accepts a variable Closed from an object.
+   * @returns {Boolean} A boolean value of .closed variable. If the cell is closed,
+   * based on this test, the test should return True.
+   */
 
   it("Tests if the cell (1,0) is opened when we call method openField(1,0)", () => {
     expect(playerGameState.minefield[1][0].closed).toStrictEqual(false);
   });
 
+  /**
+   * @param {Integer} Accepts a number from the bombsAroundCount variable.
+   * @returns {Boolean} A boolean value that should be True if the bombsAroundCount is strictly 2
+   *
+   */
+
   it("Tests if number of bombs around cell (1,0) are equal to 2", () => {
     expect(playerGameState.minefield[1][0].bombsAroundCount).toStrictEqual(2);
   });
+
+  /**
+   * @param {Boolean}  Accepts a boolean value of closed variable in an object.
+   * @returns {Boolean} A boolean value that represents the truthy value of closed variable in an object
+   * Every field except (1,0) should have the closed variable set to true
+   */
 
   it("Tests if all the cells except (1,0) are closed", () => {
     for (let i = 0; i < playerGameState.rows; i++) {
@@ -92,29 +170,51 @@ describe("PlayerGameState - openField()", () => {
       }
     }
   });
+
+  /**
+   * @param {Boolean} Accepts a method called canFieldBeOpened which returns a boolean value.
+   * @returns {Boolean} A boolean value. Because we are testing this method on a flagged cell. The method
+   * will return false. In the test we are expecting that value to be false.
+   */
   it("Tests the click on a cell that has a flag", () => {
     expect(openedCell.canFieldBeOpened(1, 2)).toBeFalsy();
   });
 
+  /**
+   * @param {Boolean} Accepts a method called canFieldBeFlagged which returns a boolean value.
+   * @returns {Boolean} A boolean value. Because we are testing this method on an open cell, we are expecting the return value to be false.
+   */
   it("Tests if a cell that is already open can be flagged", () => {
     expect(openedCell.canFieldBeFlagged(1, 0)).toBeFalsy();
   });
 
+  /**
+   * @param {Boolean} Accepts a method called canFieldBeOpened which returns a boolean value.
+   * @returns {Boolean} A boolean value. Because we are testing this method on an open cell,
+   * We are expecting that an already opened cell can't be opened again. The test return value will return True if the method returns False.
+   */
   it("Tests the click on a cell that is already open", () => {
     expect(openedCell.canFieldBeOpened(1, 0)).toBeFalsy();
   });
 });
-
 describe("PlayerGameState - open Field With The Bomb", () => {
-  const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider());
+  const openedCellWithBomb = new WebBombikaModel(new TestRandomProvider()); //A customized object for the testing purposes
   openedCellWithBomb.newGame();
   openedCellWithBomb.toggleFlag(1, 2);
   let playerGameStateBomb = openedCellWithBomb.openField(2, 2);
 
+  /**
+   * @param {Boolean} Accepts a method called canFieldBeFlagged which returns a boolean value.
+   * @returns {Boolean} A boolean value. Because we are testing this method on an open cell, we are expecting the return value to be false.
+   */
   it("Tests the click on a cell with a bomb", () => {
     expect(playerGameStateBomb.isFinished).toEqual(true);
   });
 
+  /**
+   * @param {Boolean} Accepts a flag variable and closed variable
+   * @returns {Boolean} A boolean value. If the cell is flagged, the return value of closed should always be true.
+   */
   it("Tests that all the fields that are flagged are still closed after a click on the bomb", () => {
     for (let i = 0; i < playerGameStateBomb.rows; i++) {
       for (let j = 0; j < playerGameStateBomb.cols; j++) {
@@ -127,6 +227,11 @@ describe("PlayerGameState - open Field With The Bomb", () => {
     }
   });
 
+  /**
+   * @param {Boolean} Accepts an object variable closed.
+   * @returns {Boolean} A boolean value. In this test, we are testing that if the bomb is clicked, all cells that are not
+   * flagged should be open.
+   */
   it("Tests that all the fields that are not flagged are opened after a click on the bomb", () => {
     for (let i = 0; i < playerGameStateBomb.rows; i++) {
       for (let j = 0; j < playerGameStateBomb.cols; j++) {
