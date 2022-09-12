@@ -1,6 +1,7 @@
 <template>
   <div class="container3">
     <h1>Game over</h1>
+    <br v-show="score === 0" />
     <h2 v-show="score == 0">Better luck next time!</h2>
     <h2 v-show="score > 0">You won {{ score }} points!!!</h2>
     <br />
@@ -8,15 +9,24 @@
       <input
         v-show="score > 0"
         type="text"
-        class="username"
+        class="username input"
         id="username"
-        placeholder="username"
+        placeholder="Username - eg. MyName12"
         name="username"
         label="username"
         pattern="[a-zA-Z]{6}[0-9]{2}"
-      /><br /><br />
+      />
+      <p v-show="score > 0">Please enter a username</p>
+      <br />
     </form>
-    <button @click="playAgain" color="#15b3a0">Play again!</button>
+    <!-- <button @click="playAgain" color="#15b3a0">Play again!</button> -->
+    <v-row align="center" justify="space-around">
+      <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
+      <v-btn v-show="score > 0" @click="saveScore" color="#BEBEBE"
+        >Save score</v-btn
+      >
+    </v-row>
+    <br />
   </div>
 </template>
 
@@ -36,6 +46,9 @@ export default {
   methods: {
     playAgain() {
       this.$emit("playAgain");
+    },
+    saveScore() {
+      //TODO
     },
   },
 };

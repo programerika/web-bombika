@@ -23,8 +23,8 @@
             <v-card
               elevation="12"
               class="scoreCard"
-              width="300px"
-              height="200px"
+              width="320px"
+              height="230px"
             >
               <GameScore :score="score" @playAgain="playAgain" />
             </v-card>
