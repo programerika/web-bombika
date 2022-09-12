@@ -36,7 +36,7 @@ describe("WebBombikaViewModel - openField()", () => {
    * This test checks if the image name of (1,0) field if equal to "cell2.png", field is with bombs around
    *
    */
-  it("Tests if opening empty field set certain image", () => {
+  it("Tests if opening field with bombs around sets proper image", () => {
     expect(
       viewModel.openField(1, 0, playerViewModelState).minefield[1][0].image
     ).toEqual("cell2.png");
@@ -48,7 +48,7 @@ describe("WebBombikaViewModel - openField()", () => {
    * This test checks if the image name of (2,0) field if equal to "cell1.png",field is with bombs around
    *
    */
-  it("Tests if opening empty field set certain image", () => {
+  it("Tests if opening field with bombs around sets proper image", () => {
     expect(
       viewModel.openField(2, 0, playerViewModelState).minefield[2][0].image
     ).toEqual("cell1.png");
@@ -60,7 +60,7 @@ describe("WebBombikaViewModel - openField()", () => {
    * This test checks if the image name of (9,0) field if equal to "cell0.png", field doesn't have bombs around
    * and opens every empty field that it touches
    */
-  it("Tests if opening empty field set certain image", () => {
+  it("Tests if opening empty field sets proper image", () => {
     expect(
       viewModel.openField(9, 0, playerViewModelState).minefield[9][0].image
     ).toEqual("cell0.png");
@@ -78,7 +78,7 @@ describe("WebBombikaViewModel - openField()", () => {
    * @returns {String} Name for image that we expect when the field is opened
    * This test tests openField() function when we open field with bomb and checks if the image name is "triggeredbomba.png"
    */
-  it("Tests if opening empty field set certain image", () => {
+  it("Tests if opening field with bomb sets image to 'triggeredbomba.png'", () => {
     expect(playerViewModelState.minefield[0][0].image).toEqual(
       "triggeredbomba.png"
     );
@@ -89,7 +89,7 @@ describe("WebBombikaViewModel - openField()", () => {
    * @returns {String} Name for image that we expect when bomb was pressed before and all the field were open
    * This test checks if the image name of field (1,1) is equal to "bomba.png"
    */
-  it("Tests if opening empty field set certain image", () => {
+  it("Tests if the field with bomb has 'bomba.png' image after the game ends", () => {
     expect(playerViewModelState.minefield[1][1].image).toEqual("bomba.png");
   });
 });
@@ -125,9 +125,9 @@ describe("WebBombikaViewModel - openField()", () => {
   /**
    * @param {String}  Name of the image when the field opens after we put a flag on it and then removed
    * @returns {String} Name of the image for certain field
-   * This test checks if opening field set certain image
+   * This test checks if opening field sets proper image
    */
-  it("Tests if opening field set certain image", () => {
+  it("Tests if opening field sets proper image", () => {
     expect(playerViewModelState.minefield[0][5].image).toEqual("cell0.png");
   });
 });
