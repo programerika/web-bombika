@@ -13,7 +13,7 @@
       </GameHeader>
       <div class="flagSelector">
         <v-switch
-          label="open/flag field"
+          :label="flagSelector ? 'flag field' : 'open field'"
           class="toggle"
           density="compact"
           color="red"
