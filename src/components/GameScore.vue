@@ -7,6 +7,7 @@
     <br />
     <form>
       <input
+        v-model="username"
         v-show="score > 0"
         type="text"
         class="username input"
@@ -21,6 +22,7 @@
     </form>
     <!-- <button @click="playAgain" color="#15b3a0">Play again!</button> -->
     <v-row align="center" justify="space-around">
+      <!-- <v-btn @click="playAgain" color="#0c5e54">Play again!</v-btn> -->
       <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
       <v-btn v-show="score > 0" @click="saveScore" color="#BEBEBE"
         >Save score</v-btn
@@ -42,13 +44,15 @@ export default {
 
   components: {},
   emits: ["playAgain"],
-
   methods: {
     playAgain() {
       this.$emit("playAgain");
     },
     saveScore() {
       //TODO
+      console.log("saveScore");
+      localStorage.username = this.username;
+      localStorage.score = this.score;
     },
   },
 };
@@ -73,7 +77,8 @@ button {
 }
 
 .username {
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid black;
+  width: 220px;
 }
 </style>
