@@ -14,13 +14,17 @@
         </div>
         <v-row justify="center">
           <v-overlay
-            :v-if="isFinished ? (overlay = true) : (overlay = false)"
+            :v-if="isFinished"
             v-model="overlay"
             contained
             class="align-center justify-center"
             scroll-strategy="close"
           >
-            <GameScore :score="score" @playAgain="playAgain" />
+            <GameScore
+              :isFinished="isFinished"
+              :score="score"
+              @playAgain="playAgain"
+            />
           </v-overlay>
         </v-row>
       </v-card>
@@ -55,6 +59,11 @@ export default {
   },
   components: { GameCell, GameScore },
   emits: ["openField", "toggleFlag", "playAgain"],
+  watch: {
+    isFinished() {
+      this.isFinished ? (this.overlay = true) : (this.overlay = false);
+    },
+  },
 };
 </script>
 

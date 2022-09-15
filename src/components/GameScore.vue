@@ -26,7 +26,11 @@
       <v-row align="center" justify="space-around">
         <!-- <v-btn @click="playAgain" color="#0c5e54">Play again!</v-btn> -->
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
-        <v-btn :disabled="saveButtonDisabled" @click="saveScore" color="#BEBEBE"
+        <v-btn
+          v-show="score > 0 && allscore == null"
+          :disabled="saveButtonDisabled"
+          @click="saveScore"
+          color="#BEBEBE"
           >Save score</v-btn
         >
       </v-row>
@@ -45,12 +49,16 @@ export default {
   },
   props: {
     score: Number,
+    isFinished: Boolean,
   },
   mounted() {
     if (localStorage.username) {
       this.username = localStorage.username;
+      if (this.isFinished) {
+        this.saveScore();
+      }
     }
-    if (localStorage.score) {
+    if (localStorage.allscore) {
       this.allscore = localStorage.allscore;
     }
   },
@@ -74,6 +82,7 @@ export default {
       this.saveButtonDisabled = true;
     },
   },
+  watch: {},
 };
 </script>
 <style scoped>
