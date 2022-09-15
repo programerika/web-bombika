@@ -20,14 +20,7 @@
             class="align-center justify-center"
             scroll-strategy="close"
           >
-            <v-card
-              elevation="12"
-              class="scoreCard"
-              width="320px"
-              height="230px"
-            >
-              <GameScore :score="score" @playAgain="playAgain" />
-            </v-card>
+            <GameScore :score="score" @playAgain="playAgain" />
           </v-overlay>
         </v-row>
       </v-card>
@@ -78,6 +71,7 @@ export default {
 
 .scoreCard {
   background-color: rgb(29, 245, 219, 0.8);
+  /* border-color: aquamarine; */
 }
 .celija {
   width: 30px;
