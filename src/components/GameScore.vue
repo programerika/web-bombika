@@ -1,11 +1,11 @@
 <template>
   <div class="container">
+    <ConfettiExplosion v-show="score > 0 && isFinished" />
     <v-card elevation="12" class="scoreCard" width="320px" height="230px">
-      <h1>Game over</h1>
+      <v-card-title>Game over</v-card-title>
       <br v-show="score === 0" />
       <h2 v-show="score == 0">Better luck next time!</h2>
       <h2 v-show="score > 0">You won {{ score }} points!!!</h2>
-      <p v-show="allscore > 0">Total score {{ allscore }}</p>
       <br v-show="allscore == null" />
       <form>
         <input
@@ -39,6 +39,7 @@
   </div>
 </template>
 <script>
+import ConfettiExplosion from "vue-confetti-explosion";
 export default {
   data() {
     return {
@@ -62,7 +63,7 @@ export default {
       this.allscore = localStorage.allscore;
     }
   },
-  components: {},
+  components: { ConfettiExplosion },
   emits: ["playAgain"],
   methods: {
     playAgain() {
@@ -88,11 +89,12 @@ export default {
 <style scoped>
 .container {
   text-align: center;
+  margin-top: 43px;
 }
 .scoreCard {
   background-color: rgb(29, 245, 219, 0.8);
-  border-width: 10px 10px 10px 10px;
-  border-radius: 20px;
+  border-width: 7px 7px 7px 7px;
+  border-radius: 15px;
 }
 .username {
   border-radius: 4px;

@@ -88,6 +88,10 @@ export default {
   margin: 1px;
 }
 
+.v-overlay {
+  display: table-cell;
+}
+
 @media screen and (max-width: 600px) {
   .minefield {
     margin: 4px;
