@@ -14,11 +14,11 @@
         </div>
         <v-row justify="center">
           <v-overlay
+            persistent
             :v-if="isFinished"
             v-model="overlay"
             contained
-            class="align-center justify-center"
-            scroll-strategy="close"
+            scroll-strategy="none"
           >
             <GameScore
               :isFinished="isFinished"

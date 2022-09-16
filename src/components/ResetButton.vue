@@ -1,11 +1,10 @@
 <template>
-  <div class="flex">
+  <div>
     <v-btn
       class="ma-1"
       color="#1df5db"
       icon="mdi-restart"
       @click="restartGame"
-      :src="restart"
       alt="restart"
       size="large"
     >
@@ -13,12 +12,9 @@
   </div>
 </template>
 <script>
-import restart from "@/assets/restart.png";
 export default {
   data() {
-    return {
-      restart: restart,
-    };
+    return {};
   },
   components: {},
   methods: {

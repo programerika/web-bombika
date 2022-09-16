@@ -87,4 +87,8 @@ export class WebBombikaViewModel {
     };
     return playerViewModelState;
   };
+
+  isPlayerRegistered = (playerUsername) => {
+    return playerUsername === localStorage.getItem("username");
+  };
 }
