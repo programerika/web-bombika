@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <ConfettiExplosion v-show="score > 0 && isFinished" />
+    <ConfettiExplosion
+      v-show="score > 0 && isFinished"
+      :force="1"
+      :duration="4000"
+      :particleCount="250"
+    />
     <v-card elevation="12" class="scoreCard" width="320px" height="230px">
       <v-card-title>GAME OVER</v-card-title>
       <h2>{{ message }}</h2>
