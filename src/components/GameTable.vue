@@ -2,8 +2,8 @@
   <div class="minefield">
     <v-row align="center" justify="center" class="ma-0">
       <v-card height="320" width="320" color="transparent">
-        <div class="tabla" v-for="r in mineField" :key="r.x">
-          <div class="celija" v-for="c in r" :key="c.y">
+        <div class="table" v-for="r in mineField" :key="r.x">
+          <div class="field" v-for="c in r" :key="c.y">
             <GameCell
               @openField="onCellClicked(c.x, c.y)"
               :cell="mineField[c.x][c.y].image"
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style>
-.tabla {
+.table {
   display: flex;
 }
 
@@ -78,11 +78,7 @@ export default {
   background-color: #0c5e54;
 }
 
-.scoreCard {
-  background-color: rgb(29, 245, 219, 0.8);
-  /* border-color: aquamarine; */
-}
-.celija {
+.field {
   width: 30px;
   height: 30px;
   margin: 1px;

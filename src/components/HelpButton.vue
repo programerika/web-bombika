@@ -62,14 +62,4 @@ export default {
 };
 </script>
 
-<style>
-.imageStyle {
-  display: flex;
-}
-</style>
-
-<!-- <div class="flex">
-    <button>
-      
-    </button>
-  </div> -->
+<style></style>

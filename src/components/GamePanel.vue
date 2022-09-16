@@ -8,8 +8,6 @@
           <NumberOfFlags :numberOfFlags="numberOfFlags" />
         </div>
         <div><HelpButton /></div>
-
-        <!-- <v-btn @click="toggleFlagSelectorButton" class="toggle"> </v-btn> -->
       </GameHeader>
       <div class="flagSelector">
         <v-switch
@@ -36,7 +34,6 @@
   </div>
 </template>
 <script>
-//slot za header, timer
 import GameHeader from "./GameHeader.vue";
 import GameTable from "./GameTable.vue";
 import { WebBombikaViewModel } from "@/viewModel/webBombikaViewModel";
@@ -128,11 +125,6 @@ export default {
 .flagSelector {
   display: grid;
   place-items: center;
-}
-
-.gameContainer {
-  border: 2px solid black;
-  display: grid;
 }
 
 @media screen and (max-width: 600px) {

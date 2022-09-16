@@ -22,9 +22,7 @@
         <p class="enterUserName" v-show="score > 0">Please enter a username</p>
         <br />
       </form>
-      <!-- <button @click="playAgain" color="#15b3a0">Play again!</button> -->
       <v-row align="center" justify="space-around">
-        <!-- <v-btn @click="playAgain" color="#0c5e54">Play again!</v-btn> -->
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
           v-show="score > 0 && allscore == null"
