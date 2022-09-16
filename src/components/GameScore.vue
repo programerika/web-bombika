@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <ConfettiExplosion v-show="score > 0 && isFinished" />
+    <ConfettiExplosion
+      v-show="score > 0 && isFinished"
+      :force="1"
+      :duration="4000"
+      :particleCount="250"
+    />
     <v-card elevation="12" class="scoreCard" width="320px" height="230px">
       <v-card-title>Game over</v-card-title>
       <br v-show="score === 0" />
@@ -22,7 +27,9 @@
         <p class="enterUserName" v-show="score > 0">Please enter a username</p>
         <br />
       </form>
+      <!-- <button @click="playAgain" color="#15b3a0">Play again!</button> -->
       <v-row align="center" justify="space-around">
+        <!-- <v-btn @click="playAgain" color="#0c5e54">Play again!</v-btn> -->
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
           v-show="score > 0 && allscore == null"
