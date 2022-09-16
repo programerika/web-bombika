@@ -11,7 +11,7 @@
       </GameHeader>
       <div class="flagSelector">
         <v-switch
-          :label="flagSelector ? 'flag field' : 'open field'"
+          label="open/flag field"
           class="toggle"
           density="compact"
           color="red"
@@ -113,8 +113,8 @@ export default {
   display: grid;
   place-items: center;
   width: auto;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   width: fit-content;
