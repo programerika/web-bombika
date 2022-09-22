@@ -41,12 +41,15 @@
 </template>
 <script>
 import ConfettiExplosion from "vue-confetti-explosion";
-
+import { StorageService } from "@/services/StorageService";
+let storage = new StorageService();
 export default {
   data() {
     return {
+      storage: storage,
       username: "",
-      allscore: localStorage.getItem("allscore"),
+      allscore: storage.getItem("allscore"),
+      // allscore: 0,
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
       message: `You won ${this.score} points!🤩`,
@@ -57,12 +60,14 @@ export default {
     isFinished: Boolean,
   },
   mounted() {
-    if (localStorage.username) {
-      this.username = localStorage.username;
+    if (storage.getItem("username")) {
+      this.username = storage.getItem("username");
     }
-    if (localStorage.allscore) {
-      this.allscore = localStorage.allscore;
+
+    if (storage.getItem("allscore")) {
+      this.allscore = storage.getItem("allscore");
     }
+
     if (this.isFinished && this.score > 0 && this.allscore !== null) {
       this.saveScore();
       this.usernameMessage = "";
@@ -79,21 +84,20 @@ export default {
       this.$emit("playAgain");
     },
     saveScore() {
-      //TODO refactor na malo bolji nacin
       console.log("saveScore");
       let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
       if (!userInput.test(this.username) && this.allscore === null) {
         this.usernameMessage = "Incorrect input, eg. MyName12";
       } else {
         this.message = `You won ${this.score} points!🤩`;
-        localStorage.username = this.username;
-        let allscore = localStorage.getItem("allscore");
+        storage.setItem("username", this.username);
+        let allscore = storage.getItem("allscore");
 
         if (allscore == null) {
           allscore = 0;
         }
         this.allscore = parseInt(allscore) + parseInt(this.score);
-        localStorage.allscore = this.allscore;
+        storage.setItem("allscore", this.allscore);
         this.saveButtonDisabled = true;
       }
     },

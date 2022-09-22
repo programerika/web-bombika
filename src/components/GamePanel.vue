@@ -24,10 +24,10 @@
       <GameTable
         :mineField="mineField"
         :isFinished="isFinished"
+        :score="score"
+        :flagSelector="flagSelector"
         @toggleFlag="toggleFlag"
         @openField="openField"
-        :flagSelector="flagSelector"
-        :score="score"
         @playAgain="restartGame"
       />
     </div>

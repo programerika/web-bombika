@@ -6,7 +6,16 @@ import WebBombikaModel from "../model/webBombikaModel";
 export class WebBombikaViewModel {
   constructor() {
     this.webBombikaModel = new WebBombikaModel(new TestRandomProvider());
+    // this.#store = store;
   }
+
+  // #getViewState = () => {
+  //   this.#store.state.view;
+  // };
+
+  // #dispatchViewUpdate = (newViewState) => {
+  //   this.#store.dispatch("updateView", newViewState);
+  // };
 
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();
@@ -45,10 +54,10 @@ export class WebBombikaViewModel {
 
     if (isFinished) {
       if (!col.flag && col.bomb && col.triggeredBomb) {
-        newStepForPlayer.image = "triggeredbomba.png";
+        newStepForPlayer.image = "triggeredbomb.png";
       }
       if (!col.flag && col.bomb && !col.triggeredBomb) {
-        newStepForPlayer.image = "bomba.png";
+        newStepForPlayer.image = "bomb.png";
       }
     }
   };
