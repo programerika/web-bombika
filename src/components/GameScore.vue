@@ -30,7 +30,7 @@
         <v-btn
           v-show="score > 0 && allscore == null"
           :disabled="saveButtonDisabled"
-          @click="saveScore"
+          @click="save(username, score, allscore)"
           color="#BEBEBE"
           >Save score</v-btn
         >
@@ -42,14 +42,15 @@
 <script>
 import ConfettiExplosion from "vue-confetti-explosion";
 import { StorageService } from "@/services/StorageService";
+import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 let storage = new StorageService();
 export default {
   data() {
     return {
+      scoreViewModel: {},
       storage: storage,
       username: "",
       allscore: storage.getItem("allscore"),
-      // allscore: 0,
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
       message: `You won ${this.score} points!🤩`,
@@ -60,6 +61,8 @@ export default {
     isFinished: Boolean,
   },
   mounted() {
+    this.scoreViewModel = new ScoreViewModel();
+
     if (storage.getItem("username")) {
       this.username = storage.getItem("username");
     }
@@ -68,8 +71,12 @@ export default {
       this.allscore = storage.getItem("allscore");
     }
 
-    if (this.isFinished && this.score > 0 && this.allscore !== null) {
-      this.saveScore();
+    if (
+      this.isFinished &&
+      this.score > 0 &&
+      !storage.isItemInStorageEmpty("username")
+    ) {
+      this.save(this.username, this.score, this.allscore);
       this.usernameMessage = "";
     }
     if (this.isFinished && this.score < 1) {
@@ -83,23 +90,9 @@ export default {
     playAgain() {
       this.$emit("playAgain");
     },
-    saveScore() {
-      console.log("saveScore");
-      let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-      if (!userInput.test(this.username) && this.allscore === null) {
-        this.usernameMessage = "Incorrect input, eg. MyName12";
-      } else {
-        this.message = `You won ${this.score} points!🤩`;
-        storage.setItem("username", this.username);
-        let allscore = storage.getItem("allscore");
-
-        if (allscore == null) {
-          allscore = 0;
-        }
-        this.allscore = parseInt(allscore) + parseInt(this.score);
-        storage.setItem("allscore", this.allscore);
-        this.saveButtonDisabled = true;
-      }
+    save(username, score, allscore) {
+      this.scoreViewModel.save(username, score, allscore);
+      console.log(username, score, allscore);
     },
   },
 };
