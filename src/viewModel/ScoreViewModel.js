@@ -1,24 +1,24 @@
 import { StorageService } from "@/services/StorageService";
-import { WebBombikaService } from "@/services/WebBombikaService";
 
 export class ScoreViewModel {
   #storage;
-  #webBombikaService;
   constructor() {
     this.#storage = new StorageService();
-    this.#webBombikaService = new WebBombikaService();
   }
 
-  save = (username, score, allscore2) => {
+  saveScore = (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (
       this.#storage.isItemInStorageEmpty(username) &&
       !userInput.test(username)
     ) {
       return {
+        message: `You won ${score} points!!!🤩`,
         usernameMessage: "Incorrect input, eg. MyName12",
+        saveButtonDisabled: false,
+        usernameMessageColour: "red",
       };
-    } else {
+    } else if (score > 0) {
       this.#storage.setItem("username", username);
 
       let allscore = this.#storage.getItem("allscore");
@@ -26,12 +26,20 @@ export class ScoreViewModel {
       if (allscore == null) {
         allscore = 0;
       }
-      allscore2 = parseInt(allscore) + parseInt(score);
+      let allscore2 = parseInt(allscore) + parseInt(score);
       this.#storage.setItem("allscore", allscore2);
-      this.saveButtonDisabled = true;
-      console.log(username, "poeni ", score, "ViewModel, ukupno", allscore2);
       return {
         message: `You won ${score} points!!!🤩`,
+        usernameMessage: "Username in valid format",
+        saveButtonDisabled: true,
+        usernameMessageColour: "green",
+      };
+    } else {
+      return {
+        message: `Sorry! Better luck next time!🥺`,
+        usernameMessage: "",
+        saveButtonDisabled: true,
+        usernameMessageColour: "green",
       };
     }
   };

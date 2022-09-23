@@ -21,16 +21,16 @@
         placeholder="Username - eg. MyName12"
         name="username"
       />
-      <p class="enterUserName">
+      <p class="enterUserName" :style="{ color: usernameMessageColour }">
         {{ usernameMessage }}
       </p>
       <br />
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-show="score > 0 && allscore == null"
+          v-show="score > 0 && storage.isItemInStorageEmpty('username')"
           :disabled="saveButtonDisabled"
-          @click="save(username, score, allscore)"
+          @click="saveScore"
           color="#BEBEBE"
           >Save score</v-btn
         >
@@ -43,17 +43,20 @@
 import ConfettiExplosion from "vue-confetti-explosion";
 import { StorageService } from "@/services/StorageService";
 import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
+
 let storage = new StorageService();
+
 export default {
   data() {
     return {
       scoreViewModel: {},
       storage: storage,
       username: "",
-      allscore: storage.getItem("allscore"),
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
-      message: `You won ${this.score} points!🤩`,
+      message: `You won ${this.score} points!!!🤩`,
+      scoreDetails: {},
+      usernameMessageColour: "black",
     };
   },
   props: {
@@ -67,17 +70,12 @@ export default {
       this.username = storage.getItem("username");
     }
 
-    if (storage.getItem("allscore")) {
-      this.allscore = storage.getItem("allscore");
-    }
-
     if (
       this.isFinished &&
       this.score > 0 &&
       !storage.isItemInStorageEmpty("username")
     ) {
-      this.save(this.username, this.score, this.allscore);
-      this.usernameMessage = "";
+      this.save(this.username, this.score);
     }
     if (this.isFinished && this.score < 1) {
       this.usernameMessage = "";
@@ -90,9 +88,19 @@ export default {
     playAgain() {
       this.$emit("playAgain");
     },
-    save(username, score, allscore) {
-      this.scoreViewModel.save(username, score, allscore);
-      console.log(username, score, allscore);
+    saveScore() {
+      this.scoreDetails = this.save(this.username, this.score);
+      this.setScoreDetails(this.scoreDetails);
+    },
+    save(username, score) {
+      console.log(username, score);
+      return this.scoreViewModel.saveScore(username, score);
+    },
+    setScoreDetails(details) {
+      this.usernameMessage = details.usernameMessage;
+      this.message = details.message;
+      this.saveButtonDisabled = details.saveButtonDisabled;
+      this.usernameMessageColour = details.usernameMessageColour;
     },
   },
 };
@@ -103,7 +111,7 @@ export default {
   margin-top: 43px;
 }
 .scoreCard {
-  background-color: rgb(29, 245, 219, 0.8);
+  background-color: rgba(29, 245, 219, 0.8);
   border-width: 7px 7px 7px 7px;
   border-radius: 15px;
 }
@@ -115,6 +123,6 @@ export default {
   background-color: rgba(114, 166, 184, 0.8);
 }
 .enterUserName {
-  font-size: 12px;
+  font-size: 15px;
 }
 </style>
