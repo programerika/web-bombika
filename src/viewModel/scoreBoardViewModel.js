@@ -4,18 +4,12 @@ import notifyError from "../services/ErrorNotificationService";
 
 
 export class ScoreBoardViewModel {
-    #dispatcher;
     #WebBombikaService;
     #storage;
-    constructor(dispatcher) {
-      this.#dispatcher = dispatcher;
+    constructor() {
       this.#WebBombikaService = new WebBombikaService();
       this.#storage = new StorageService();
     }
-
-    #dispatchUpdateScoreBoard = (newStateBoard) => {
-        this.#dispatcher(allActions.updateScoreBoard(newStateBoard));
-      };
     
       initializeScoreBoardView = async () => {
         try {
@@ -59,10 +53,10 @@ export class ScoreBoardViewModel {
       };
 
       #getTopPlayers = async () => {
-        const topPlayers = await this.#webGejmikaService.getTopPlayers();
+        const topPlayers = await this.#WebBombikaService.getTopPlayers();
         let currentPlayer = {};
         if (this.#isPlayerRegistered()) {
-          currentPlayer = await this.#webGejmikaService.getPlayerByUsername(
+          currentPlayer = await this.#WebBombikaService.getPlayerByUsername(
             this.#currentPlayerUsername()
           );
           if (currentPlayer === undefined) {
