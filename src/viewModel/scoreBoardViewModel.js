@@ -71,7 +71,7 @@ export class ScoreBoardViewModel {
 
   #removePlayerFromLocalStorage = () => {
     this.#storage.removeItem("username");
-    this.#storage.removeItem("scoreSum");
+    this.#storage.removeItem("uid");
   };
 
   #currentPlayerUsername() {
@@ -81,7 +81,7 @@ export class ScoreBoardViewModel {
   deletePlayer = async () => {
     if (this.#storage.getItem("username") === null) {
       throw new Error(
-        "Illegal state: not expected to call deletePlayer without username in local storage!"
+        "Illegal state: not expected to call deletePlayer without uid in local storage!"
       );
     }
     if (!window.confirm("Are you sure you want to delete your username?"))
