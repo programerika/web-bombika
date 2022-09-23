@@ -21,10 +21,10 @@ export class ScoreViewModel {
     } else if (score > 0) {
       this.#storage.setItem("username", username);
 
-      let allscore = this.#storage.getItem("allscore");
+      let scoreSum = this.#storage.getItem("allscore");
 
-      if (allscore == null) {
-        allscore = 0;
+      if (scoreSum == null) {
+        scoreSum = 0;
       }
       let allscore2 = parseInt(allscore) + parseInt(score);
       this.#storage.setItem("allscore", allscore2);
