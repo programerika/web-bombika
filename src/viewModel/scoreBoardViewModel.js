@@ -9,7 +9,7 @@ export class ScoreBoardViewModel {
     #storage;
     constructor(dispatcher) {
       this.#dispatcher = dispatcher;
-      this.#WebBombikaService = new WebBombikaService);
+      this.#WebBombikaService = new WebBombikaService();
       this.#storage = new StorageService();
     }
 
@@ -56,5 +56,28 @@ export class ScoreBoardViewModel {
 
       #isPlayerRegistered = () => {
         return !this.#storage.isItemInStorageEmpty("username");
+      };
+
+      #getTopPlayers = async () => {
+        const topPlayers = await this.#webGejmikaService.getTopPlayers();
+        let currentPlayer = {};
+        if (this.#isPlayerRegistered()) {
+          currentPlayer = await this.#webGejmikaService.getPlayerByUsername(
+            this.#currentPlayerUsername()
+          );
+          if (currentPlayer === undefined) {
+            this.#removePlayerFromLocalStorage();
+          }
+        }
+    
+        return {
+          topPlayers: [...topPlayers],
+          currentPlayer: { ...currentPlayer },
+        };
+      };
+
+      #removePlayerFromLocalStorage = () => {
+        this.#storage.removeItem("username");
+        this.#storage.removeItem("scoreSum");
       };
 }
