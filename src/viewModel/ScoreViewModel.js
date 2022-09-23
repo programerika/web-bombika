@@ -26,8 +26,8 @@ export class ScoreViewModel {
       if (scoreSum == null) {
         scoreSum = 0;
       }
-      let allscore2 = parseInt(allscore) + parseInt(score);
-      this.#storage.setItem("allscore", allscore2);
+      let scoreSum2 = parseInt(scoreSum) + parseInt(score);
+      this.#storage.setItem("allscore", scoreSum2);
       return {
         message: `You won ${score} points!!!🤩`,
         usernameMessage: "Username in valid format",
