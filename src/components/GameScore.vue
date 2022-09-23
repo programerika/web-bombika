@@ -70,12 +70,11 @@ export default {
       this.username = storage.getItem("username");
     }
 
-    if (
-      this.isFinished &&
-      this.score > 0 &&
-      !storage.isItemInStorageEmpty("username")
-    ) {
-      this.save(this.username, this.score);
+    if (this.isFinished && !storage.isItemInStorageEmpty("username")) {
+      this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(
+        this.username,
+        this.score
+      );
     }
     if (this.isFinished && this.score < 1) {
       this.usernameMessage = "";
@@ -89,7 +88,10 @@ export default {
       this.$emit("playAgain");
     },
     saveScore() {
-      this.scoreDetails = this.save(this.username, this.score);
+      this.scoreDetails = {
+        ...this.scoreDetails,
+        ...this.save(this.username, this.score),
+      };
       this.setScoreDetails(this.scoreDetails);
     },
     save(username, score) {
