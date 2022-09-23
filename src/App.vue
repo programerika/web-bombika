@@ -2,18 +2,21 @@
   <v-app class="background">
     <v-main>
       <GamePanel />
+      <ScoreBoard />
     </v-main>
   </v-app>
 </template>
 
 <script>
 import GamePanel from "./components/GamePanel.vue";
+import ScoreBoard from "./components/ScoreBoard.vue";
 
 export default {
   name: "App",
 
   components: {
     GamePanel,
+    ScoreBoard,
   },
 
   data: () => ({}),
@@ -48,7 +51,7 @@ export default {
 
 .background {
   background-color: black;
-  height: 5000px;
+  display: flex;
 }
 
 .pixeli {
