@@ -9,7 +9,7 @@ export class ScoreViewModel {
     this.#webBombikaService = new WebBombikaService();
   }
 
-  save = (username, score, allscore2) => {
+  save = (username, score, scoreSum2) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (
       this.#storage.isItemInStorageEmpty(username) &&
@@ -21,15 +21,15 @@ export class ScoreViewModel {
     } else {
       this.#storage.setItem("username", username);
 
-      let allscore = this.#storage.getItem("allscore");
+      let scoreSum = this.#storage.getItem("allscore");
 
-      if (allscore == null) {
-        allscore = 0;
+      if (scoreSum == null) {
+        scoreSum = 0;
       }
-      allscore2 = parseInt(allscore) + parseInt(score);
-      this.#storage.setItem("allscore", allscore2);
+      scoreSum2 = parseInt(scoreSum) + parseInt(score);
+      this.#storage.setItem("scoreSum", scoreSum2);
       this.saveButtonDisabled = true;
-      console.log(username, "poeni ", score, "ViewModel, ukupno", allscore2);
+      console.log(username, "poeni ", score, "ViewModel, ukupno", scoreSum2);
       return {
         message: `You won ${score} points!!!🤩`,
       };

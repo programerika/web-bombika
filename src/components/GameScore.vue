@@ -28,9 +28,9 @@
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-show="score > 0 && allscore == null"
+          v-show="score > 0 && scoreSum == null"
           :disabled="saveButtonDisabled"
-          @click="save(username, score, allscore)"
+          @click="save(username, score, scoreSum)"
           color="#BEBEBE"
           >Save score</v-btn
         >
@@ -50,7 +50,7 @@ export default {
       scoreViewModel: {},
       storage: storage,
       username: "",
-      allscore: storage.getItem("allscore"),
+      scoreSum: storage.getItem("scoreSum"),
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
       message: `You won ${this.score} points!🤩`,
@@ -67,8 +67,8 @@ export default {
       this.username = storage.getItem("username");
     }
 
-    if (storage.getItem("allscore")) {
-      this.allscore = storage.getItem("allscore");
+    if (storage.getItem("scoreSum")) {
+      this.scoreSum = storage.getItem("scoreSum");
     }
 
     if (
@@ -76,7 +76,7 @@ export default {
       this.score > 0 &&
       !storage.isItemInStorageEmpty("username")
     ) {
-      this.save(this.username, this.score, this.allscore);
+      this.save(this.username, this.score, this.scoreSum);
       this.usernameMessage = "";
     }
     if (this.isFinished && this.score < 1) {
@@ -90,9 +90,9 @@ export default {
     playAgain() {
       this.$emit("playAgain");
     },
-    save(username, score, allscore) {
-      this.scoreViewModel.save(username, score, allscore);
-      console.log(username, score, allscore);
+    save(username, score, scoreSum) {
+      this.scoreViewModel.save(username, score, scoreSum);
+      console.log(username, score, scoreSum);
     },
   },
 };
