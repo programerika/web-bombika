@@ -91,4 +91,9 @@ export class ScoreViewModel {
     let existingUser = user !== undefined;
     return existingUser;
   };
+
+  getTopPlayers = async () => {
+    let topPlayers = await this.#webBombikaService.getTopPlayers();
+    return topPlayers;
+  };
 }
