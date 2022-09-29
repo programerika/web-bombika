@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-table theme="dark">
+    <v-table theme="dark" class="scoreBoardWidth">
       <thead>
         <tr>
           <th class="text-center">Rank</th>
@@ -16,6 +16,16 @@
         </tr>
       </tbody>
     </v-table>
+    <div v-show="currentPlayer">
+      <v-card class="vCardStyle">
+        Your username is: {{ currentPlayer.username }} and you have
+        {{ currentPlayer.score }} points.
+        <br />
+        <v-btn color="error" class="ma-4" @click="deleteCurrentPlayer()"
+          >Delete your score</v-btn
+        >
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -26,22 +36,43 @@ export default {
     return {
       scoreViewModel: {},
       topPlayers: [],
+      currentPlayer: Object,
     };
   },
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
     this.topPlayers = this.getTopPlayers().then((response) => {
       this.topPlayers = response;
-      console.log(this.topPlayers);
     });
     // console.log(this.topPlayers);
+    this.currentPlayer = this.getCurrentPlayer().then((response) => {
+      this.currentPlayer = response;
+      console.log(this.currentPlayer);
+    });
   },
   methods: {
     async getTopPlayers() {
       return await this.scoreViewModel.getTopPlayers();
     },
+    async deleteCurrentPlayer() {
+      return await this.scoreViewModel.deletePlayer();
+    },
+    async getCurrentPlayer() {
+      return await this.scoreViewModel.getCurrentPlayer();
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.scoreBoardWidth {
+  width: 50vh;
+}
+
+.vCardStyle {
+  display: grid;
+  align-content: center;
+  margin-top: 30px;
+  height: 10vh;
+}
+</style>
