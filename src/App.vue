@@ -1,8 +1,10 @@
 <template>
   <v-app class="background">
     <v-main>
-      <GamePanel />
-      <ScoreBoard />
+      <div class="bombika">
+        <GamePanel />
+        <ScoreBoard />
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -52,6 +54,11 @@ export default {
 .background {
   background-color: black;
   display: flex;
+}
+
+.bombika {
+  display: flex;
+  align-content: space-between;
 }
 
 .pixeli {

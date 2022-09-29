@@ -23,10 +23,4 @@
 export default {};
 </script>
 
-<style scoped>
-.scoreBoard {
-  background-color: white;
-  width: 50%;
-  place-items: center;
-}
-</style>
+<style scoped></style>
