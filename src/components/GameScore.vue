@@ -12,23 +12,26 @@
       <br />
       <input
         v-model="username"
-        v-show="score > 0"
+        v-show="score > 0 && empty"
         maxLength="8"
-        :disabled="saveButtonDisabled"
         type="text"
         class="username"
         id="username"
         placeholder="Username - eg. MyName12"
         name="username"
       />
-      <p class="enterUserName" :style="{ color: usernameMessageColour }">
+      <p
+        class="enterUserName"
+        :style="{ color: usernameMessageColour }"
+        v-show="score > 0 && empty"
+      >
         {{ usernameMessage }}
       </p>
       <br />
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-show="score > 0 && isEmpty"
+          v-show="score > 0 && empty"
           :disabled="saveButtonDisabled"
           @click="saveScore"
           color="#BEBEBE"
@@ -41,22 +44,19 @@
 </template>
 <script>
 import ConfettiExplosion from "vue-confetti-explosion";
-import { StorageService } from "@/services/StorageService";
 import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
-
-let storage = new StorageService();
 
 export default {
   data() {
     return {
       scoreViewModel: {},
-      storage: storage,
       username: "",
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
       message: `You won ${this.score} points!!!🤩`,
       details: {},
       usernameMessageColour: "black",
+      empty: true,
     };
   },
   props: {
@@ -66,17 +66,18 @@ export default {
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
 
-    if (storage.getItem("username")) {
-      this.username = storage.getItem("username");
+    if (this.scoreViewModel.getItemInStorage()) {
+      this.username = this.scoreViewModel.getItemInStorage();
     }
 
-    if (this.isFinished && !storage.isItemInStorageEmpty("username")) {
+    if (this.isFinished && this.scoreViewModel.isPlayerRegistered()) {
       this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(this.score);
     }
     if (this.isFinished && this.score < 1) {
       this.usernameMessage = "";
       this.message = "Sorry! Better luck next time!🥺";
     }
+    this.isEmpty();
   },
   components: { ConfettiExplosion },
   emits: ["playAgain"],
@@ -98,10 +99,8 @@ export default {
       this.saveButtonDisabled = details.saveButtonDisabled;
       this.usernameMessageColour = details.usernameMessageColour;
     },
-  },
-  computed: {
     isEmpty() {
-      return storage.isItemInStorageEmpty("username");
+      this.empty = this.scoreViewModel.isPlayerRegistered();
     },
   },
 };
