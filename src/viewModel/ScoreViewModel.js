@@ -68,4 +68,41 @@ export class ScoreViewModel {
     let existingUser = user !== undefined;
     return existingUser;
   };
+
+  getTopPlayers = async () => {
+    let topPlayers = await this.#webBombikaService.getTopPlayers();
+    return topPlayers;
+  };
+
+  getCurrentPlayer = async () => {
+    let currentPlayer = this.#webBombikaService.getPlayerByUsername(
+      this.#storage.getItem("username")
+    );
+    return currentPlayer;
+  };
+
+  #removePlayerFromLocalStorage = () => {
+    this.#storage.removeItem("username");
+    this.#storage.removeItem("uid");
+  };
+
+  deletePlayer = async () => {
+    if (this.#storage.getItem("uid") === null) {
+      alert(
+        "Can't delete a player that is not in local storage. Play and then try again :)"
+      );
+      throw new Error(
+        "Illegal state: not expected to call deletePlayer without uid in local storage!"
+      );
+    }
+    if (!window.confirm("Are you sure you want to delete your username?"))
+      return;
+
+    try {
+      await this.#webBombikaService.deletePlayer(this.#storage.getItem("uid"));
+      this.#removePlayerFromLocalStorage();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
