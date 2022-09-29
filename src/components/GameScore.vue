@@ -28,7 +28,7 @@
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-show="score > 0 && storage.isItemInStorageEmpty('username')"
+          v-show="score > 0 && isEmpty"
           :disabled="saveButtonDisabled"
           @click="saveScore"
           color="#BEBEBE"
@@ -55,7 +55,7 @@ export default {
       saveButtonDisabled: false,
       usernameMessage: "Please enter a username!",
       message: `You won ${this.score} points!!!🤩`,
-      scoreDetails: {},
+      details: {},
       usernameMessageColour: "black",
     };
   },
@@ -71,10 +71,7 @@ export default {
     }
 
     if (this.isFinished && !storage.isItemInStorageEmpty("username")) {
-      this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(
-        this.username,
-        this.score
-      );
+      this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(this.score);
     }
     if (this.isFinished && this.score < 1) {
       this.usernameMessage = "";
@@ -87,22 +84,24 @@ export default {
     playAgain() {
       this.$emit("playAgain");
     },
-    saveScore() {
-      this.scoreDetails = {
-        ...this.scoreDetails,
-        ...this.save(this.username, this.score),
+    async saveScore() {
+      this.details = {
+        ...this.details,
+        ...(await this.scoreViewModel.saveScore(this.username, this.score)),
       };
-      this.setScoreDetails(this.scoreDetails);
+      this.setScoreDetails(this.details);
     },
-    save(username, score) {
-      console.log(username, score);
-      return this.scoreViewModel.saveScore(username, score);
-    },
+
     setScoreDetails(details) {
       this.usernameMessage = details.usernameMessage;
       this.message = details.message;
       this.saveButtonDisabled = details.saveButtonDisabled;
       this.usernameMessageColour = details.usernameMessageColour;
+    },
+  },
+  computed: {
+    isEmpty() {
+      return storage.isItemInStorageEmpty("username");
     },
   },
 };

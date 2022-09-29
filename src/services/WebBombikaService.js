@@ -2,6 +2,9 @@ export class WebBombikaService {
   getPlayerByUsername = async (username) => {
     const response = await fetch(`/api/v1/player-scores/${username}`, {
       method: "GET",
+      headers: {
+        gameId: "bombika",
+      },
     });
 
     if (response.ok) {
@@ -21,6 +24,7 @@ export class WebBombikaService {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        gameId: "bombika",
       },
       body: JSON.stringify({
         username: username,
@@ -52,6 +56,7 @@ export class WebBombikaService {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          gameId: "bombika",
         },
         body: score,
       }
@@ -68,7 +73,11 @@ export class WebBombikaService {
   };
 
   getTopPlayers = async () => {
-    const response = await fetch("/api/v1/top-score");
+    const response = await fetch("/api/v1/top-score", {
+      headers: {
+        gameId: "bombika",
+      },
+    });
 
     if (response.ok) {
       const resp = await response.json();
