@@ -122,17 +122,10 @@ export class ScoreViewModel {
       return;
 
     try {
-      await this.#webBombikaService.deleteScore(this.#storage.getItem("uid"));
+      await this.#webBombikaService.deletePlayer(this.#storage.getItem("uid"));
       this.#removePlayerFromLocalStorage();
-      this.initializeScoreBoardView();
     } catch (error) {
       console.log(error);
-      // notifyError(
-      //   error,
-      //   true,
-      //   "Sorry we are not able to delete your username at the moment!",
-      //   true
-      // );
     }
   };
 }

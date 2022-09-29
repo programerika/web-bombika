@@ -92,7 +92,7 @@ export class WebBombikaService {
     }
   };
 
-  deleteScore = async (uid) => {
+  deletePlayer = async (uid) => {
     const response = await fetch(`/api/v1/player-scores/${uid}`, {
       method: "DELETE",
     });

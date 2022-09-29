@@ -53,15 +53,23 @@ export default {
 
 .background {
   background-color: black;
-  display: flex;
+  display: grid;
+  place-items: center;
+  justify-content: space-around;
 }
 
 .bombika {
   display: flex;
-  align-content: space-between;
 }
 
 .pixeli {
   height: 20000px;
+}
+
+@media screen and (max-width: 600px) {
+  .bombika {
+    display: grid;
+    margin-top: 10px;
+  }
 }
 </style>
