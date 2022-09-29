@@ -76,18 +76,18 @@ export class ScoreViewModel {
 
   getCurrentPlayer = async () => {
     let currentPlayer = this.#webBombikaService.getPlayerByUsername(
-      this.#storage.getItem("username")
+      this.storage.getItem("username")
     );
     return currentPlayer;
   };
 
   #removePlayerFromLocalStorage = () => {
-    this.#storage.removeItem("username");
-    this.#storage.removeItem("uid");
+    this.storage.removeItem("username");
+    this.storage.removeItem("uid");
   };
 
   deletePlayer = async () => {
-    if (this.#storage.getItem("uid") === null) {
+    if (this.storage.getItem("uid") === null) {
       alert(
         "Can't delete a player that is not in local storage. Play and then try again :)"
       );
@@ -99,7 +99,7 @@ export class ScoreViewModel {
       return;
 
     try {
-      await this.#webBombikaService.deletePlayer(this.#storage.getItem("uid"));
+      await this.#webBombikaService.deletePlayer(this.storage.getItem("uid"));
       this.#removePlayerFromLocalStorage();
     } catch (error) {
       console.log(error);
