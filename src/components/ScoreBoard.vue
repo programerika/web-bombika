@@ -20,7 +20,7 @@
         </tr>
       </tbody>
     </v-table>
-    <div v-show="currentPlayer">
+    <div v-if="currentPlayer">
       <v-card class="vCardStyle">
         Your username is: {{ currentPlayer.username }} and you have
         {{ currentPlayer.score }} points.
@@ -84,10 +84,10 @@ export default {
   display: grid;
   align-content: center;
   margin-top: 15px;
-  height: 10vh;
+  height: 50px;
   background-color: #15b3a0;
   color: solid black;
-  height: 13vh;
+  /* height: 13vh; */
 
   border-radius: 15px;
 }
@@ -111,15 +111,16 @@ export default {
   border: 2px solid #15b3a0;
 }
 .boardDiv {
-  width: 30vh;
+  width: 300px;
   margin-left: 20px;
 }
 
 @media screen and (max-width: 600px) {
   .boardDiv {
     border-radius: 15px;
-    width: 53vh;
+    width: 336px;
     margin-top: 10px;
+    margin-left: 0px;
   }
 }
 </style>
