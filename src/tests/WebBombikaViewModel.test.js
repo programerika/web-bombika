@@ -78,21 +78,21 @@ describe("WebBombikaViewModel - openField()", () => {
   /**
    * @param {String}  Name for image when openField() is called for field (0,0) that has a bomb
    * @returns {String} Name for image that we expect when the field is opened
-   * This test tests openField() function when we open field with bomb and checks if the image name is "triggeredbomba.png"
+   * This test tests openField() function when we open field with bomb and checks if the image name is "triggeredbomb.png"
    */
-  it("Tests if opening field with bomb sets image to 'triggeredbomba.png'", () => {
+  it("Tests if opening field with bomb sets image to 'triggeredbomb.png'", () => {
     expect(playerViewModelState.minefield[0][0].image).toEqual(
-      "triggeredbomba.png"
+      "triggeredbomb.png"
     );
   });
 
   /**
    * @param {String}  Name for image for field (1,1) that also has a bomb
    * @returns {String} Name for image that we expect when bomb was pressed before and all the field were open
-   * This test checks if the image name of field (1,1) is equal to "bomba.png"
+   * This test checks if the image name of field (1,1) is equal to "bomb.png"
    */
-  it("Tests if the field with bomb has 'bomba.png' image after the game ends", () => {
-    expect(playerViewModelState.minefield[1][1].image).toEqual("bomba.png");
+  it("Tests if the field with bomb has 'bomb.png' image after the game ends", () => {
+    expect(playerViewModelState.minefield[1][1].image).toEqual("bomb.png");
   });
 });
 

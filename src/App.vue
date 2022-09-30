@@ -2,8 +2,8 @@
   <v-app class="background">
     <v-main>
       <div class="bombika">
-        <GamePanel />
-        <ScoreBoard />
+        <GamePanel @finished="this.isFinished = $event" />
+        <ScoreBoard :isFinished="isFinished" />
       </div>
     </v-main>
   </v-app>
@@ -21,7 +21,7 @@ export default {
     ScoreBoard,
   },
 
-  data: () => ({}),
+  data: () => ({ isFinished: false }),
 };
 </script>
 
