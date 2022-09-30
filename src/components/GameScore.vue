@@ -71,7 +71,7 @@ export default {
       this.username = this.scoreViewModel.getItemInStorage();
     }
 
-    if (this.isFinished && this.scoreViewModel.isPlayerRegistered()) {
+    if (this.isFinished && !this.scoreViewModel.isStorageEmpty()) {
       this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(this.score);
     }
     if (this.isFinished && this.score < 1) {
@@ -101,7 +101,7 @@ export default {
       this.usernameMessageColour = details.usernameMessageColour;
     },
     isEmpty() {
-      this.empty = this.scoreViewModel.isPlayerRegistered();
+      this.empty = this.scoreViewModel.isStorageEmpty();
     },
     onInputChange() {
       this.details = {

@@ -62,7 +62,7 @@ export class ScoreViewModel {
 
   saveScoreIfPlayerIsAlreadyRegistered = async (score) => {
     if (score === 0) return;
-    if (!this.isPlayerRegistered()) {
+    if (!this.isStorageEmpty()) {
       try {
         await this.#webBombikaService.addScore(
           this.storage.getItem("username"),
@@ -74,7 +74,7 @@ export class ScoreViewModel {
     }
   };
 
-  isPlayerRegistered = () => {
+  isStorageEmpty = () => {
     return this.storage.isItemInStorageEmpty("username");
   };
 
