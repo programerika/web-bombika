@@ -11,8 +11,9 @@
       <h2>{{ message }}</h2>
       <br />
       <input
+        @input="onInputChange"
         v-model="username"
-        v-show="score > 0 && empty"
+        v-if="score > 0 && empty"
         maxLength="8"
         type="text"
         class="username"
@@ -31,7 +32,7 @@
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-show="score > 0 && empty"
+          v-if="score > 0 && empty"
           :disabled="saveButtonDisabled"
           @click="saveScore"
           color="#BEBEBE"
@@ -101,6 +102,13 @@ export default {
     },
     isEmpty() {
       this.empty = this.scoreViewModel.isPlayerRegistered();
+    },
+    onInputChange() {
+      this.details = {
+        ...this.details,
+        ...this.scoreViewModel.validateUsername(this.username, this.score),
+      };
+      this.setScoreDetails(this.details);
     },
   },
 };

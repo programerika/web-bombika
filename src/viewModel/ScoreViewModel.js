@@ -8,6 +8,25 @@ export class ScoreViewModel {
     this.#webBombikaService = new WebBombikaService();
   }
 
+  validateUsername = (username, score) => {
+    let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
+    if (!userInput.test(username)) {
+      return {
+        message: `You won ${score} points!!!🤩`,
+        usernameMessage: "Incorrect input, eg. MyName12",
+        saveButtonDisabled: true,
+        usernameMessageColour: "red",
+      };
+    } else {
+      return {
+        message: `You won ${score} points!!!🤩`,
+        usernameMessage: "Username in valid format!",
+        saveButtonDisabled: false,
+        usernameMessageColour: "green",
+      };
+    }
+  };
+
   saveScore = async (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (this.storage.isItemInStorageEmpty("uid") && !userInput.test(username)) {
