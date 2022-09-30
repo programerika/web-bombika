@@ -20,7 +20,7 @@
         </tr>
       </tbody>
     </v-table>
-    <div v-show="currentPlayer">
+    <div v-if="currentPlayer">
       <v-card class="vCardStyle">
         Your username is: {{ currentPlayer.username }} and you have
         {{ currentPlayer.score }} points.
