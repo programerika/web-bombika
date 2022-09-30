@@ -74,8 +74,8 @@ export default {
 .vCardStyle {
   display: grid;
   align-content: center;
-  margin-top: 15px;
-  height: 50px;
+  margin-top: 5px;
+  height: 66px;
   background-color: #15b3a0;
   color: solid black;
   /* height: 13vh; */
