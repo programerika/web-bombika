@@ -20,15 +20,18 @@
         </tr>
       </tbody>
     </v-table>
-    <div v-if="currentPlayer">
-      <v-card class="vCardStyle">
-        Your username is: {{ currentPlayer.username }} and you have
+    <div v-if="currentPlayer" class="scoreAndDeleteScore">
+      <p class="scoreMessage">
+        {{ currentPlayer.username }} you scored
         {{ currentPlayer.score }} points.
-        <br />
-        <v-btn color="#0c5e54" class="ma-4" @click="deleteCurrentPlayer()"
-          >Delete your score</v-btn
-        >
-      </v-card>
+      </p>
+      <v-btn
+        class="deleteButton"
+        color="#0c5e54"
+        size="small"
+        @click="deleteCurrentPlayer()"
+        >Delete your score</v-btn
+      >
     </div>
   </div>
 </template>
@@ -40,7 +43,7 @@ export default {
     return {
       scoreViewModel: {},
       topPlayers: [],
-      currentPlayer: Object,
+      currentPlayer: {},
     };
   },
   props: { isFinished: Boolean },
@@ -80,21 +83,28 @@ export default {
 </script>
 
 <style scoped>
-.vCardStyle {
+.scoreAndDeleteScore {
   display: grid;
-  align-content: center;
+  align-items: center;
   margin-top: 5px;
-  height: 66px;
+  height: 70px;
   background-color: #15b3a0;
   color: solid black;
-  /* height: 13vh; */
-
-  border-radius: 15px;
+  border-radius: 4px;
+}
+.scoreMessage {
+  margin: auto;
 }
 
+.deleteButton {
+  margin: auto;
+  color: white;
+}
 .scoreBoardHeader {
   background-color: #15b3a0;
   color: black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .scoreBoardBody {
@@ -102,13 +112,13 @@ export default {
   color: #1df5db;
 }
 
-.ma-4 {
-  color: white;
-}
-
 .scoreBoard {
   border-radius: 15px;
-  border: 2px solid #15b3a0;
+  /* border: 2px solid #15b3a0; */
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .boardDiv {
   width: 300px;
