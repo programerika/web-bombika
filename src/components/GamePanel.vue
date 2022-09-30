@@ -93,6 +93,11 @@ export default {
       return this.playerState.score;
     },
   },
+  watch: {
+    isFinished() {
+      this.$emit("finished", this.isFinished);
+    },
+  },
   components: {
     GameHeader,
     GameTable,

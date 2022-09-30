@@ -43,18 +43,10 @@ export default {
       currentPlayer: Object,
     };
   },
+  props: { isFinished: Boolean },
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
-    this.topPlayers = this.getTopPlayers().then((response) => {
-      this.topPlayers = response;
-      this.$forceUpdate();
-    });
-    // console.log(this.topPlayers);
-    this.currentPlayer = this.getCurrentPlayer().then((response) => {
-      this.currentPlayer = response;
-      this.$forceUpdate();
-      console.log(this.currentPlayer);
-    });
+    this.refresh();
   },
   methods: {
     async getTopPlayers() {
@@ -65,6 +57,23 @@ export default {
     },
     async getCurrentPlayer() {
       return await this.scoreViewModel.getCurrentPlayer();
+    },
+    refresh() {
+      this.topPlayers = this.getTopPlayers().then((response) => {
+        this.topPlayers = response;
+        this.$forceUpdate();
+      });
+      // console.log(this.topPlayers);
+      this.currentPlayer = this.getCurrentPlayer().then((response) => {
+        this.currentPlayer = response;
+        this.$forceUpdate();
+        console.log(this.currentPlayer);
+      });
+    },
+  },
+  watch: {
+    isFinished() {
+      this.refresh();
     },
   },
 };
