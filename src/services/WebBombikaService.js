@@ -19,7 +19,7 @@ export class WebBombikaService {
     }
   };
 
-  saveScore = async (username, score) => {
+  savePlayerAndScore = async (username, score) => {
     const response = await fetch("/api/v1/player-scores", {
       method: "POST",
       headers: {

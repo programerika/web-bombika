@@ -20,6 +20,13 @@
         </tr>
       </tbody>
     </v-table>
+    <div v-if="isLoading" class="Loader">
+      <v-progress-circular
+        :size="50"
+        color="#15b3a0"
+        indeterminate
+      ></v-progress-circular>
+    </div>
     <div v-if="currentPlayer" class="scoreAndDeleteScore">
       <p class="scoreMessage">
         {{ currentPlayer.username }} you scored
@@ -28,9 +35,9 @@
       <v-btn
         class="deleteButton"
         color="#0c5e54"
-        size="small"
+        size="x-small"
         @click="deleteCurrentPlayer()"
-        >Delete your score</v-btn
+        >Delete player!</v-btn
       >
     </div>
   </div>
@@ -43,20 +50,26 @@ export default {
     return {
       scoreViewModel: {},
       topPlayers: [],
-      currentPlayer: {},
+      currentPlayer: null,
+      isLoading: true,
     };
   },
-  props: { isFinished: Boolean },
+  props: { refreshScoreBoard: Boolean },
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
     this.refresh();
   },
   methods: {
     async getTopPlayers() {
-      return await this.scoreViewModel.getTopPlayers();
+      this.isLoading = true;
+      let players = await this.scoreViewModel.getTopPlayers();
+      this.isLoading = false;
+      return players;
+      // return [];
     },
     async deleteCurrentPlayer() {
-      return await this.scoreViewModel.deletePlayer();
+      await this.scoreViewModel.deletePlayer();
+      this.refresh();
     },
     async getCurrentPlayer() {
       return await this.scoreViewModel.getCurrentPlayer();
@@ -67,15 +80,14 @@ export default {
         this.$forceUpdate();
       });
       // console.log(this.topPlayers);
-      this.currentPlayer = this.getCurrentPlayer().then((response) => {
+      this.getCurrentPlayer().then((response) => {
         this.currentPlayer = response;
         this.$forceUpdate();
-        console.log(this.currentPlayer);
       });
     },
   },
   watch: {
-    isFinished() {
+    refreshScoreBoard() {
       this.refresh();
     },
   },
@@ -98,7 +110,9 @@ export default {
 
 .deleteButton {
   margin: auto;
-  color: white;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  color: #1df5db;
 }
 .scoreBoardHeader {
   background-color: #15b3a0;
@@ -106,10 +120,16 @@ export default {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-
+.Loader {
+  height: 320px;
+  background-color: black;
+  width: 300px;
+  place-items: center;
+}
 .scoreBoardBody {
-  background-color: #0c5e54;
+  /* background-color: #0c5e54; */
   color: #1df5db;
+  background-color: black;
 }
 
 .scoreBoard {
@@ -132,5 +152,11 @@ export default {
     margin-top: 10px;
     margin-left: 0px;
   }
+}
+.v-progress-circular {
+  margin: 7rem;
+  color: #15b3a0;
+
+  /* height: 320px; */
 }
 </style>

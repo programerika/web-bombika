@@ -24,12 +24,17 @@
       <GameTable
         :mineField="mineField"
         :isFinished="isFinished"
-        :score="score"
         :flagSelector="flagSelector"
         @toggleFlag="toggleFlag"
         @openField="openField"
-        @playAgain="restartGame"
-      />
+      >
+        <GameScore
+          :isFinished="isFinished"
+          :score="score"
+          @restart:game="restartGame"
+          @saved:score="$emit('saved:score')"
+        />
+      </GameTable>
     </div>
   </div>
 </template>
@@ -41,6 +46,7 @@ import ResetButton from "./ResetButton.vue";
 import NumberOfFlags from "./NumberOfFlags.vue";
 import GameTimer from "./GameTimer.vue";
 import HelpButton from "./HelpButton.vue";
+import GameScore from "./GameScore.vue";
 
 export default {
   data() {
@@ -76,6 +82,7 @@ export default {
       this.flagSelector = !this.flagSelector;
     },
   },
+  emits: ["saved:score", "finished"],
   computed: {
     numberOfFlags() {
       return this.playerState.numberOfFlags;
@@ -105,6 +112,7 @@ export default {
     NumberOfFlags,
     GameTimer,
     HelpButton,
+    GameScore,
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ConfettiExplosion
-      v-show="score > 0 && isFinished"
+      v-show="score > 0"
       :force="1"
       :duration="4000"
       :particleCount="250"
@@ -11,7 +11,7 @@
       <h2>{{ message }}</h2>
       <br />
       <input
-        @input="onInputChange"
+        @input="validateUsername"
         v-model="username"
         v-if="score > 0 && empty"
         maxLength="8"
@@ -34,7 +34,7 @@
         <v-btn
           v-if="score > 0 && empty"
           :disabled="saveButtonDisabled"
-          @click="saveScore"
+          @click="savePlayerAndScore"
           color="#BEBEBE"
           >Save score</v-btn
         >
@@ -62,36 +62,36 @@ export default {
   },
   props: {
     score: Number,
-    isFinished: Boolean,
   },
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
 
-    if (this.scoreViewModel.getItemInStorage()) {
-      this.username = this.scoreViewModel.getItemInStorage();
-    }
+    this.username = this.scoreViewModel.getUsername() || "";
 
-    if (this.isFinished && !this.scoreViewModel.isStorageEmpty()) {
-      this.scoreViewModel.saveScoreIfPlayerIsAlreadyRegistered(this.score);
-    }
-    if (this.isFinished && this.score < 1) {
+    this.scoreViewModel.addScore(this.score);
+
+    if (this.score < 1) {
       this.usernameMessage = "";
       this.message = "Sorry! Better luck next time!🥺";
     }
     this.isEmpty();
   },
   components: { ConfettiExplosion },
-  emits: ["playAgain"],
+  emits: ["restart:game", "saved:score"],
   methods: {
     playAgain() {
-      this.$emit("playAgain");
+      this.$emit("restart:game");
     },
-    async saveScore() {
+    async savePlayerAndScore() {
       this.details = {
         ...this.details,
-        ...(await this.scoreViewModel.saveScore(this.username, this.score)),
+        ...(await this.scoreViewModel.savePlayerAndScore(
+          this.username,
+          this.score
+        )),
       };
       this.setScoreDetails(this.details);
+      this.$emit("saved:score");
     },
 
     setScoreDetails(details) {
@@ -101,9 +101,9 @@ export default {
       this.usernameMessageColour = details.usernameMessageColour;
     },
     isEmpty() {
-      this.empty = this.scoreViewModel.isStorageEmpty();
+      this.empty = !this.scoreViewModel.isPlayerRegistered();
     },
-    onInputChange() {
+    validateUsername() {
       this.details = {
         ...this.details,
         ...this.scoreViewModel.validateUsername(this.username, this.score),
@@ -116,10 +116,13 @@ export default {
 <style scoped>
 .container {
   text-align: center;
-  margin-top: 43px;
+  /* margin-top: 43px; */
+  background-color: rgba(29, 245, 219, 0.7);
+  border-width: 7px 7px 7px 7px;
+  border-radius: 15px;
 }
 .scoreCard {
-  background-color: rgba(29, 245, 219, 0.8);
+  background-color: rgba(29, 245, 219, 0.7);
   border-width: 7px 7px 7px 7px;
   border-radius: 15px;
 }

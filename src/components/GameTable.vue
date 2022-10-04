@@ -20,11 +20,7 @@
             contained
             scroll-strategy="none"
           >
-            <GameScore
-              :isFinished="isFinished"
-              :score="score"
-              @playAgain="playAgain"
-            />
+            <slot></slot>
           </v-overlay>
         </v-row>
       </v-card>
@@ -34,14 +30,12 @@
 
 <script>
 import GameCell from "./GameCell.vue";
-import GameScore from "./GameScore.vue";
 
 export default {
   data: () => ({
     overlay: false,
   }),
   props: {
-    score: Number,
     mineField: Object,
     flagSelector: Boolean,
     isFinished: Boolean,
@@ -53,12 +47,9 @@ export default {
     onCellRightClicked(r, c) {
       this.$emit("toggleFlag", { r: r, c: c });
     },
-    playAgain() {
-      this.$emit("playAgain");
-    },
   },
-  components: { GameCell, GameScore },
-  emits: ["openField", "toggleFlag", "playAgain"],
+  components: { GameCell },
+  emits: ["openField", "toggleFlag"],
   watch: {
     isFinished() {
       this.isFinished ? (this.overlay = true) : (this.overlay = false);
@@ -84,9 +75,9 @@ export default {
   margin: 1px;
 }
 
-.v-overlay {
+/* .v-overlay {
   display: table-cell;
-}
+} */
 
 @media screen and (max-width: 600px) {
   .minefield {

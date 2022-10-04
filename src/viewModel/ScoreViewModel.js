@@ -10,24 +10,25 @@ export class ScoreViewModel {
 
   validateUsername = (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-    if (!userInput.test(username)) {
-      return {
-        message: `You won ${score} points!!!🤩`,
-        usernameMessage: "Incorrect input, eg. MyName12",
-        saveButtonDisabled: true,
-        usernameMessageColour: "red",
-      };
-    } else {
-      return {
-        message: `You won ${score} points!!!🤩`,
-        usernameMessage: "Username in valid format!",
-        saveButtonDisabled: false,
-        usernameMessageColour: "green",
-      };
-    }
+    if (username.length > 2)
+      if (!userInput.test(username)) {
+        return {
+          message: `You won ${score} points!!!🤩`,
+          usernameMessage: "Incorrect input, eg. MyName12",
+          saveButtonDisabled: true,
+          usernameMessageColour: "red",
+        };
+      } else {
+        return {
+          message: `You won ${score} points!!!🤩`,
+          usernameMessage: "Username in valid format!",
+          saveButtonDisabled: false,
+          usernameMessageColour: "green",
+        };
+      }
   };
 
-  saveScore = async (username, score) => {
+  savePlayerAndScore = async (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (this.storage.isItemInStorageEmpty("uid") && !userInput.test(username)) {
       return {
@@ -46,7 +47,10 @@ export class ScoreViewModel {
           saveButtonDisabled: false,
           usernameMessageColour: "red",
         };
-      const uid = await this.#webBombikaService.saveScore(username, score);
+      const uid = await this.#webBombikaService.savePlayerAndScore(
+        username,
+        score
+      );
       this.storage.setItem("username", username);
       this.storage.setItem("uid", uid);
       return {
@@ -60,9 +64,9 @@ export class ScoreViewModel {
     }
   };
 
-  saveScoreIfPlayerIsAlreadyRegistered = async (score) => {
+  addScore = async (score) => {
     if (score === 0) return;
-    if (!this.isStorageEmpty()) {
+    if (this.isPlayerRegistered()) {
       try {
         await this.#webBombikaService.addScore(
           this.storage.getItem("username"),
@@ -74,11 +78,11 @@ export class ScoreViewModel {
     }
   };
 
-  isStorageEmpty = () => {
-    return this.storage.isItemInStorageEmpty("username");
+  isPlayerRegistered = () => {
+    return !this.storage.isItemInStorageEmpty("username");
   };
 
-  getItemInStorage = () => {
+  getUsername = () => {
     return this.storage.getItem("username");
   };
 
@@ -89,15 +93,21 @@ export class ScoreViewModel {
   };
 
   getTopPlayers = async () => {
-    let topPlayers = await this.#webBombikaService.getTopPlayers();
-    return topPlayers;
+    try {
+      let topPlayers = await this.#webBombikaService.getTopPlayers();
+      return topPlayers;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   getCurrentPlayer = async () => {
-    let currentPlayer = this.#webBombikaService.getPlayerByUsername(
-      this.storage.getItem("username")
-    );
-    return currentPlayer;
+    let user = this.storage.getItem("username");
+    try {
+      return await this.#webBombikaService.getPlayerByUsername(user);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   #removePlayerFromLocalStorage = () => {
