@@ -28,10 +28,11 @@
       ></v-progress-circular>
     </div>
     <div v-if="currentPlayer" class="scoreAndDeleteScore">
-      <p class="scoreMessage">
+      <p v-if="!isInTop10" class="scoreMessage">
         {{ currentPlayer.username }} you scored
         {{ currentPlayer.score }} points.
       </p>
+      <p v-if="isInTop10" class="scoreMessage">hehehe</p>
       <v-btn
         class="deleteButton"
         color="#0c5e54"
@@ -52,6 +53,7 @@ export default {
       topPlayers: [],
       currentPlayer: null,
       isLoading: true,
+      isInTop10: false,
     };
   },
   props: { refreshScoreBoard: Boolean },
@@ -60,6 +62,16 @@ export default {
     this.refresh();
   },
   methods: {
+    playerInScoreBoard() {
+      console.log(
+        this.topPlayers.includes(this.currentPlayer),
+        JSON.stringify(this.currentPlayer.username)
+        // JSON.stringify(this.topPlayers)
+      );
+      this.isInTop10 = JSON.stringify(this.topPlayers).includes(
+        JSON.stringify(this.currentPlayer.username)
+      );
+    },
     async getTopPlayers() {
       this.isLoading = true;
       let players = await this.scoreViewModel.getTopPlayers();
@@ -82,6 +94,8 @@ export default {
       // console.log(this.topPlayers);
       this.getCurrentPlayer().then((response) => {
         this.currentPlayer = response;
+        this.playerInScoreBoard();
+
         this.$forceUpdate();
       });
     },
