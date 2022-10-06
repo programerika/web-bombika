@@ -73,11 +73,11 @@ export default {
     refresh() {
       this.topPlayers = this.getTopPlayers().then((response) => {
         this.topPlayers = response;
-        this.$forceUpdate();
+        // this.$forceUpdate();
       });
       this.getCurrentPlayer().then((response) => {
         this.currentPlayer = response;
-        this.$forceUpdate();
+        //  this.$forceUpdate();
       });
     },
   },

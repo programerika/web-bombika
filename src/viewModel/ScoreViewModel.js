@@ -1,85 +1,76 @@
+import errorNotification from "@/services/ErrorNotificationService";
 import { StorageService } from "@/services/StorageService";
 import { WebBombikaService } from "@/services/WebBombikaService";
+import { ref } from "vue";
 
 export class ScoreViewModel {
+  username = ref("");
+  gameOverMessage = ref("");
+  usernameMessage = ref("");
+  saveButtonDisabled = ref(false);
+  inputUsernameDisabled = ref(false);
+  showRegistrationForm = ref(false);
   #webBombikaService;
   constructor() {
     this.storage = new StorageService();
     this.#webBombikaService = new WebBombikaService();
   }
-
-  scoreViewModelDetails = (score) => {
-    return {
-      username: "",
-      gameOverMessage: this.#scoreMessage(score),
-      usernameMessage: "Please enter a username.",
-      saveButtonDisabled: true,
-      inputUsernameDisabled: false,
-      usernameMessageColour: "black",
-      isUsernameValid: "",
-    };
+  initialView = (score) => {
+    this.username.value = "";
+    this.gameOverMessage.value = this.#scoreMessage(score);
+    this.usernameMessage.value = "Please enter a username.";
+    this.saveButtonDisabled.value = true;
+    this.inputUsernameDisabled.value = false;
+    this.usernameMessage.value = "Enter username";
+    this.showRegistrationForm.value = this.isPlayerRegistered() ? false : true;
+    this.addScore(score);
   };
 
   #scoreMessage = (score) => {
-    if (score === 0) return "Sorry! Better luck next time!🥺";
+    if (score === 0) return "Sorry!Better luck next time!😥";
     else return `You won ${score} points!!!🤩`;
   };
 
   validateUsername = (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-    if (username.length > 2)
-      if (!userInput.test(username)) {
-        return {
-          message: `You won ${score} points!!!🤩`,
-          isUsernameValid:
-            "Username should contain al least 2 numbers at the end.",
-          saveButtonDisabled: true,
-          usernameMessageColour: "red",
-        };
-      } else {
-        return {
-          gameOverMessage: `You won ${score} points!!!🤩`,
-          usernameMessage: "",
-          saveButtonDisabled: false,
-          inputUsernameDisabled: false,
-        };
-      }
+    if (!userInput.test(username)) {
+      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+      this.usernameMessage.value = "Username already exists";
+      this.saveButtonDisabled.value = true;
+      this.inputUsernameDisabled.value = false;
+    } else {
+      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+      this.saveButtonDisabled.value = false;
+      this.inputUsernameDisabled.value = false;
+    }
   };
 
   savePlayerAndScore = async (username, score) => {
-    let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-    if (this.storage.isItemInStorageEmpty("uid") && !userInput.test(username)) {
-      return {
-        message: `You won ${score} points!!!🤩`,
-        usernameMessage: "Incorrect input, eg. MyName12",
-        saveButtonDisabled: false,
-        usernameMessageColour: "red",
-      };
-    }
     try {
       const userExists = await this.#checkIfPlayerNameExists(username);
-      if (userExists)
-        return {
-          message: `You won ${score} points!!!🤩`,
-          usernameMessage: "Username already exists!",
-          saveButtonDisabled: false,
-          usernameMessageColour: "red",
-        };
+      if (userExists) {
+        this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+        this.saveButtonDisabled.value = true;
+        this.inputUsernameDisabled.value = false;
+        this.usernameMessage.value = "Username already exists";
+      }
       const uid = await this.#webBombikaService.savePlayerAndScore(
         username,
         score
       );
       this.storage.setItem("username", username);
       this.storage.setItem("uid", uid);
-      return {
-        message: `You won ${score} points!!!🤩`,
-        usernameMessage: "Username in valid format!",
-        saveButtonDisabled: true,
-        inputUsernameDisabled: true,
-        usernameMessageColour: "green",
-      };
-    } catch (error) {
-      console.log(error);
+      this.username = username;
+      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+      this.saveButtonDisabled.value = true;
+      this.inputUsernameDisabled.value = true;
+    } catch (err) {
+      errorNotification(
+        err,
+        true,
+        "We are not able to save your username and score right now.",
+        false
+      );
     }
   };
 
@@ -106,16 +97,25 @@ export class ScoreViewModel {
   };
 
   #checkIfPlayerNameExists = async (username) => {
-    let user = await this.#webBombikaService.getPlayerByUsername(username);
-    let existingUser = user !== undefined;
-    return existingUser;
+    try {
+      let user = await this.#webBombikaService.getPlayerByUsername(username);
+      let existingUser = user !== undefined;
+      return existingUser;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   getTopPlayers = async () => {
     try {
       return await this.#webBombikaService.getTopPlayers();
     } catch (err) {
-      console.log(err);
+      errorNotification(
+        err,
+        true,
+        "We are not able to load top player right now.",
+        false
+      );
     }
   };
 
@@ -124,7 +124,12 @@ export class ScoreViewModel {
     try {
       return await this.#webBombikaService.getPlayerByUsername(player);
     } catch (err) {
-      console.log(err);
+      errorNotification(
+        err,
+        true,
+        "We are not able to load your username right now.",
+        false
+      );
     }
   };
 

@@ -8,20 +8,22 @@
     />
     <v-card elevation="12" class="scoreCard" width="320px" height="230px">
       <v-card-title>GAME OVER</v-card-title>
-      <h2>{{ scoreDetails.gameOverMessage }}</h2>
+      <h2>{{ scoreViewModel.gameOverMessage }}</h2>
       <br />
 
       <v-text-field
-        v-if="score > 0 && isRegistered"
+        v-if="scoreViewModel.showRegistrationForm"
         label="Username"
-        v-model="scoreDetails.username"
+        class="usernameTextField"
+        v-model="username"
         @input="validateUsername"
         placeholder="Username - eg.MyName12"
         counter="8"
         max-length="8"
         :rules="inputRules"
-        :disabled="scoreDetails.inputUsernameDisabled"
-        :error-message="scoreDetails.isUsernameValid"
+        :disabled="scoreViewModel.inputUsernameDisabled"
+        :error-message="scoreViewModel.usernameMessage"
+        dense="true"
         outlined
         compact
       ></v-text-field>
@@ -29,8 +31,8 @@
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-if="score > 0 && isRegistered"
-          :disabled="scoreDetails.saveButtonDisabled"
+          v-if="score > 0 && scoreViewModel.showRegistrationForm"
+          :disabled="scoreViewModel.saveButtonDisabled"
           @click="savePlayerAndScore"
           color="#BEBEBE"
           >Save score</v-btn
@@ -41,6 +43,7 @@
   </div>
 </template>
 <script>
+import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 import ConfettiExplosion from "vue-confetti-explosion";
 
 export default {
@@ -50,20 +53,17 @@ export default {
         (v) => v.length >= 6 || "Minimum length is 6 characters",
         (v) => v.length <= 8 || "Maximum length is 8 characters",
       ],
-      scoreDetails: {},
       isRegistered: false,
+      username: "",
+      scoreViewModel: new ScoreViewModel(),
     };
   },
   props: {
     score: Number,
-    scoreViewModel: Object,
+    isFinished: Boolean,
   },
   mounted() {
-    this.scoreDetails = this.scoreViewModel.scoreViewModelDetails(this.score);
-    this.scoreDetails.username = this.scoreViewModel.getUsername() || "";
-
-    this.scoreViewModel.addScore(this.score);
-    this.isPlayerRegistered();
+    this.scoreViewModel.initialView(this.score);
   },
   components: { ConfettiExplosion },
   emits: ["restart:game", "saved:score"],
@@ -72,26 +72,11 @@ export default {
       this.$emit("restart:game");
     },
     async savePlayerAndScore() {
-      this.scoreDetails = {
-        ...this.scoreDetails,
-        ...(await this.scoreViewModel.savePlayerAndScore(
-          this.scoreDetails.username,
-          this.score
-        )),
-      };
+      await this.scoreViewModel.savePlayerAndScore(this.username, this.score);
       this.$emit("saved:score");
     },
-    isPlayerRegistered() {
-      this.isRegistered = !this.scoreViewModel.isPlayerRegistered();
-    },
     validateUsername() {
-      this.scoreDetails = {
-        ...this.scoreDetails,
-        ...this.scoreViewModel.validateUsername(
-          this.scoreDetails.username,
-          this.score
-        ),
-      };
+      this.scoreViewModel.validateUsername(this.username, this.score);
     },
   },
 };
@@ -116,6 +101,7 @@ export default {
   text-align: center;
   background-color: rgba(114, 166, 184, 0.8);
 }
+
 .enterUserName {
   font-size: 15px;
 }

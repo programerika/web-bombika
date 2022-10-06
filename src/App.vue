@@ -2,11 +2,7 @@
   <v-app class="background">
     <v-main>
       <div class="bombika">
-        <GamePanel
-          :scoreViewModel="scoreViewModel"
-          @finished="updateBoard()"
-          @saved:score="updateBoard()"
-        />
+        <GamePanel @finished="updateBoard()" @saved:score="updateBoard()" />
         <ScoreBoard
           :scoreViewModel="scoreViewModel"
           :refreshScoreBoard="refreshBoard"

@@ -1,12 +1,12 @@
-export default function notifyError(
+export default function errorNotification(
   error,
   alertUser = false,
-  userMessage,
+  userErrorMessage,
   appendReason = false
 ) {
   if (alertUser) {
     const finalMessage =
-      userMessage + (appendReason ? " Reason: " + error.message : "");
+      userErrorMessage + (appendReason ? " Reason: " + error.message : "");
     window.alert(finalMessage);
   }
   console.error(error);
