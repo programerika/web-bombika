@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="scoreContainer">
     <ConfettiExplosion
       v-show="score > 0"
       :force="1"
@@ -114,7 +114,7 @@ export default {
 };
 </script>
 <style scoped>
-.container {
+.scoreContainer {
   text-align: center;
   /* margin-top: 43px; */
   background-color: rgba(29, 245, 219, 0.7);
@@ -124,7 +124,7 @@ export default {
 .scoreCard {
   background-color: rgba(29, 245, 219, 0.7);
   border-width: 7px 7px 7px 7px;
-  border-radius: 15px;
+  border-radius: 30px;
 }
 .username {
   border-radius: 4px;
