@@ -31,6 +31,7 @@
         <GameScore
           :isFinished="isFinished"
           :score="score"
+          :scoreViewModel="scoreViewModel"
           @restart:game="restartGame"
           @saved:score="$emit('saved:score')"
         />
@@ -81,6 +82,9 @@ export default {
     toggleFlagSelectorButton() {
       this.flagSelector = !this.flagSelector;
     },
+  },
+  props: {
+    scoreViewModel: Object,
   },
   emits: ["saved:score", "finished"],
   computed: {

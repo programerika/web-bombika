@@ -8,32 +8,29 @@
     />
     <v-card elevation="12" class="scoreCard" width="320px" height="230px">
       <v-card-title>GAME OVER</v-card-title>
-      <h2>{{ message }}</h2>
+      <h2>{{ scoreDetails.gameOverMessage }}</h2>
       <br />
-      <input
+
+      <v-text-field
+        v-if="score > 0 && isRegistered"
+        label="Username"
+        v-model="scoreDetails.username"
         @input="validateUsername"
-        v-model="username"
-        v-if="score > 0 && empty"
-        maxLength="8"
-        type="text"
-        class="username"
-        id="username"
-        placeholder="Username - eg. MyName12"
-        name="username"
-      />
-      <p
-        class="enterUserName"
-        :style="{ color: usernameMessageColour }"
-        v-show="score > 0 && empty"
-      >
-        {{ usernameMessage }}
-      </p>
+        placeholder="Username - eg.MyName12"
+        counter="8"
+        max-length="8"
+        :rules="inputRules"
+        :disabled="scoreDetails.inputUsernameDisabled"
+        :error-message="scoreDetails.isUsernameValid"
+        outlined
+        compact
+      ></v-text-field>
       <br />
       <v-row align="center" justify="space-around">
         <v-btn @click="playAgain" color="#BEBEBE">Play again!</v-btn>
         <v-btn
-          v-if="score > 0 && empty"
-          :disabled="saveButtonDisabled"
+          v-if="score > 0 && isRegistered"
+          :disabled="scoreDetails.saveButtonDisabled"
           @click="savePlayerAndScore"
           color="#BEBEBE"
           >Save score</v-btn
@@ -45,36 +42,28 @@
 </template>
 <script>
 import ConfettiExplosion from "vue-confetti-explosion";
-import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 
 export default {
   data() {
     return {
-      scoreViewModel: {},
-      username: "",
-      saveButtonDisabled: false,
-      usernameMessage: "Please enter a username!",
-      message: `You won ${this.score} points!!!🤩`,
-      details: {},
-      usernameMessageColour: "black",
-      empty: true,
+      inputRules: [
+        (v) => v.length >= 6 || "Minimum length is 6 characters",
+        (v) => v.length <= 8 || "Maximum length is 8 characters",
+      ],
+      scoreDetails: {},
+      isRegistered: false,
     };
   },
   props: {
     score: Number,
+    scoreViewModel: Object,
   },
   mounted() {
-    this.scoreViewModel = new ScoreViewModel();
-
-    this.username = this.scoreViewModel.getUsername() || "";
+    this.scoreDetails = this.scoreViewModel.scoreViewModelDetails(this.score);
+    this.scoreDetails.username = this.scoreViewModel.getUsername() || "";
 
     this.scoreViewModel.addScore(this.score);
-
-    if (this.score < 1) {
-      this.usernameMessage = "";
-      this.message = "Sorry! Better luck next time!🥺";
-    }
-    this.isEmpty();
+    this.isPlayerRegistered();
   },
   components: { ConfettiExplosion },
   emits: ["restart:game", "saved:score"],
@@ -83,32 +72,26 @@ export default {
       this.$emit("restart:game");
     },
     async savePlayerAndScore() {
-      this.details = {
-        ...this.details,
+      this.scoreDetails = {
+        ...this.scoreDetails,
         ...(await this.scoreViewModel.savePlayerAndScore(
-          this.username,
+          this.scoreDetails.username,
           this.score
         )),
       };
-      this.setScoreDetails(this.details);
       this.$emit("saved:score");
     },
-
-    setScoreDetails(details) {
-      this.usernameMessage = details.usernameMessage;
-      this.message = details.message;
-      this.saveButtonDisabled = details.saveButtonDisabled;
-      this.usernameMessageColour = details.usernameMessageColour;
-    },
-    isEmpty() {
-      this.empty = !this.scoreViewModel.isPlayerRegistered();
+    isPlayerRegistered() {
+      this.isRegistered = !this.scoreViewModel.isPlayerRegistered();
     },
     validateUsername() {
-      this.details = {
-        ...this.details,
-        ...this.scoreViewModel.validateUsername(this.username, this.score),
+      this.scoreDetails = {
+        ...this.scoreDetails,
+        ...this.scoreViewModel.validateUsername(
+          this.scoreDetails.username,
+          this.score
+        ),
       };
-      this.setScoreDetails(this.details);
     },
   },
 };
