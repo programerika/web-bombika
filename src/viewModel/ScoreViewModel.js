@@ -8,22 +8,40 @@ export class ScoreViewModel {
     this.#webBombikaService = new WebBombikaService();
   }
 
+  scoreViewModelDetails = (score) => {
+    return {
+      username: "",
+      gameOverMessage: this.#scoreMessage(score),
+      usernameMessage: "Please enter a username.",
+      saveButtonDisabled: true,
+      inputUsernameDisabled: false,
+      usernameMessageColour: "black",
+      isUsernameValid: "",
+    };
+  };
+
+  #scoreMessage = (score) => {
+    if (score === 0) return "Sorry! Better luck next time!🥺";
+    else return `You won ${score} points!!!🤩`;
+  };
+
   validateUsername = (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (username.length > 2)
       if (!userInput.test(username)) {
         return {
           message: `You won ${score} points!!!🤩`,
-          usernameMessage: "Incorrect input, eg. MyName12",
+          isUsernameValid:
+            "Username should contain al least 2 numbers at the end.",
           saveButtonDisabled: true,
           usernameMessageColour: "red",
         };
       } else {
         return {
-          message: `You won ${score} points!!!🤩`,
-          usernameMessage: "Username in valid format!",
+          gameOverMessage: `You won ${score} points!!!🤩`,
+          usernameMessage: "",
           saveButtonDisabled: false,
-          usernameMessageColour: "green",
+          inputUsernameDisabled: false,
         };
       }
   };
@@ -57,6 +75,7 @@ export class ScoreViewModel {
         message: `You won ${score} points!!!🤩`,
         usernameMessage: "Username in valid format!",
         saveButtonDisabled: true,
+        inputUsernameDisabled: true,
         usernameMessageColour: "green",
       };
     } catch (error) {
@@ -94,17 +113,16 @@ export class ScoreViewModel {
 
   getTopPlayers = async () => {
     try {
-      let topPlayers = await this.#webBombikaService.getTopPlayers();
-      return topPlayers;
+      return await this.#webBombikaService.getTopPlayers();
     } catch (err) {
       console.log(err);
     }
   };
 
   getCurrentPlayer = async () => {
-    let user = this.storage.getItem("username");
+    let player = this.storage.getItem("username");
     try {
-      return await this.#webBombikaService.getPlayerByUsername(user);
+      return await this.#webBombikaService.getPlayerByUsername(player);
     } catch (err) {
       console.log(err);
     }

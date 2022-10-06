@@ -2,8 +2,15 @@
   <v-app class="background">
     <v-main>
       <div class="bombika">
-        <GamePanel @finished="updateBoard()" @saved:score="updateBoard()" />
-        <ScoreBoard :refreshScoreBoard="refreshBoard" />
+        <GamePanel
+          :scoreViewModel="scoreViewModel"
+          @finished="updateBoard()"
+          @saved:score="updateBoard()"
+        />
+        <ScoreBoard
+          :scoreViewModel="scoreViewModel"
+          :refreshScoreBoard="refreshBoard"
+        />
       </div>
     </v-main>
   </v-app>
@@ -12,10 +19,13 @@
 <script>
 import GamePanel from "./components/GamePanel.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
+import { ScoreViewModel } from "./viewModel/ScoreViewModel";
 
 export default {
   name: "App",
-
+  mounted() {
+    this.scoreViewModel = new ScoreViewModel();
+  },
   components: {
     GamePanel,
     ScoreBoard,
@@ -26,7 +36,7 @@ export default {
     },
   },
 
-  data: () => ({ refreshBoard: false }),
+  data: () => ({ refreshBoard: false, scoreViewModel: {} }),
 };
 </script>
 

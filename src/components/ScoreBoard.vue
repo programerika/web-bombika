@@ -44,19 +44,16 @@
 </template>
 
 <script>
-import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 export default {
   data() {
     return {
-      scoreViewModel: {},
       topPlayers: [],
       currentPlayer: null,
       isLoading: true,
     };
   },
-  props: { refreshScoreBoard: Boolean },
+  props: { refreshScoreBoard: Boolean, scoreViewModel: Object },
   mounted() {
-    this.scoreViewModel = new ScoreViewModel();
     this.refresh();
   },
   methods: {
@@ -65,7 +62,6 @@ export default {
       let players = await this.scoreViewModel.getTopPlayers();
       this.isLoading = false;
       return players;
-      // return [];
     },
     async deleteCurrentPlayer() {
       await this.scoreViewModel.deletePlayer();
@@ -79,7 +75,6 @@ export default {
         this.topPlayers = response;
         this.$forceUpdate();
       });
-      // console.log(this.topPlayers);
       this.getCurrentPlayer().then((response) => {
         this.currentPlayer = response;
         this.$forceUpdate();
