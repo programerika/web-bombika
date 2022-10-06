@@ -107,7 +107,7 @@ export default {
 .scoreCard {
   background-color: rgba(29, 245, 219, 0.7);
   border-width: 7px 7px 7px 7px;
-  border-radius: 15px;
+  border-radius: 30px;
 }
 .username {
   border-radius: 4px;
