@@ -22,6 +22,7 @@ export default {
   mounted() {
     this.scoreViewModel = new ScoreViewModel();
   },
+
   components: {
     GamePanel,
     ScoreBoard,
@@ -32,7 +33,11 @@ export default {
     },
   },
 
-  data: () => ({ refreshBoard: false, scoreViewModel: {} }),
+  data: () => ({
+    refreshBoard: false,
+    scoreViewModel: {},
+    scoreBoardViewModel: {},
+  }),
 };
 </script>
 

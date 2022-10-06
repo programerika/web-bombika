@@ -27,10 +27,16 @@
         indeterminate
       ></v-progress-circular>
     </div>
-    <div v-if="currentPlayer" class="scoreAndDeleteScore">
-      <p class="scoreMessage">
-        {{ currentPlayer.username }} you scored
-        {{ currentPlayer.score }} points.
+    <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
+      <p
+        v-if="!scoreBoardViewModel.checkIfPlayerIsInTop10"
+        class="scoreMessage"
+      >
+        {{ scoreBoardViewModel.currentPlayer.username }} you scored
+        {{ scoreBoardViewModel.currentPlayer.score }} points.
+      </p>
+      <p v-if="scoreBoardViewModel.checkIfPlayerIsInTop10" class="scoreMessage">
+        You are already in top 10 players, keep playing!
       </p>
       <v-btn
         class="deleteButton"
@@ -44,46 +50,43 @@
 </template>
 
 <script>
+import { ScoreBoardViewModel } from "@/viewModel/ScoreBoardViewModel";
 export default {
   data() {
     return {
-      topPlayers: [],
-      currentPlayer: null,
-      isLoading: true,
+      isLoading: false,
+      isInTop10: false,
+      scoreBoardViewModel: new ScoreBoardViewModel(),
     };
   },
-  props: { refreshScoreBoard: Boolean, scoreViewModel: Object },
   mounted() {
-    this.refresh();
+    //this.scoreBoardViewModel = new ScoreBoardViewModel();
+    this.scoreBoardViewModel.refreshView();
+  },
+  computed: {
+    topPlayers() {
+      return this.scoreBoardViewModel.topPlayers;
+    },
   },
   methods: {
     async getTopPlayers() {
       this.isLoading = true;
-      let players = await this.scoreViewModel.getTopPlayers();
+      await this.scoreBoardViewModel.getTopPlayers();
       this.isLoading = false;
-      return players;
     },
     async deleteCurrentPlayer() {
-      await this.scoreViewModel.deletePlayer();
-      this.refresh();
+      await this.scoreBoardViewModel.deletePlayer();
     },
     async getCurrentPlayer() {
-      return await this.scoreViewModel.getCurrentPlayer();
-    },
-    refresh() {
-      this.topPlayers = this.getTopPlayers().then((response) => {
-        this.topPlayers = response;
-        // this.$forceUpdate();
-      });
-      this.getCurrentPlayer().then((response) => {
-        this.currentPlayer = response;
-        //  this.$forceUpdate();
-      });
+      return await this.scoreBoardViewModel.getCurrentPlayer();
     },
   },
   watch: {
-    refreshScoreBoard() {
-      this.refresh();
+    scoreBoardViewModel: {
+      handler() {
+        console.log("watch", this.scoreBoardViewModel);
+      },
+      deep: true,
     },
   },
 };
