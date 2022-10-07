@@ -78,6 +78,7 @@ export class ScoreBoardViewModel {
     try {
       await this.#webBombikaService.deletePlayer(this.storage.getItem("uid"));
       this.#removePlayerFromLocalStorage();
+      this.refreshView();
     } catch (error) {
       console.log(error);
     }

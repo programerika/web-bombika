@@ -1,5 +1,5 @@
 <template>
-  <v-dialog transition="dialog-top-transition" class="helpDialog" width="700px">
+  <v-dialog transition="dialog-top-transition" class="helpDialog">
     <template v-slot:activator="{ props }">
       <v-btn
         size="large"
