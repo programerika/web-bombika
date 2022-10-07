@@ -1,6 +1,7 @@
 import { StorageService } from "@/services/StorageService";
 import { WebBombikaService } from "@/services/WebBombikaService";
 import { ref } from "vue";
+import { toRaw } from "vue";
 
 export class ScoreBoardViewModel {
   #webBombikaService;
@@ -13,13 +14,10 @@ export class ScoreBoardViewModel {
   }
 
   refreshView = async () => {
-    console.log(this.topPlayers.value);
     this.topPlayers.value = await this.getTopPlayers();
-
     this.currentPlayer.value = await this.getCurrentPlayer();
-
-    this.isPlayerInTop10.value = false;
-    console.log(this.currentPlayer, this.topPlayers, this.isPlayerInTop10);
+    this.isPlayerInTop10.value = this.checkIfPlayerIsInTop10();
+    console.log(toRaw(this.isPlayerInTop10.value));
   };
 
   isPlayerRegistered = () => {
@@ -27,9 +25,15 @@ export class ScoreBoardViewModel {
   };
 
   checkIfPlayerIsInTop10() {
-    return this.topPlayers.value.find(
-      (e) => e.username == this.currentPlayer.value
-    );
+    const currentPlayer = toRaw(this.currentPlayer.value);
+    const topPlayers = toRaw(this.topPlayers.value);
+    if (
+      topPlayers.find((e) => e.username == currentPlayer.username) != undefined
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getUsername = () => {

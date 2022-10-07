@@ -28,14 +28,11 @@
       ></v-progress-circular>
     </div>
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
-      <p
-        v-if="!scoreBoardViewModel.checkIfPlayerIsInTop10"
-        class="scoreMessage"
-      >
+      <p v-if="!isInTop10" class="scoreMessage">
         {{ scoreBoardViewModel.currentPlayer.username }} you scored
         {{ scoreBoardViewModel.currentPlayer.score }} points.
       </p>
-      <p v-if="scoreBoardViewModel.checkIfPlayerIsInTop10" class="scoreMessage">
+      <p v-if="isInTop10" class="scoreMessage">
         You are already in top 10 players, keep playing!
       </p>
       <v-btn
@@ -68,6 +65,7 @@ export default {
       return this.scoreBoardViewModel.topPlayers;
     },
   },
+  props: { refreshScoreBoard: Boolean },
   methods: {
     async getTopPlayers() {
       this.isLoading = true;
@@ -80,13 +78,15 @@ export default {
     async getCurrentPlayer() {
       return await this.scoreBoardViewModel.getCurrentPlayer();
     },
+    checkIfPlayerInScoreBoard() {
+      this.isInTop10 = this.scoreBoardViewModel.checkIfPlayerIsInTop10();
+      return this.isInTop10;
+    },
   },
   watch: {
-    scoreBoardViewModel: {
-      handler() {
-        console.log("watch", this.scoreBoardViewModel);
-      },
-      deep: true,
+    refreshScoreBoard() {
+      this.scoreBoardViewModel.refreshView();
+      this.isInTop10 = this.scoreBoardViewModel.isPlayerInTop10;
     },
   },
 };
