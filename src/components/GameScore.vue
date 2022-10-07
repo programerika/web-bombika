@@ -6,26 +6,24 @@
       :duration="4000"
       :particleCount="250"
     />
-    <v-card elevation="12" class="scoreCard" width="320px" height="230px">
+    <v-card elevation="12" class="scoreCard" width="320px" height="260px">
       <v-card-title>GAME OVER</v-card-title>
       <h2>{{ scoreViewModel.gameOverMessage }}</h2>
       <br />
 
       <v-text-field
-        v-if="scoreViewModel.showRegistrationForm"
+        v-if="score > 0 && scoreViewModel.showRegistrationForm"
         label="Username"
         class="usernameTextField"
         v-model="username"
         @input="validateUsername"
-        placeholder="Username - eg.MyName12"
-        counter="8"
-        max-length="8"
-        :rules="inputRules"
+        placeholder="eg.MyName12"
+        :rules="[validation]"
         :disabled="scoreViewModel.inputUsernameDisabled"
-        :error-message="scoreViewModel.usernameMessage"
-        dense="true"
+        :messages="scoreViewModel.usernameMessage"
+        counter="8"
         outlined
-        compact
+        clearable
       ></v-text-field>
       <br />
       <v-row align="center" justify="space-around">
@@ -49,10 +47,6 @@ import ConfettiExplosion from "vue-confetti-explosion";
 export default {
   data() {
     return {
-      inputRules: [
-        (v) => v.length >= 6 || "Minimum length is 6 characters",
-        (v) => v.length <= 8 || "Maximum length is 8 characters",
-      ],
       isRegistered: false,
       username: "",
       scoreViewModel: new ScoreViewModel(),
@@ -77,6 +71,12 @@ export default {
     },
     validateUsername() {
       this.scoreViewModel.validateUsername(this.username, this.score);
+    },
+    validation() {
+      return (
+        this.scoreViewModel.isUsernameValid ||
+        this.scoreViewModel.usernameMessage
+      );
     },
   },
 };
@@ -104,5 +104,9 @@ export default {
 
 .enterUserName {
   font-size: 15px;
+}
+
+.usernameTextField {
+  height: px;
 }
 </style>

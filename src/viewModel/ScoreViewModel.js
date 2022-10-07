@@ -10,6 +10,7 @@ export class ScoreViewModel {
   saveButtonDisabled = ref(false);
   inputUsernameDisabled = ref(false);
   showRegistrationForm = ref(false);
+  isUsernameValid = ref(true);
   #webBombikaService;
   constructor() {
     this.storage = new StorageService();
@@ -21,8 +22,8 @@ export class ScoreViewModel {
     this.usernameMessage.value = "Please enter a username.";
     this.saveButtonDisabled.value = true;
     this.inputUsernameDisabled.value = false;
-    this.usernameMessage.value = "Enter username";
     this.showRegistrationForm.value = this.isPlayerRegistered() ? false : true;
+    this.isUsernameValid.value = true;
     this.addScore(score);
   };
 
@@ -33,15 +34,26 @@ export class ScoreViewModel {
 
   validateUsername = (username, score) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-    if (!userInput.test(username)) {
-      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
-      this.usernameMessage.value = "Username already exists";
+    this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+    if (
+      !userInput.test(username) &&
+      username.length > 2 &&
+      username.length <= 8
+    ) {
       this.saveButtonDisabled.value = true;
       this.inputUsernameDisabled.value = false;
-    } else {
-      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
+      this.isUsernameValid.value = false;
+      this.usernameMessage.value = "Format(4-6 letters/numbers & 2 numbers)";
+    } else if (userInput.test(username)) {
       this.saveButtonDisabled.value = false;
       this.inputUsernameDisabled.value = false;
+      this.isUsernameValid.value = true;
+      this.usernameMessage.value = "Username correct!";
+    } else if (username.length < 6 || username.length > 8) {
+      this.saveButtonDisabled.value = true;
+      this.inputUsernameDisabled.value = false;
+      this.isUsernameValid.value = false;
+      this.usernameMessage.value = "Username length = 6-8 characters";
     }
   };
 
@@ -52,6 +64,7 @@ export class ScoreViewModel {
         this.gameOverMessage.value = `You won ${score} points!!!🤩`;
         this.saveButtonDisabled.value = true;
         this.inputUsernameDisabled.value = false;
+        this.isUsernameValid.value = false;
         this.usernameMessage.value = "Username already exists";
       }
       const uid = await this.#webBombikaService.savePlayerAndScore(
@@ -67,7 +80,7 @@ export class ScoreViewModel {
     } catch (err) {
       errorNotification(
         err,
-        true,
+        false,
         "We are not able to save your username and score right now.",
         false
       );

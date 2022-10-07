@@ -60,7 +60,6 @@ export default {
     };
   },
   mounted() {
-    //this.scoreBoardViewModel = new ScoreBoardViewModel();
     this.scoreBoardViewModel.refreshView();
   },
   computed: {
