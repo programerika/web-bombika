@@ -80,25 +80,23 @@ export default {
     },
   },
   watch: {
-    score(oldValue, newValue) {
-      console.log(oldValue, newValue);
-      if (newValue) {
+    score(value, oldValue) {
+      console.log(value, oldValue);
+      if (oldValue) {
         // this.score(oldValue, newValue);
-        this.scoreViewModel.addScore(newValue);
-        console.log("dodao se rez:", newValue);
+        this.scoreViewModel.addScore(oldValue);
+        this.$emit("added:score");
+        console.log("dodao se rez:", oldValue);
       }
     },
-    // isFinished(oldValue, newValue) {
-    //   if (newValue) {
-    //     console.log(this.score, "watch u GameScore", newValue);
-    //     this.scoreViewModel.addScore(this.score);
-    //   }
-    //   // if (this.score !== 0) {
-    //   //   console.log(this.score, "watch u GameScore");
-    //   //   this.scoreViewModel.addScore(this.score);
-    //   // }
-    // },
   },
+  // watch: {
+  //   isFinished() {
+  //     if (this.isFinished === true) {
+  //       this.scoreViewModel.addScore(this.score);
+  //     }
+  // }
+  //   },
 };
 </script>
 <style scoped>

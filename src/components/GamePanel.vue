@@ -33,6 +33,7 @@
           :isFinished="isFinished"
           @restart:game="restartGame"
           @saved:score="$emit('saved:score')"
+          @added:score="$emit('added:score')"
         />
       </GameTable>
     </div>

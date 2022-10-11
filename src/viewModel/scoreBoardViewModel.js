@@ -22,6 +22,7 @@ export class ScoreBoardViewModel {
     this.topPlayers.value = await this.getTopPlayers();
     this.currentPlayer.value = await this.getCurrentPlayer();
     this.isPlayerInTop10.value = this.checkIfPlayerIsInTop10();
+    console.log("refreshed score board");
   };
 
   isPlayerRegistered = () => {
