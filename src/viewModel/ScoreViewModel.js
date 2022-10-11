@@ -11,12 +11,13 @@ export class ScoreViewModel {
   inputUsernameDisabled = ref(false);
   showRegistrationForm = ref(false);
   isUsernameValid = ref(true);
+  saveButtonText = ref("");
   #webBombikaService;
   constructor() {
     this.storage = new StorageService();
     this.#webBombikaService = new WebBombikaService();
   }
-  initialView = (score) => {
+  initializeView = (score) => {
     this.username.value = "";
     this.gameOverMessage.value = this.#scoreMessage(score);
     this.usernameMessage.value = "Please enter a username.";
@@ -24,7 +25,7 @@ export class ScoreViewModel {
     this.inputUsernameDisabled.value = false;
     this.showRegistrationForm.value = this.isPlayerRegistered() ? false : true;
     this.isUsernameValid.value = true;
-    this.addScore(score);
+    this.saveButtonText.value = "Save score!";
   };
 
   #scoreMessage = (score) => {
@@ -32,41 +33,44 @@ export class ScoreViewModel {
     else return `You won ${score} points!!!🤩`;
   };
 
-  validateUsername = (username, score) => {
+  usernameValidation = (username) => {
+    if (username && username.length > 2) {
+      this.#validateUsername(username);
+    }
+  };
+
+  #validateUsername = (username) => {
+    if (username.length === 0) {
+      this.usernameMessage.value = "Please enter a username";
+      this.saveButtonDisabled.value = true;
+      this.isUsernameValid.value = false;
+    }
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
-    this.gameOverMessage.value = `You won ${score} points!!!🤩`;
-    if (
-      !userInput.test(username) &&
-      username.length > 2 &&
-      username.length <= 8
-    ) {
+    if (!userInput.test(username)) {
       this.saveButtonDisabled.value = true;
       this.inputUsernameDisabled.value = false;
-      this.isUsernameValid.value = false;
       this.usernameMessage.value = "Format(4-6 letters/numbers & 2 numbers)";
-    } else if (userInput.test(username)) {
+    } else {
+      this.usernameMessage.value = "Username is correct";
       this.saveButtonDisabled.value = false;
-      this.inputUsernameDisabled.value = false;
       this.isUsernameValid.value = true;
-      this.usernameMessage.value = "Username correct!";
-    } else if (username.length < 6 || username.length > 8) {
-      this.saveButtonDisabled.value = true;
-      this.inputUsernameDisabled.value = false;
-      this.isUsernameValid.value = false;
-      this.usernameMessage.value = "Username length = 6-8 characters";
     }
   };
 
   savePlayerAndScore = async (username, score) => {
+    if (this.isPlayerRegistered()) {
+      throw new Error("Illegal state: Player is already registered!");
+    }
+    this.saveButtonText.value = "Checking...";
     try {
       const userExists = await this.#checkIfPlayerNameExists(username);
       if (userExists) {
-        this.gameOverMessage.value = `You won ${score} points!!!🤩`;
-        this.saveButtonDisabled.value = true;
-        this.inputUsernameDisabled.value = false;
-        this.isUsernameValid.value = false;
-        this.usernameMessage.value = "Username already exists";
+        this.saveButtonText.value = "Save score!";
+        return;
       }
+
+      this.saveButtonText.value = "Saving...";
+
       const uid = await this.#webBombikaService.savePlayerAndScore(
         username,
         score
@@ -77,13 +81,17 @@ export class ScoreViewModel {
       this.gameOverMessage.value = `You won ${score} points!!!🤩`;
       this.saveButtonDisabled.value = true;
       this.inputUsernameDisabled.value = true;
+      this.saveButtonText.value = "Saved player!";
+      console.log("saved");
     } catch (err) {
       errorNotification(
         err,
-        false,
+        true,
         "We are not able to save your username and score right now.",
         false
       );
+      this.saveButtonDisabled = false;
+      this.saveButtonText.value = "Save player!";
     }
   };
 
@@ -95,8 +103,14 @@ export class ScoreViewModel {
           this.storage.getItem("username"),
           score
         );
+        console.log("added");
       } catch (error) {
-        console.log(error);
+        errorNotification(
+          error,
+          true,
+          "Sorry! We are not able to add your score right now.",
+          false
+        );
       }
     }
   };
@@ -112,62 +126,16 @@ export class ScoreViewModel {
   #checkIfPlayerNameExists = async (username) => {
     try {
       let user = await this.#webBombikaService.getPlayerByUsername(username);
-      let existingUser = user !== undefined;
-      return existingUser;
+      let userExists = user !== undefined;
+      if (userExists) {
+        this.usernameMessage.value = "Username alreagy exists.";
+        this.saveButtonDisabled.value = true;
+        this.isUsernameValid.value = false;
+      } else return;
+
+      return userExists;
     } catch (err) {
-      console.log(err);
-    }
-  };
-
-  getTopPlayers = async () => {
-    try {
-      return await this.#webBombikaService.getTopPlayers();
-    } catch (err) {
-      errorNotification(
-        err,
-        true,
-        "We are not able to load top player right now.",
-        false
-      );
-    }
-  };
-
-  getCurrentPlayer = async () => {
-    let player = this.storage.getItem("username");
-    try {
-      return await this.#webBombikaService.getPlayerByUsername(player);
-    } catch (err) {
-      errorNotification(
-        err,
-        true,
-        "We are not able to load your username right now.",
-        false
-      );
-    }
-  };
-
-  #removePlayerFromLocalStorage = () => {
-    this.storage.removeItem("username");
-    this.storage.removeItem("uid");
-  };
-
-  deletePlayer = async () => {
-    if (this.storage.getItem("uid") === null) {
-      alert(
-        "Can't delete a player that is not in local storage. Play and then try again :)"
-      );
-      throw new Error(
-        "Illegal state: not expected to call deletePlayer without uid in local storage!"
-      );
-    }
-    if (!window.confirm("Are you sure you want to delete your username?"))
-      return;
-
-    try {
-      await this.#webBombikaService.deletePlayer(this.storage.getItem("uid"));
-      this.#removePlayerFromLocalStorage();
-    } catch (error) {
-      console.log(error);
+      errorNotification(err, false, "Player do not exists.", true);
     }
   };
 }

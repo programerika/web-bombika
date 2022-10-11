@@ -29,8 +29,8 @@
         @openField="openField"
       >
         <GameScore
-          :isFinished="isFinished"
           :score="score"
+          :isFinished="isFinished"
           @restart:game="restartGame"
           @saved:score="$emit('saved:score')"
         />
@@ -83,7 +83,7 @@ export default {
     },
   },
 
-  emits: ["saved:score", "finished"],
+  emits: ["saved:score", "finished", "added:score"],
   computed: {
     numberOfFlags() {
       return this.playerState.numberOfFlags;
@@ -124,6 +124,7 @@ export default {
 .container {
   border: 4px solid #15b3a0;
   margin: auto;
+  margin-top: 0px;
   display: grid;
   place-items: center;
   width: auto;

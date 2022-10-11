@@ -10,16 +10,12 @@
       </thead>
       <tbody v-for="(player, index) in topPlayers" :key="player">
         <tr
-          v-if="player.username == scoreBoardViewModel.getUsername()"
-          class="scoreBoardBodyCurrentPlayer"
-        >
-          <td class="text-center">{{ index + 1 }}</td>
-          <td class="text-center">{{ player.username }}</td>
-          <td class="text-center">{{ player.score }}</td>
-        </tr>
-        <tr
-          v-else-if="player.username != scoreBoardViewModel.getUsername()"
-          class="scoreBoardBody"
+          v-if="!scoreBoardViewModel.isLoading"
+          :class="
+            player.username === scoreBoardViewModel.getUsername()
+              ? 'scoreBoardBodyCurrentPlayer'
+              : 'scoreBoardBody'
+          "
         >
           <td class="text-center">{{ index + 1 }}</td>
           <td class="text-center">{{ player.username }}</td>
@@ -27,13 +23,16 @@
         </tr>
       </tbody>
     </v-table>
-    <div v-if="isLoading" class="Loader">
+    <div v-if="scoreBoardViewModel.isLoading" class="Loader">
       <v-progress-circular
         :size="50"
         color="#15b3a0"
         indeterminate
       ></v-progress-circular>
     </div>
+    <p class="loadPlayersErrorMessage" v-if="scoreBoardViewModel.isLoading">
+      {{ scoreBoardViewModel.errorMessage }}
+    </p>
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
       <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
         {{ scoreBoardViewModel.currentPlayer.username }} you scored
@@ -58,7 +57,6 @@ import { ScoreBoardViewModel } from "@/viewModel/ScoreBoardViewModel";
 export default {
   data() {
     return {
-      isLoading: false,
       scoreBoardViewModel: new ScoreBoardViewModel(),
     };
   },
@@ -72,20 +70,8 @@ export default {
   },
   props: { refreshScoreBoard: Boolean },
   methods: {
-    async getTopPlayers() {
-      this.isLoading = true;
-      await this.scoreBoardViewModel.getTopPlayers();
-      this.isLoading = false;
-    },
     async deleteCurrentPlayer() {
       await this.scoreBoardViewModel.deletePlayer();
-    },
-    async getCurrentPlayer() {
-      return await this.scoreBoardViewModel.getCurrentPlayer();
-    },
-    checkIfPlayerInScoreBoard() {
-      this.isInTop10 = this.scoreBoardViewModel.checkIfPlayerIsInTop10();
-      return this.isInTop10;
     },
   },
   watch: {
@@ -133,6 +119,12 @@ export default {
   /* background-color: #0c5e54; */
   color: #1df5db;
   background-color: black;
+}
+
+.loadPlayersErrorMessage {
+  color: #15b3a0;
+  margin: auto;
+  place-content: center;
 }
 .scoreBoardBodyCurrentPlayer {
   /* background-color: #0c5e54; */
