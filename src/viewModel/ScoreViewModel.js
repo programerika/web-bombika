@@ -29,8 +29,13 @@ export class ScoreViewModel {
   };
 
   #scoreMessage = (score) => {
-    if (score === 0) return "Sorry!Better luck next time!😥";
-    else return `You won ${score} points!!!🤩`;
+    if (score === 0) {
+      return "Sorry!Better luck next time!😥";
+    } else if (score == 1) {
+      return `You won ${score} point!!!🤩`;
+    } else {
+      return `You won ${score} points!!!🤩`;
+    }
   };
 
   usernameValidation = (username) => {
@@ -78,7 +83,6 @@ export class ScoreViewModel {
       this.storage.setItem("username", username);
       this.storage.setItem("uid", uid);
       this.username = username;
-      this.gameOverMessage.value = `You won ${score} points!!!🤩`;
       this.saveButtonDisabled.value = true;
       this.inputUsernameDisabled.value = true;
       this.saveButtonText.value = "Saved player!";

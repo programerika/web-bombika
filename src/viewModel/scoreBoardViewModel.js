@@ -19,8 +19,11 @@ export class ScoreBoardViewModel {
   refreshView = async () => {
     this.errorMessage.value = "";
     this.isLoading.value = false;
-    this.topPlayers.value = await this.getTopPlayers();
-    this.currentPlayer.value = await this.getCurrentPlayer();
+    let currPlayer = await this.getCurrentPlayer();
+    this.currentPlayer.value = currPlayer;
+    let players = await this.getTopPlayers();
+
+    this.topPlayers.value = players;
     this.isPlayerInTop10.value = this.checkIfPlayerIsInTop10();
     console.log("refreshed score board");
   };
