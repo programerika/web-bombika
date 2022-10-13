@@ -81,17 +81,12 @@ export default {
       await this.scoreBoardViewModel.deletePlayer();
     },
     async getCurrentPlayer() {
-      return await this.scoreBoardViewModel.getCurrentPlayer();
-    },
-    checkIfPlayerInScoreBoard() {
-      this.isInTop10 = this.scoreBoardViewModel.checkIfPlayerIsInTop10();
-      return this.isInTop10;
+      await this.scoreBoardViewModel.getCurrentPlayer();
     },
   },
   watch: {
     refreshScoreBoard() {
       this.scoreBoardViewModel.refreshView();
-      this.isInTop10 = this.scoreBoardViewModel.isPlayerInTop10;
     },
   },
 };
