@@ -16,7 +16,7 @@
         label="Username"
         class="usernameTextField"
         v-model="username"
-        @input="validateUsername"
+        @input="usernameValidation"
         placeholder="eg.MyName12"
         :rules="[validation]"
         :disabled="scoreViewModel.inputUsernameDisabled"
@@ -33,7 +33,7 @@
           :disabled="scoreViewModel.saveButtonDisabled"
           @click="savePlayerAndScore"
           color="#BEBEBE"
-          >Save score</v-btn
+          >{{ scoreViewModel.saveButtonText }}</v-btn
         >
       </v-row>
       <br />
@@ -57,10 +57,10 @@ export default {
     isFinished: Boolean,
   },
   mounted() {
-    this.scoreViewModel.initialView(this.score);
+    this.scoreViewModel.initializeView(this.score);
   },
   components: { ConfettiExplosion },
-  emits: ["restart:game", "saved:score"],
+  emits: ["restart:game", "saved:score", "added:score"],
   methods: {
     playAgain() {
       this.$emit("restart:game");
@@ -69,8 +69,8 @@ export default {
       await this.scoreViewModel.savePlayerAndScore(this.username, this.score);
       this.$emit("saved:score");
     },
-    validateUsername() {
-      this.scoreViewModel.validateUsername(this.username, this.score);
+    usernameValidation() {
+      this.scoreViewModel.usernameValidation(this.username, this.score);
     },
     validation() {
       return (
@@ -79,6 +79,24 @@ export default {
       );
     },
   },
+  watch: {
+    score(value, oldValue) {
+      console.log(value, oldValue);
+      if (oldValue) {
+        // this.score(oldValue, newValue);
+        this.scoreViewModel.addScore(oldValue);
+        this.$emit("added:score");
+        console.log("dodao se rez:", oldValue);
+      }
+    },
+  },
+  // watch: {
+  //   isFinished() {
+  //     if (this.isFinished === true) {
+  //       this.scoreViewModel.addScore(this.score);
+  //     }
+  // }
+  //   },
 };
 </script>
 <style scoped>
@@ -106,7 +124,7 @@ export default {
   font-size: 15px;
 }
 
-.usernameTextField {
-  height: px;
-}
+/* .usernameTextField {
+  height: 5px;
+} */
 </style>

@@ -1,3 +1,4 @@
+import errorNotification from "@/services/ErrorNotificationService";
 import { StorageService } from "@/services/StorageService";
 import { WebBombikaService } from "@/services/WebBombikaService";
 import { ref } from "vue";
@@ -8,16 +9,20 @@ export class ScoreBoardViewModel {
   topPlayers = ref([]);
   currentPlayer = ref({});
   isPlayerInTop10 = ref(false);
+  isLoading = ref(false);
+  errorMessage = ref("");
   constructor() {
     this.storage = new StorageService();
     this.#webBombikaService = new WebBombikaService();
   }
 
   refreshView = async () => {
+    this.errorMessage.value = "";
+    this.isLoading.value = false;
     this.topPlayers.value = await this.getTopPlayers();
     this.currentPlayer.value = await this.getCurrentPlayer();
     this.isPlayerInTop10.value = this.checkIfPlayerIsInTop10();
-    console.log(toRaw(this.isPlayerInTop10.value));
+    console.log("refreshed score board");
   };
 
   isPlayerRegistered = () => {
@@ -28,6 +33,8 @@ export class ScoreBoardViewModel {
     const currentPlayer = toRaw(this.currentPlayer.value);
     const topPlayers = toRaw(this.topPlayers.value);
     if (
+      currentPlayer &&
+      topPlayers &&
       topPlayers.find((e) => e.username == currentPlayer.username) != undefined
     ) {
       return true;
@@ -42,15 +49,24 @@ export class ScoreBoardViewModel {
 
   getTopPlayers = async () => {
     try {
+      this.isLoading.value = true;
       const players = await this.#webBombikaService.getTopPlayers();
+      this.isLoading.value = false;
       return players;
     } catch (err) {
-      console.log(err);
+      errorNotification(
+        err,
+        false,
+        "We are not able to load top players right now.",
+        false
+      );
+      this.errorMessage.value = "Unable to load top list at the moment.";
     }
   };
 
   getCurrentPlayer = async () => {
     let player = this.storage.getItem("username");
+    if (!player) return;
     try {
       return await this.#webBombikaService.getPlayerByUsername(player);
     } catch (err) {
