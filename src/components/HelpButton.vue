@@ -17,6 +17,30 @@
         </v-toolbar>
         <v-card-text>
           <div class="text-p pa-2 text-justify">
+            Web-Bombika is a single-player game where mines are hidden and if
+            you click the mine cell you lose the game. There are cells with
+            numbers indicating the number of mines surrounding the cell. You are
+            safe to click on them. Put a flag on every cell you assume to be a
+            cell with mine.
+          </div>
+          <div class="text-p pa-2 text-justify">
+            When you open a cell that doesn't touch any cells with mines, it
+            will be empty and all the other empty cells that are in touch with
+            it will automatically open in all directions until reaching cells
+            that have numbers.
+          </div>
+          <div class="text-p pa-2 text-justify">
+            The game ends when you open all the cells that are not mines. Based
+            on the number of seconds that you spend in the game, your score will
+            be calculated. Initial score is 100 and goes down by 5 points every
+            10 seconds. If you finish the game after 180 seconds (3 minutes),
+            you will be awarded 1 honorary point.
+          </div>
+          <div class="text-p pa-2 text-center">
+            Controls: <br />* left click or press: opens a cell <br />
+            * right click or long press: flag a cell
+          </div>
+          <div class="text-p pa-2 text-justify">
             The button on the top left of the game represents a reset button. If
             you click it, the game will reset to default values.
           </div>
@@ -28,18 +52,6 @@
           <div class="text-p pa-2 text-justify">
             The number next to a stopwatch icon represents the game timer. It
             shows the number of seconds that you spent playing the game.
-          </div>
-          <div class="text-p pa-2 text-justify">
-            The game ends when you open all the cells that are not bombs. Based
-            on the number of seconds that you spend in the game, your score will
-            be calculated. <br />
-            <br />Initial score is 100 and goes down by 5 points every 10
-            seconds. <br />If you finish the game after 180 seconds (3 minutes),
-            you will be awarded 1️⃣ honorary point.
-          </div>
-          <div class="text-p pa-2 text-center">
-            Controls: <br />left click or press: opens a cell <br />
-            right click or long press: flag a cell 🚩
           </div>
         </v-card-text>
         <v-card-actions class="justify-end">

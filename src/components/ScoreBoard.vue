@@ -29,17 +29,24 @@
         color="#15b3a0"
         indeterminate
       ></v-progress-circular>
+      <p class="loadPlayersErrorMessage">
+        {{ scoreBoardViewModel.errorMessage }}
+      </p>
     </div>
-    <p class="loadPlayersErrorMessage" v-if="scoreBoardViewModel.isLoading">
-      {{ scoreBoardViewModel.errorMessage }}
-    </p>
+
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
       <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
-        {{ scoreBoardViewModel.currentPlayer.username }} you scored
-        {{ scoreBoardViewModel.currentPlayer.score }} points.
+        <span class="registeredPlayer">{{
+          scoreBoardViewModel.currentPlayer.username
+        }}</span>
+        you scored
+        <span class="scoreUnderTop10">
+          {{ scoreBoardViewModel.currentPlayer.score }}
+        </span>
+        points.😉
       </p>
       <p v-if="scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
-        You are already in top 10 players, keep playing!
+        You are in top 10 players, keep playing!😎
       </p>
       <v-btn
         class="deleteButton"
@@ -97,6 +104,7 @@ export default {
 }
 .scoreMessage {
   margin: auto;
+  color: black;
 }
 
 .deleteButton {
@@ -105,6 +113,23 @@ export default {
   margin-bottom: 5px;
   color: #1df5db;
 }
+
+.registeredPlayer {
+  background-color: rgb(255, 215, 0, 0.7);
+  color: black;
+  border-radius: 10px;
+  padding: 5px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
+}
+
+.scoreUnderTop10 {
+  background-color: rgb(255, 217, 0, 0.7);
+  color: black;
+  border-radius: 10px;
+  padding: 3px;
+}
+
 .scoreBoardHeader {
   background-color: #15b3a0;
   color: black;
@@ -115,6 +140,7 @@ export default {
   height: 320px;
   background-color: black;
   width: 300px;
+  display: grid;
   place-items: center;
 }
 .scoreBoardBody {
@@ -126,7 +152,7 @@ export default {
 .loadPlayersErrorMessage {
   color: #15b3a0;
   margin: auto;
-  place-content: center;
+  margin-left: 30px;
 }
 .scoreBoardBodyCurrentPlayer {
   /* background-color: #0c5e54; */

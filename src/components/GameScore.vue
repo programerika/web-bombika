@@ -58,6 +58,7 @@ export default {
   },
   mounted() {
     this.scoreViewModel.initializeView(this.score);
+    this.addScore();
   },
   components: { ConfettiExplosion },
   emits: ["restart:game", "saved:score", "added:score"],
@@ -78,25 +79,22 @@ export default {
         this.scoreViewModel.usernameMessage
       );
     },
-  },
-  watch: {
-    score(value, oldValue) {
-      console.log(value, oldValue);
-      if (oldValue) {
-        // this.score(oldValue, newValue);
-        this.scoreViewModel.addScore(oldValue);
-        this.$emit("added:score");
-        console.log("dodao se rez:", oldValue);
-      }
+    addScore() {
+      this.scoreViewModel.addScore(this.score);
+      this.$emit("added:score");
     },
   },
   // watch: {
-  //   isFinished() {
-  //     if (this.isFinished === true) {
-  //       this.scoreViewModel.addScore(this.score);
+  //   score(value, oldValue) {
+  //     console.log(value, oldValue);
+  //     if (oldValue) {
+  //       // this.score(oldValue, newValue);
+  //       this.scoreViewModel.addScore(oldValue);
+  //       this.$emit("added:score");
+  //       console.log("dodao se rez:", oldValue);
   //     }
-  // }
   //   },
+  // },
 };
 </script>
 <style scoped>
