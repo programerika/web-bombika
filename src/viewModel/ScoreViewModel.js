@@ -4,7 +4,6 @@ import { WebBombikaService } from "@/services/WebBombikaService";
 import { ref } from "vue";
 
 export class ScoreViewModel {
-  username = ref("");
   gameOverMessage = ref("");
   usernameMessage = ref("");
   saveButtonDisabled = ref(false);
@@ -18,9 +17,7 @@ export class ScoreViewModel {
     this.#webBombikaService = new WebBombikaService();
   }
   initializeView = (score) => {
-    this.username.value = "";
     this.gameOverMessage.value = this.#scoreMessage(score);
-    this.usernameMessage.value = "Please enter a username.";
     this.saveButtonDisabled.value = true;
     this.inputUsernameDisabled.value = false;
     this.showRegistrationForm.value = this.isPlayerRegistered() ? false : true;
@@ -45,18 +42,13 @@ export class ScoreViewModel {
   };
 
   #validateUsername = (username) => {
-    if (username.length === 0) {
-      this.usernameMessage.value = "Please enter a username";
-      this.saveButtonDisabled.value = true;
-      this.isUsernameValid.value = false;
-    }
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (!userInput.test(username)) {
       this.saveButtonDisabled.value = true;
       this.inputUsernameDisabled.value = false;
       this.usernameMessage.value = "Format(4-6 letters/numbers & 2 numbers)";
+      this.isUsernameValid.value = false;
     } else {
-      this.usernameMessage.value = "Username is correct";
       this.saveButtonDisabled.value = false;
       this.isUsernameValid.value = true;
     }
@@ -80,21 +72,17 @@ export class ScoreViewModel {
         username,
         score
       );
+
       this.storage.setItem("username", username);
       this.storage.setItem("uid", uid);
-      this.username = username;
-      this.saveButtonDisabled.value = true;
-      this.inputUsernameDisabled.value = true;
-      this.saveButtonText.value = "Saved player!";
-      console.log("saved");
+      this.initializeView(score);
     } catch (err) {
       errorNotification(
         err,
         true,
         "We are not able to save your username and score right now.",
-        false
+        true
       );
-      this.saveButtonDisabled = false;
       this.saveButtonText.value = "Save player!";
     }
   };
@@ -113,7 +101,7 @@ export class ScoreViewModel {
           error,
           true,
           "Sorry! We are not able to add your score right now.",
-          false
+          true
         );
       }
     }

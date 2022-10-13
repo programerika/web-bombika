@@ -11,6 +11,7 @@ export class ScoreBoardViewModel {
   isPlayerInTop10 = ref(false);
   isLoading = ref(false);
   errorMessage = ref("");
+  displayErrorMessage = ref(false);
   constructor() {
     this.storage = new StorageService();
     this.#webBombikaService = new WebBombikaService();
@@ -18,14 +19,13 @@ export class ScoreBoardViewModel {
 
   refreshView = async () => {
     this.errorMessage.value = "";
+    this.displayErrorMessage.value = false;
     this.isLoading.value = false;
     let currPlayer = await this.getCurrentPlayer();
     this.currentPlayer.value = currPlayer;
     let players = await this.getTopPlayers();
-
     this.topPlayers.value = players;
     this.isPlayerInTop10.value = this.checkIfPlayerIsInTop10();
-    console.log("refreshed score board");
   };
 
   isPlayerRegistered = () => {
@@ -63,6 +63,8 @@ export class ScoreBoardViewModel {
         "We are not able to load top players right now.",
         false
       );
+      this.isLoading.value = false;
+      this.displayErrorMessage.value = true;
       this.errorMessage.value = "Unable to load top list at the moment.";
     }
   };
@@ -73,7 +75,12 @@ export class ScoreBoardViewModel {
     try {
       return await this.#webBombikaService.getPlayerByUsername(player);
     } catch (err) {
-      console.log(err);
+      errorNotification(
+        err,
+        false,
+        "Sorry. We are not able to delete your username right now.",
+        true
+      );
     }
   };
 
@@ -98,8 +105,13 @@ export class ScoreBoardViewModel {
       await this.#webBombikaService.deletePlayer(this.storage.getItem("uid"));
       this.#removePlayerFromLocalStorage();
       this.refreshView();
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      errorNotification(
+        err,
+        true,
+        "Sorry. We are not able to delete your username right now.",
+        true
+      );
     }
   };
 }

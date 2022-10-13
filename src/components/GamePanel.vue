@@ -32,8 +32,8 @@
           :score="score"
           :isFinished="isFinished"
           @restart:game="restartGame"
+          :scoreViewModel="scoreViewModel"
           @saved:score="$emit('saved:score')"
-          @added:score="$emit('added:score')"
         />
       </GameTable>
     </div>
@@ -48,6 +48,7 @@ import NumberOfFlags from "./NumberOfFlags.vue";
 import GameTimer from "./GameTimer.vue";
 import HelpButton from "./HelpButton.vue";
 import GameScore from "./GameScore.vue";
+import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 
 export default {
   data() {
@@ -55,6 +56,7 @@ export default {
       wbvm: {},
       playerState: {},
       flagSelector: false,
+      scoreViewModel: new ScoreViewModel(),
     };
   },
   mounted() {
@@ -104,6 +106,10 @@ export default {
   },
   watch: {
     isFinished() {
+      if (this.isFinished) {
+        this.scoreViewModel.addScore(this.score);
+        this.$emit("added:score");
+      }
       this.$emit("finished", this.isFinished);
     },
   },

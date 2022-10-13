@@ -25,12 +25,12 @@ export default {
   },
   methods: {
     updateBoard() {
-      this.refreshBoard = !this.refreshBoard;
+      this.refreshBoard++;
     },
   },
 
   data: () => ({
-    refreshBoard: false,
+    refreshBoard: 0,
   }),
 };
 </script>
