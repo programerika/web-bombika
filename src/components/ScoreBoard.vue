@@ -29,10 +29,13 @@
         color="#15b3a0"
         indeterminate
       ></v-progress-circular>
-      <p class="loadPlayersErrorMessage">
-        {{ scoreBoardViewModel.errorMessage }}
-      </p>
     </div>
+    <p
+      v-if="scoreBoardViewModel.displayErrorMessage"
+      class="loadPlayersErrorMessage"
+    >
+      {{ scoreBoardViewModel.errorMessage }}
+    </p>
 
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
       <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
@@ -152,7 +155,8 @@ export default {
 .loadPlayersErrorMessage {
   color: #15b3a0;
   margin: auto;
-  margin-left: 30px;
+  margin-left: 20px;
+  margin-top: 100px;
 }
 .scoreBoardBodyCurrentPlayer {
   /* background-color: #0c5e54; */

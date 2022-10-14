@@ -18,12 +18,11 @@
         v-model="username"
         @input="usernameValidation"
         placeholder="eg.MyName12"
-        :rules="[validation]"
         :disabled="scoreViewModel.inputUsernameDisabled"
-        :messages="scoreViewModel.usernameMessage"
+        :error-messages="usernameValidationMessage"
+        hint="Format(4-6 letters/numbers & 2 numbers)."
         counter="8"
         outlined
-        clearable
       ></v-text-field>
       <br />
       <v-row align="center" justify="space-around">
@@ -41,7 +40,6 @@
   </div>
 </template>
 <script>
-import { ScoreViewModel } from "@/viewModel/ScoreViewModel";
 import ConfettiExplosion from "vue-confetti-explosion";
 
 export default {
@@ -49,19 +47,18 @@ export default {
     return {
       isRegistered: false,
       username: "",
-      scoreViewModel: new ScoreViewModel(),
     };
   },
   props: {
     score: Number,
     isFinished: Boolean,
+    scoreViewModel: Object,
   },
   mounted() {
     this.scoreViewModel.initializeView(this.score);
-    this.addScore();
   },
   components: { ConfettiExplosion },
-  emits: ["restart:game", "saved:score", "added:score"],
+  emits: ["restart:game", "saved:score"],
   methods: {
     playAgain() {
       this.$emit("restart:game");
@@ -73,28 +70,15 @@ export default {
     usernameValidation() {
       this.scoreViewModel.usernameValidation(this.username, this.score);
     },
-    validation() {
-      return (
-        this.scoreViewModel.isUsernameValid ||
-        this.scoreViewModel.usernameMessage
-      );
-    },
-    addScore() {
-      this.scoreViewModel.addScore(this.score);
-      this.$emit("added:score");
+  },
+  computed: {
+    usernameValidationMessage() {
+      if (!this.scoreViewModel.isUsernameValid) {
+        return [this.scoreViewModel.usernameMessage];
+      }
+      return undefined;
     },
   },
-  // watch: {
-  //   score(value, oldValue) {
-  //     console.log(value, oldValue);
-  //     if (oldValue) {
-  //       // this.score(oldValue, newValue);
-  //       this.scoreViewModel.addScore(oldValue);
-  //       this.$emit("added:score");
-  //       console.log("dodao se rez:", oldValue);
-  //     }
-  //   },
-  // },
 };
 </script>
 <style scoped>
@@ -110,19 +94,4 @@ export default {
   border-width: 7px 7px 7px 7px;
   border-radius: 30px;
 }
-.username {
-  border-radius: 4px;
-  border: 1px solid black;
-  width: 220px;
-  text-align: center;
-  background-color: rgba(114, 166, 184, 0.8);
-}
-
-.enterUserName {
-  font-size: 15px;
-}
-
-/* .usernameTextField {
-  height: 5px;
-} */
 </style>
