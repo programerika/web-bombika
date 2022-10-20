@@ -7,7 +7,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .header {
   display: flex;
   border-top-left-radius: 10px;

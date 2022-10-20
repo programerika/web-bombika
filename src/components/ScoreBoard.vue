@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { ScoreBoardViewModel } from "@/viewModel/ScoreBoardViewModel";
+import { ScoreBoardViewModel } from "@/viewModel/scoreBoardViewModel";
 export default {
   data() {
     return {

@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
-
+  css: { extract: false },
   pluginOptions: {
     vuetify: {
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
@@ -12,6 +12,11 @@ module.exports = defineConfig({
       "^/api": {
         target: `http://${process.env.VUE_APP_API_URL}/`,
       },
+    },
+  },
+  configureWebpack: {
+    output: {
+      libraryExport: "default",
     },
   },
 });

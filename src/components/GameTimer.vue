@@ -35,3 +35,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.flex {
+  display: flex;
+  font: 12;
+}
+</style>

@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .material-icons {
   font-family: "Material Icons";
   font-weight: normal;
