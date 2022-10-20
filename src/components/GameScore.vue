@@ -8,7 +8,7 @@
     />
     <v-card elevation="12" class="scoreCard" width="320px" height="260px">
       <v-card-title>GAME OVER</v-card-title>
-      <h2>{{ scoreViewModel.gameOverMessage }}</h2>
+      <h2 class="gameMessage">{{ scoreViewModel.gameOverMessage }}</h2>
       <br />
 
       <v-text-field
@@ -82,6 +82,11 @@ export default {
 };
 </script>
 <style scoped>
+.gameMessage {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0px;
+}
 .scoreContainer {
   text-align: center;
   /* margin-top: 43px; */

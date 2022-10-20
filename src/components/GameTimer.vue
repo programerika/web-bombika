@@ -1,6 +1,6 @@
 <template>
-  <div class="flex">
-    <h1>⏱️{{ timer.timeCounter }}</h1>
+  <div>
+    <h1 class="timeComponent">⏱️{{ timer.timeCounter }}</h1>
   </div>
 </template>
 <script>
@@ -36,8 +36,9 @@ export default {
 };
 </script>
 <style scoped>
-.flex {
-  display: flex;
-  font: 12;
+.timeComponent {
+  font-size: 2em;
+  margin: 0px;
+  font-weight: bold;
 }
 </style>

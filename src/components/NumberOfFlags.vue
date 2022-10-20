@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>🚩{{ numberOfFlags }}</h1>
+    <h1 class="numberOfFlags">🚩{{ numberOfFlags }}</h1>
   </div>
 </template>
 <script>
@@ -13,4 +13,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.numberOfFlags {
+  font-size: 2em;
+  margin: 0px;
+  font-weight: bold;
+}
+</style>

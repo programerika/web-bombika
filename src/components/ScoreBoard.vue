@@ -3,9 +3,9 @@
     <v-table theme="dark" class="scoreBoard" density="compact">
       <thead class="scoreBoardHeader">
         <tr>
-          <th class="text-center">Rank</th>
-          <th class="text-center">Username</th>
-          <th class="text-center">Points</th>
+          <th class="text-center" id="rank">Rank</th>
+          <th class="text-center" id="rank">Username</th>
+          <th class="text-center" id="rank">Points</th>
         </tr>
       </thead>
       <tbody v-for="(player, index) in topPlayers" :key="player">
@@ -49,7 +49,7 @@
         points.😉
       </p>
       <p v-if="scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
-        You are in top 10 players, keep playing!😎
+        You are in top 10 players,keep playing!😎
       </p>
       <v-btn
         class="deleteButton"
@@ -78,7 +78,7 @@ export default {
       return this.scoreBoardViewModel.topPlayers;
     },
   },
-  props: { refreshScoreBoard: Boolean },
+  props: { refreshScoreBoard: Number },
   methods: {
     async deleteCurrentPlayer() {
       await this.scoreBoardViewModel.deletePlayer();
@@ -96,6 +96,9 @@ export default {
 </script>
 
 <style scoped>
+#rank {
+  font-size: large;
+}
 .scoreAndDeleteScore {
   display: grid;
   align-items: center;
