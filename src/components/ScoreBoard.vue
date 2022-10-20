@@ -111,6 +111,8 @@ export default {
 .scoreMessage {
   margin: auto;
   color: black;
+  font-size: 15px;
+  font-family: sans-serif;
 }
 
 .deleteButton {

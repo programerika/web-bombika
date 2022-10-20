@@ -15,7 +15,8 @@ export default {
 
 <style scoped>
 .numberOfFlags {
-  font-size: 2em;
+  font-size: 32px;
+  font-family: sans-serif;
   margin: 0px;
   font-weight: bold;
 }

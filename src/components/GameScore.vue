@@ -21,7 +21,6 @@
         :disabled="scoreViewModel.inputUsernameDisabled"
         :error-messages="usernameValidationMessage"
         hint="Format(4-6 letters/numbers & 2 numbers)."
-        counter="8"
         outlined
       ></v-text-field>
       <br />

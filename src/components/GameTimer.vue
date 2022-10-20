@@ -37,7 +37,8 @@ export default {
 </script>
 <style scoped>
 .timeComponent {
-  font-size: 2em;
+  font-size: 32px;
+  font-family: sans-serif;
   margin: 0px;
   font-weight: bold;
 }
