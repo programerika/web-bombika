@@ -95,7 +95,6 @@ export class ScoreViewModel {
           this.storage.getItem("username"),
           score
         );
-        console.log("added");
       } catch (error) {
         errorNotification(
           error,
