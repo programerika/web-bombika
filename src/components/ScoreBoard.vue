@@ -42,7 +42,7 @@
         <span class="scoreUnderTop10">{{
           scoreBoardViewModel.returnPlayerFromLocalStorage()
         }}</span
-        >!
+        >!🤗
       </p>
     </div>
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
@@ -108,7 +108,7 @@ export default {
   display: grid;
   align-items: center;
   place-items: center;
-  margin-top: 130px;
+  margin-top: 20px;
   height: 70px;
   padding: 10px;
   background-color: #15b3a0;
@@ -142,7 +142,7 @@ export default {
 }
 
 .registeredPlayer {
-  background-color: rgb(255, 215, 0, 0.7);
+  background-color: rgb(255, 165, 0, 0.7);
   color: black;
   border-radius: 10px;
   padding: 5px;
@@ -151,7 +151,7 @@ export default {
 }
 
 .scoreUnderTop10 {
-  background-color: rgb(255, 217, 0, 0.7);
+  background-color: rgb(255, 165, 0, 0.7);
   color: black;
   border-radius: 10px;
   padding: 3px;
@@ -189,7 +189,7 @@ export default {
 .scoreBoardBodyCurrentPlayer {
   /* background-color: #0c5e54; */
   color: black;
-  background-color: gold;
+  background-color: orange;
 }
 
 .scoreBoard {
