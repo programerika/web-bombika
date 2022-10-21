@@ -4,7 +4,7 @@
       <thead class="scoreBoardHeader">
         <tr>
           <th class="text-center" id="rank">Rank</th>
-          <th class="text-center" id="rank">Username</th>
+          <th class="text-center" id="rank">Player</th>
           <th class="text-center" id="rank">Points</th>
         </tr>
       </thead>
@@ -23,6 +23,12 @@
         </tr>
       </tbody>
     </v-table>
+    <p
+      v-if="scoreBoardViewModel.displayErrorMessage"
+      class="loadPlayersErrorMessage"
+    >
+      {{ scoreBoardViewModel.errorMessage }}
+    </p>
     <div v-if="scoreBoardViewModel.isLoading" class="Loader">
       <v-progress-circular
         :size="50"
@@ -30,13 +36,15 @@
         indeterminate
       ></v-progress-circular>
     </div>
-    <p
-      v-if="scoreBoardViewModel.displayErrorMessage"
-      class="loadPlayersErrorMessage"
-    >
-      {{ scoreBoardViewModel.errorMessage }}
-    </p>
-
+    <div class="welcome" v-else-if="scoreBoardViewModel.showWelcome">
+      <p>
+        Hi,
+        <span class="scoreUnderTop10">{{
+          scoreBoardViewModel.returnPlayerFromLocalStorage()
+        }}</span
+        >!
+      </p>
+    </div>
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
       <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
         <span class="registeredPlayer">{{
@@ -96,6 +104,17 @@ export default {
 </script>
 
 <style scoped>
+.welcome {
+  display: grid;
+  align-items: center;
+  place-items: center;
+  margin-top: 130px;
+  height: 70px;
+  padding: 10px;
+  background-color: #15b3a0;
+  color: solid black;
+  border-radius: 4px;
+}
 #rank {
   font-size: large;
 }
@@ -153,15 +172,19 @@ export default {
 }
 .scoreBoardBody {
   /* background-color: #0c5e54; */
-  color: #1df5db;
+  color: white;
   background-color: black;
 }
 
 .loadPlayersErrorMessage {
-  color: #15b3a0;
+  color: black;
   margin: auto;
-  margin-left: 20px;
+  font-size: 18px;
+  font-family: "sans-serif";
   margin-top: 100px;
+  background-color: #a84242;
+  padding: 20px;
+  border-radius: 4px;
 }
 .scoreBoardBodyCurrentPlayer {
   /* background-color: #0c5e54; */
@@ -193,7 +216,6 @@ export default {
 .v-progress-circular {
   margin: 7rem;
   color: #15b3a0;
-
   /* height: 320px; */
 }
 </style>

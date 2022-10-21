@@ -10,6 +10,7 @@ export class ScoreBoardViewModel {
   currentPlayer = ref({});
   isPlayerInTop10 = ref(false);
   isLoading = ref(false);
+  showWelcome = ref(false);
   errorMessage = ref("");
   displayErrorMessage = ref(false);
   constructor() {
@@ -19,6 +20,7 @@ export class ScoreBoardViewModel {
 
   refreshView = async () => {
     this.errorMessage.value = "";
+    this.showWelcome.value = false;
     this.displayErrorMessage.value = false;
     this.isLoading.value = false;
     let currPlayer = await this.getCurrentPlayer();
@@ -65,7 +67,9 @@ export class ScoreBoardViewModel {
       );
       this.isLoading.value = false;
       this.displayErrorMessage.value = true;
-      this.errorMessage.value = "Unable to load top list at the moment.";
+      this.showWelcome.value = true;
+      this.errorMessage.value =
+        "Sorry, we are not able to get top players at the moment!";
     }
   };
 
@@ -75,6 +79,7 @@ export class ScoreBoardViewModel {
     try {
       return await this.#webBombikaService.getPlayerByUsername(player);
     } catch (err) {
+      this.showWelcome.value = true;
       errorNotification(
         err,
         false,
@@ -82,6 +87,13 @@ export class ScoreBoardViewModel {
         true
       );
     }
+  };
+
+  returnPlayerFromLocalStorage = () => {
+    let playerName = this.storage.getItem("username");
+    if (playerName === null) {
+      this.showWelcome.value = false;
+    } else return playerName;
   };
 
   #removePlayerFromLocalStorage = () => {
