@@ -17,7 +17,7 @@
               : 'scoreBoardBody'
           "
         >
-          <td class="text-center">{{ index + 1 }}</td>
+          <td class="text-center">{{ index + 1 }}.</td>
           <td class="text-center">{{ player.username }}</td>
           <td class="text-center">{{ player.score }}</td>
         </tr>
@@ -36,7 +36,13 @@
         indeterminate
       ></v-progress-circular>
     </div>
-    <div class="welcome" v-else-if="scoreBoardViewModel.showWelcome">
+    <div
+      class="welcome"
+      v-if="
+        scoreBoardViewModel.showWelcome ||
+        (scoreBoardViewModel.currentPlayer && score === undefined)
+      "
+    >
       <p>
         Hi,
         <span class="scoreUnderTop10">{{
@@ -46,13 +52,16 @@
       </p>
     </div>
     <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
-      <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
+      <p
+        v-if="!scoreBoardViewModel.isPlayerInTop10 && score !== undefined"
+        class="scoreMessage"
+      >
         <span class="registeredPlayer">{{
           scoreBoardViewModel.currentPlayer.username
         }}</span>
         you scored
         <span class="scoreUnderTop10">
-          {{ scoreBoardViewModel.currentPlayer.score }}
+          {{ score }}
         </span>
         points.😉
       </p>
@@ -84,6 +93,13 @@ export default {
   computed: {
     topPlayers() {
       return this.scoreBoardViewModel.topPlayers;
+    },
+    score() {
+      console.log(
+        "score u computed u ScoreBoard",
+        this.scoreBoardViewModel.currentPlayer.score
+      );
+      return this.scoreBoardViewModel.currentPlayer.score;
     },
   },
   props: { refreshScoreBoard: Number },
