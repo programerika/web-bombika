@@ -40,7 +40,7 @@
       class="welcome"
       v-if="
         scoreBoardViewModel.showWelcome ||
-        (scoreBoardViewModel.currentPlayer && score === undefined)
+        (scoreBoardViewModel.currentPlayer && !score)
       "
     >
       <p>
@@ -51,11 +51,11 @@
         >!🤗
       </p>
     </div>
-    <div v-if="scoreBoardViewModel.currentPlayer" class="scoreAndDeleteScore">
-      <p
-        v-if="!scoreBoardViewModel.isPlayerInTop10 && score !== undefined"
-        class="scoreMessage"
-      >
+    <div
+      v-if="scoreBoardViewModel.currentPlayer && score"
+      class="scoreAndDeleteScore"
+    >
+      <p v-if="!scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
         <span class="registeredPlayer">{{
           scoreBoardViewModel.currentPlayer.username
         }}</span>
