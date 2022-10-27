@@ -95,10 +95,6 @@ export default {
       return this.scoreBoardViewModel.topPlayers;
     },
     score() {
-      console.log(
-        "score u computed u ScoreBoard",
-        this.scoreBoardViewModel.currentPlayer.score
-      );
       return this.scoreBoardViewModel.currentPlayer.score;
     },
   },
