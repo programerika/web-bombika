@@ -1,16 +1,14 @@
 <template>
-  <v-app class="background">
-    <v-main>
-      <div class="bombika">
-        <GamePanel
-          @finished="updateBoard()"
-          @saved:score="updateBoard()"
-          @added:score="updateBoard()"
-        />
-        <ScoreBoard :refreshScoreBoard="refreshBoard" />
-      </div>
-    </v-main>
-  </v-app>
+  <div class="background">
+    <div class="bombika">
+      <GamePanel
+        @finished="updateBoard()"
+        @saved:score="updateBoard()"
+        @added:score="updateBoard()"
+      />
+      <ScoreBoard :refreshScoreBoard="refreshBoard" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -64,7 +62,6 @@ export default {
 .background {
   background-color: black;
   display: grid;
-  height: 73vh;
   place-items: center;
   justify-content: space-around;
 }

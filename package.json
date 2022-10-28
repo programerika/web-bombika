@@ -1,6 +1,6 @@
 {
   "name": "bombika",
-  "version": "0.2.9",
+  "version": "0.3.6",
   "main": "./dist/Bombika.common.js",
   "private": false,
   "scripts": {
