@@ -1,6 +1,6 @@
 <template>
   <v-app class="background">
-    <v-main>
+    <v-container>
       <div class="bombika">
         <GamePanel
           @finished="updateBoard()"
@@ -9,7 +9,7 @@
         />
         <ScoreBoard :refreshScoreBoard="refreshBoard" />
       </div>
-    </v-main>
+    </v-container>
   </v-app>
 </template>
 
