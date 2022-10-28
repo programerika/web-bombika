@@ -64,6 +64,7 @@ export default {
 .background {
   background-color: black;
   display: grid;
+  height: 73vh;
   place-items: center;
   justify-content: space-around;
 }
