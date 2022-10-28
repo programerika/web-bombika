@@ -1,14 +1,16 @@
 <template>
-  <div class="background">
-    <div class="bombika">
-      <GamePanel
-        @finished="updateBoard()"
-        @saved:score="updateBoard()"
-        @added:score="updateBoard()"
-      />
-      <ScoreBoard :refreshScoreBoard="refreshBoard" />
-    </div>
-  </div>
+  <v-app class="background">
+    <v-main>
+      <div class="bombika">
+        <GamePanel
+          @finished="updateBoard()"
+          @saved:score="updateBoard()"
+          @added:score="updateBoard()"
+        />
+        <ScoreBoard :refreshScoreBoard="refreshBoard" />
+      </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
