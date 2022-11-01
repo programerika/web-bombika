@@ -17,11 +17,13 @@ export class WebBombikaViewModel {
   //   this.#store.dispatch("updateView", newViewState);
   // };
 
+  //Function that starts the game
   newGame = () => {
     const playerGameState = this.webBombikaModel.newGame();
     return this.#prepareViewModelPlayerState(playerGameState);
   };
 
+  //Function that opens a field when the field is clicked
   openField = (x, y, playerState) => {
     if (this.webBombikaModel.canFieldBeOpened(x, y)) {
       playerState = this.webBombikaModel.openField(x, y);
@@ -30,6 +32,7 @@ export class WebBombikaViewModel {
     return playerState;
   };
 
+  //Function that toggles the flag state of a cell when it is right clicked
   toggleFlag = (x, y, playerState) => {
     if (this.webBombikaModel.canFieldBeFlagged(x, y)) {
       let playerState = this.webBombikaModel.toggleFlag(x, y);
@@ -38,6 +41,7 @@ export class WebBombikaViewModel {
     return playerState;
   };
 
+  //Function that determines the image for the cell based on it's properties
   #prepareCellViewModel = (col, newStepForPlayer, isFinished) => {
     if (col.closed) {
       if (col.flag) {
@@ -62,6 +66,7 @@ export class WebBombikaViewModel {
     }
   };
 
+  //Function that prepares the playerminefield view model
   #prepareViewModelPlayerMinefield = (minefield, isFinished) => {
     let newViewModelMinefield = [];
     minefield.forEach((row) => {
@@ -80,6 +85,7 @@ export class WebBombikaViewModel {
     return newViewModelMinefield;
   };
 
+  //Function that prepares the player state
   #prepareViewModelPlayerState = (state) => {
     const playerViewModelState = {
       cols: state.cols,

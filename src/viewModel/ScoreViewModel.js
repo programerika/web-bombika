@@ -16,6 +16,8 @@ export class ScoreViewModel {
     this.storage = new StorageService();
     this.#webBombikaService = new WebBombikaService();
   }
+
+  //Function that initializes the ScoreViewModel instance
   initializeView = (score) => {
     this.gameOverMessage.value = this.#scoreMessage(score);
     this.saveButtonDisabled.value = true;
@@ -25,6 +27,7 @@ export class ScoreViewModel {
     this.saveButtonText.value = "Save score!";
   };
 
+  //Function that generates a message for the player when the game is finished based on the number of points a player has receivec.
   #scoreMessage = (score) => {
     if (score === 0) {
       return "Sorry!Better luck next time!😥";
@@ -35,12 +38,14 @@ export class ScoreViewModel {
     }
   };
 
+  //Function that's used for username input validation
   usernameValidation = (username) => {
     if (username && username.length > 2) {
       this.#validateUsername(username);
     }
   };
 
+  //Private function used for username validation with RegExp
   #validateUsername = (username) => {
     let userInput = new RegExp("^[^-\\s][a-zA-Z0-9]{3,5}[0-9]{2}$");
     if (!userInput.test(username)) {
@@ -54,6 +59,7 @@ export class ScoreViewModel {
     }
   };
 
+  //Function that saves the player and his score in the database
   savePlayerAndScore = async (username, score) => {
     if (this.isPlayerRegistered()) {
       throw new Error("Illegal state: Player is already registered!");
@@ -87,6 +93,7 @@ export class ScoreViewModel {
     }
   };
 
+  //If the player is already registered, this function is used to add to the already existing points
   addScore = async (score) => {
     if (score === 0) return;
     if (this.isPlayerRegistered()) {
@@ -106,14 +113,17 @@ export class ScoreViewModel {
     }
   };
 
+  //Function that checks if the player is registered
   isPlayerRegistered = () => {
     return !this.storage.isItemInStorageEmpty("username");
   };
 
+  //Username getter
   getUsername = () => {
     return this.storage.getItem("username");
   };
 
+  //Function that checks if the username exists in the local storage
   #checkIfPlayerNameExists = async (username) => {
     try {
       let user = await this.#webBombikaService.getPlayerByUsername(username);
