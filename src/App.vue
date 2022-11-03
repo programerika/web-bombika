@@ -1,6 +1,6 @@
 <template>
   <v-app class="background">
-    <v-container>
+    <v-main>
       <div class="bombika">
         <GamePanel
           @finished="updateBoard()"
@@ -9,7 +9,7 @@
         />
         <ScoreBoard :refreshScoreBoard="refreshBoard" />
       </div>
-    </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -66,6 +66,10 @@ export default {
   display: grid;
   place-items: center;
   justify-content: space-around;
+}
+
+.background > :deep(div) {
+  min-height: 50vh !important;
 }
 
 .bombika {
