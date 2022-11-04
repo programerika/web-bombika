@@ -83,7 +83,6 @@ export default {
 @media screen and (max-width: 600px) {
   .bombika {
     display: grid;
-    margin-top: 10px;
   }
 }
 </style>

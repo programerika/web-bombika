@@ -59,11 +59,7 @@
         <span class="registeredPlayer">{{
           scoreBoardViewModel.currentPlayer.username
         }}</span>
-        you scored
-        <span class="scoreUnderTop10">
-          {{ score }}
-        </span>
-        points.😉
+        your score is <span class="scoreUnderTop10"> {{ score }} </span>.😎
       </p>
       <p v-if="scoreBoardViewModel.isPlayerInTop10" class="scoreMessage">
         You are in top 10 players,keep playing!😎
@@ -154,7 +150,7 @@ export default {
 }
 
 .registeredPlayer {
-  background-color: rgb(255, 165, 0, 0.7);
+  background-color: rgb(255, 165, 0);
   color: black;
   border-radius: 10px;
   padding: 5px;
@@ -163,7 +159,7 @@ export default {
 }
 
 .scoreUnderTop10 {
-  background-color: rgb(255, 165, 0, 0.7);
+  background-color: rgb(255, 165, 0);
   color: black;
   border-radius: 10px;
   padding: 3px;
