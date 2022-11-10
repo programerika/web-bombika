@@ -415,7 +415,7 @@ describe("Testing gameEndState - Successful-game lasted longer than 3 minutes", 
   //endingPlayer = gameEndSuccessful.openField(8, 9);
 
   it("Tests if the game is successfully finished when all fields that are not bombs are open", () => {
-    jest.useFakeTimers().setSystemTime(new Date("2022-10-10").getTime());
+    jest.useFakeTimers().setSystemTime(new Date("2030-10-10").getTime());
     endingPlayer = gameEndSuccessful.openField(8, 9);
     expect(endingPlayer.score).toEqual(1);
   });

@@ -3,7 +3,9 @@
 */
 import { WebBombikaViewModel } from "../viewModel/webBombikaViewModel";
 
-//Tests will work when webBombikaModel uses TestRandomProvider, instead of RandomProvider
+/**
+ *      !!! TESTS WILL WORK WHEN WebBombikaModel USES TestRandomProvider, INSTEAD OF RandomProvider (IN WebBombikaViewModel CONSTRUCTOR) !!!
+ *  */
 
 describe("WebBombikaViewModel", () => {
   //viewModel instance
