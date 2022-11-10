@@ -1,6 +1,6 @@
 {
   "name": "@programerika/web-bombika",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/Bombika.common.js",
   "private": false,
   "scripts": {
