@@ -213,7 +213,7 @@ export default {
   margin-left: 20px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .boardDiv {
     border-radius: 15px;
     width: 336px;

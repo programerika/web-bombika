@@ -149,7 +149,7 @@ export default {
   place-items: center;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .container {
     border: 2px solid black;
     margin: auto;
@@ -166,7 +166,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
   .toggle {
     display: none;
   }

@@ -79,7 +79,7 @@ export default {
   display: table-cell;
 } */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .minefield {
     margin: 4px;
   }
