@@ -4,11 +4,9 @@ import RandomProvider from "../model/RandomProvider";
 import WebBombikaModel from "../model/webBombikaModel";
 
 export class WebBombikaViewModel {
-  constructor() {
-    this.webBombikaModel = new WebBombikaModel(new RandomProvider());
-    // this.#store = store;
+  constructor(randomProvider = new RandomProvider()) {
+    this.webBombikaModel = new WebBombikaModel(randomProvider);
   }
-
   // #getViewState = () => {
   //   this.#store.state.view;
   // };

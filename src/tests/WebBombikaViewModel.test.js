@@ -1,15 +1,12 @@
 /** 
     @author Programerika
 */
+import TestRandomProvider from "../model/TestRandomProvider";
 import { WebBombikaViewModel } from "../viewModel/webBombikaViewModel";
-
-/**
- *      !!! TESTS WILL WORK WHEN WebBombikaModel USES TestRandomProvider, INSTEAD OF RandomProvider (IN WebBombikaViewModel CONSTRUCTOR) !!!
- *  */
 
 describe("WebBombikaViewModel", () => {
   //viewModel instance
-  const viewModel = new WebBombikaViewModel();
+  const viewModel = new WebBombikaViewModel(new TestRandomProvider());
   //player state that newGame() returns and is used in View
   const playerViewModelState = viewModel.newGame();
 
@@ -31,7 +28,7 @@ describe("WebBombikaViewModel", () => {
 });
 
 describe("WebBombikaViewModel - openField()", () => {
-  const viewModel = new WebBombikaViewModel();
+  const viewModel = new WebBombikaViewModel(new TestRandomProvider());
   const playerViewModelState = viewModel.newGame();
 
   /**
@@ -72,7 +69,7 @@ describe("WebBombikaViewModel - openField()", () => {
 });
 
 describe("WebBombikaViewModel - openField()", () => {
-  const viewModel = new WebBombikaViewModel();
+  const viewModel = new WebBombikaViewModel(new TestRandomProvider());
   let playerViewModelState = viewModel.newGame();
   //player state when field (0,0) is open
   playerViewModelState = viewModel.openField(0, 0, playerViewModelState);
@@ -99,7 +96,7 @@ describe("WebBombikaViewModel - openField()", () => {
 });
 
 describe("WebBombikaViewModel - openField()", () => {
-  const viewModel = new WebBombikaViewModel();
+  const viewModel = new WebBombikaViewModel(new TestRandomProvider());
   let playerViewModelState = viewModel.newGame();
 
   //player state when we call method toggleFlag()
