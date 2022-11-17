@@ -188,7 +188,6 @@ export default {
   color: black;
   margin: auto;
   font-size: 18px;
-  font-family: "sans-serif";
   margin-top: 100px;
   background-color: #a84242;
   padding: 20px;
