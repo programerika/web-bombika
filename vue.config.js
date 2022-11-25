@@ -27,7 +27,7 @@ module.exports = defineConfig({
       .use("postcss-loader")
       .tap((options) => {
         _.merge(options, postcssRemoveGlobalStyle);
-        console.log(options);
+
         return options;
       });
   },
