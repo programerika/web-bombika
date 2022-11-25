@@ -41,7 +41,7 @@ const postcssRemoveGlobalStyle = {
         {
           prefix: ".bombikaGlobalCss",
           transform(prefix, selector, prefixedSelector, filePath, rule) {
-            if (selector.match(/^([*])/)) {
+            if (selector.match(/^([*])/) && rule.selectors.length == 1) {
               return prefixedSelector;
             }
 
