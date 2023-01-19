@@ -54,8 +54,10 @@
             shows the number of seconds that you spent playing the game.
           </div>
         </v-card-text>
-        <v-card-actions class="justify-end">
-          <v-btn text @click="isActive.value = false">Close</v-btn>
+        <v-card-actions class="justify-center">
+          <v-btn class="closeButton" text @click="isActive.value = false"
+            >Close</v-btn
+          >
         </v-card-actions>
       </v-card>
     </template>
@@ -73,5 +75,22 @@ export default {
 <style scoped>
 .helpDialog {
   display: flex;
+}
+
+.closeButton {
+  padding: 5px 20px;
+  font: 0.7em sans-serif;
+  border-radius: 10px;
+  border: 1px solid rgb(44, 44, 44);
+  text-align: center;
+  transition-duration: 0.4s;
+  font-size: large;
+  min-width: 140px;
+}
+
+.closeButton:hover:enabled {
+  background-color: #1d011b;
+  color: white;
+  cursor: pointer;
 }
 </style>

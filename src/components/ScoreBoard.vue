@@ -3,9 +3,9 @@
     <v-table theme="dark" class="scoreBoard" density="compact">
       <thead class="scoreBoardHeader">
         <tr>
-          <th class="text-center" id="rank">Rank</th>
-          <th class="text-center" id="rank">Player</th>
-          <th class="text-center" id="rank">Points</th>
+          <th class="text-center text-center-header" id="rank">Rank</th>
+          <th class="text-center text-center-header" id="rank">Player</th>
+          <th class="text-center text-center-header" id="rank">Points</th>
         </tr>
       </thead>
       <tbody v-for="(player, index) in topPlayers" :key="player">
@@ -167,7 +167,7 @@ export default {
 
 .scoreBoardHeader {
   background-color: #15b3a0;
-  color: black;
+  color: black !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -210,6 +210,11 @@ export default {
 .boardDiv {
   width: 300px;
   margin-left: 20px;
+}
+
+.text-center-header {
+  color: black !important;
+  font-weight: bolder !important;
 }
 
 @media screen and (max-width: 800px) {
