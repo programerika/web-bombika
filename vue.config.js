@@ -45,6 +45,10 @@ const postcssRemoveGlobalStyle = {
               return prefixedSelector;
             }
 
+            if (selector.match(/^(button)/)) {
+              return prefixedSelector;
+            }
+
             return selector;
           },
         },
