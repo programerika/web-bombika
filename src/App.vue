@@ -1,29 +1,88 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
-  <button @click="logujBoard()">LOG</button>
+  <v-app class="background">
+    <v-main>
+      <div class="bombika">
+        <GamePanel
+          @finished="updateBoard()"
+          @saved:score="updateBoard()"
+          @added:score="updateBoard()"
+        />
+        <ScoreBoard :refreshScoreBoard="refreshBoard" />
+      </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import webBombikaModel from "./model/webBombikaModel.js";
+import GamePanel from "./components/GamePanel.vue";
+import ScoreBoard from "./components/ScoreBoard.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    GamePanel,
+    ScoreBoard,
+  },
   methods: {
-    logujBoard: function () {
-      return webBombikaModel(10, 10, 10);
+    updateBoard() {
+      this.refreshBoard++;
     },
   },
+
+  data: () => ({
+    refreshBoard: 0,
+  }),
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+<style scoped>
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+.background {
+  background-color: black;
+  display: grid;
+  place-items: center;
+  justify-content: space-around;
+}
+
+.background > :deep(div) {
+  min-height: 50vh !important;
+}
+
+.bombika {
+  display: flex;
+}
+
+.pixeli {
+  height: 20000px;
+}
+
+@media screen and (max-width: 800px) {
+  .bombika {
+    display: grid;
+  }
 }
 </style>
